@@ -68,3 +68,5 @@ class Cnn(object):
                             validation_data=val_iterator,
                             validation_steps=val_steps)
 
+cnn = Cnn(None, None)
+
