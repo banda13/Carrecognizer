@@ -12,11 +12,11 @@ train_source_folder = "data/cars_train/"
 test_source_folder = "data/cars_test/"
 source_folder = "data/car_ims/"
 
-p_train, p_test = 0.6, 0.4
-image_w, image_h = 128, int(128*1.5) #FIXME which is optimal?
+p_train, p_test = 0.2, 0.8
+image_w, image_h = 128, int(128 * 1.5)  # FIXME which is optimal?
+
 
 class Loader(object):
-
     class MetaData(object):
 
         def __init__(self, name, labels, clazz, test):
@@ -37,29 +37,33 @@ class Loader(object):
 
         shuffle(self.img_metadatas)
         self.train_set = self.img_metadatas[:self.train_size]
-        self.test_set = self.img_metadatas[self.test_size:]
-        print("Loading image meta data ready %d train data, %d test data" %(len(self.train_set), len(self.test_set)))
+        self.test_set = self.img_metadatas[-self.test_size:]
+        print("Loading image meta data ready %d train data, %d test data" % (len(self.train_set), len(self.test_set)))
 
     def load_train_data(self):
         images = []
         labels = []
         counter = 0
+        print("Loading train images..")
         for meta in self.train_set:
             image = cv2.imread(source_folder + meta.name)
             image = cv2.resize(image, (image_h, image_w), interpolation=cv2.INTER_LINEAR)
-            #image = image.astype(np.float32)
-            #image = np.multiply(image, 1.0 / 255.0)
+            image = image.astype(np.float32)
+            image = np.multiply(image, 1.0 / 255.0)
             images.append(image)
             labels.append(meta.labels)
             if counter % 1000 == 0 and counter > 0:
+                plt.imshow(image)
                 print("1000 images are loaded.")
+
             counter += 1
         images = np.array(images)
         labels = np.array(labels)
+        print("%d image loaded" % counter)
         return images, labels
 
     def load_test_data(self):
-        #TODO very similar as above the train
+        # TODO very similar as above the train
         pass
 
     def peek_image(self, name):
