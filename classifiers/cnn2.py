@@ -76,9 +76,9 @@ class Cnn2(object):
         try:
             self.history = self.classifier.fit_generator(
                 train_set,
-                steps_per_epoch=5000,  # 8000
+                steps_per_epoch=1000,  # 8000
                 #TODO try more epoch with slow learning rate
-                epochs=10,  # 10
+                epochs=5,  # 10
                 validation_data=test_set,
                 validation_steps=800  # 800
             )
@@ -114,10 +114,10 @@ class Cnn2(object):
         test_image = np.expand_dims(test_image, axis=0)
 
         prediction = self.classifier.predict(test_image)
-        if prediction[0][0] >= .5:
-            print("Its a dog")
-        else:
-            print("Its a cat")
+        asd = np.argmax(prediction)
+        asd2 = prediction[0][0]
+        return asd2
+        #return np.argmax(prediction)
 
     def clear(self):
         if self.classifier is not None:
