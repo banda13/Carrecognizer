@@ -8,6 +8,7 @@ from tensorflow.contrib.layers.python.layers import target_column
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.layers import Input, Lambda, Dense, BatchNormalization, Flatten
 from tensorflow.python.keras.layers import Convolution2D, MaxPooling2D, Dropout
+from tensorflow.python.keras.optimizers import Adam, SGD
 
 from keras.models import load_model
 
@@ -22,6 +23,9 @@ class Cnn2(object):
         self.history = None
         self.name = "cnn_model"
 
+        # CNN PROPERTIES
+        self.learning_rate = 0.0001 # TODO slow down learing rate, check results (0.001 to big maybe)
+
     def build(self):
         self.classifier = Sequential()
         self.history = None
@@ -30,12 +34,25 @@ class Cnn2(object):
 
         self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
+        # TODO there maybe needed one mpre convolution2D layer
+        # self.classifier.add(Convolution2D(32, 3, 3, activation='relu'))
+        # self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
+
+        # TODO one more conv2D layer? :)
+
         self.classifier.add(Flatten())
 
         self.classifier.add(Dense(128, activation='relu'))
+
+        # TODO some dropout maybe prevent overfitting
+        self.classifier.add(Dropout(0.5))
+
+        # TODO még 1 Dense réteg is lehet segít hogy bonyolultabban közeltsen a háló
         self.classifier.add(Dense(1, activation='sigmoid'))
 
-        self.classifier.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        # TODO try SGD optimalizer pl:
+        # SGD(lr=1e-4, momentum=0.9)
+        self.classifier.compile(optimizer=Adam(lr = self.learning_rate), loss='binary_crossentropy', metrics=['accuracy'])
         print("Model build")
 
     def train(self, continuous_train=False):
@@ -47,6 +64,7 @@ class Cnn2(object):
         image_gen = ImageDataGenerator(rescale=1.0 / 255)
 
         train_set = image_gen.flow_from_directory("data/train/",
+                                                  # TODO change batch size
                                                   batch_size=32,
                                                   target_size=(64, 64),
                                                   class_mode='binary')
@@ -59,6 +77,7 @@ class Cnn2(object):
             self.history = self.classifier.fit_generator(
                 train_set,
                 steps_per_epoch=5000,  # 8000
+                #TODO try more epoch with slow learning rate
                 epochs=10,  # 10
                 validation_data=test_set,
                 validation_steps=800  # 800

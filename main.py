@@ -5,6 +5,6 @@ from classifiers.cnn2 import Cnn2
 #print(images.shape)
 #cnn = Cnn(None, None)
 cnn = Cnn2()
-cnn.train(continuous_train=True)
+cnn.train()
 #cnn.save()
 #cnn.visualize_history()
