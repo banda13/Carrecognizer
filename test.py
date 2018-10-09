@@ -16,6 +16,7 @@ def safer_manual_accuracy_test(classifier):
         results.append(manual_accuracy_test(classifier))
     acc = np.mean(results)
     print("%f accuracy measured" % acc)
+    return acc
 
 # Important to classifier have use function
 def manual_accuracy_test(classifier):
