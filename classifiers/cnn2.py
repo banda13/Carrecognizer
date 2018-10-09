@@ -11,7 +11,7 @@ import numpy as np
 from tensorflow.contrib.layers.python.layers import target_column
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.layers import Input, Lambda, Dense, BatchNormalization, Flatten
-from tensorflow.python.keras.layers import Convolution2D, MaxPooling2D, Dropout
+from tensorflow.python.keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D, Dropout
 from tensorflow.python.keras.optimizers import Adam, SGD
 from keras import regularizers
 from IPython.display import SVG
@@ -33,38 +33,45 @@ class Cnn2(object):
         self.id = uuid.uuid4()
         self.name = "cnn_model" + str(self.id)
 
-        # CNN PROPERTIES
-        self.learning_rate = 0.0001  # TODO slow down learing rate, check results (0.001 to big maybe)
-
     def build(self):
         self.classifier = Sequential()
         self.history = None
 
-        self.classifier.add(Convolution2D(32, 3, 3, input_shape=(64, 64, 3), activation='relu'))
+        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, 124, 124)))
 
-        self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
+        self.classifier.add(Convolution2D(64, 3, 3, activation='relu', name='conv1_1'))
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(64, 3, 3, activation='relu', name='conv1_2'))
+        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
-        # TODO there maybe needed one mpre convolution2D layer
-        # self.classifier.add(Convolution2D(32, 3, 3, activation='relu'))
-        # self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(128, 3, 3, activation='relu', name='conv2_1'))
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(128, 3, 3, activation='relu', name='conv2_2'))
+        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
-        # TODO one more conv2D layer? :)
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(512, 3, 3, activation='relu', name='conv4_1'))
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(512, 3, 3, activation='relu', name='conv4_2'))
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(512, 3, 3, activation='relu', name='conv4_3'))
+        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
-        self.classifier.add(Flatten())
+        # build a classifier model to put on top of the convolutional model
+        top_model = Sequential()
+        top_model.add(Flatten(input_shape=self.classifier.output_shape[1:]))
+        top_model.add(Dense(256, activation='relu'))
+        top_model.add(Dropout(0.5))
+        top_model.add(Dense(5, activation='softmax'))
 
-        self.classifier.add(Dense(128, activation='relu'))
+        # set some weights not trainable
 
-        # TODO some dropout maybe prevent overfitting
-        self.classifier.add(Dropout(0.5))
+        self.classifier.add(top_model)
 
-        # TODO még 1 Dense réteg is lehet segít hogy bonyolultabban közeltsen a háló
-        self.classifier.add(Dense(1, kernel_regularizer=regularizers.l2(0.01), activation='sigmoid'))
-        # TODO l2 regularizáció vagy esetleg early stopping is jó lehet h elkerüljük az overfittinget
-
-        # TODO try SGD optimalizer pl:
-        # SGD(lr=1e-4, momentum=0.9)
-        self.classifier.compile(optimizer=Adam(lr=self.learning_rate), loss='binary_crossentropy', metrics=['accuracy'])
-        print("Model build")
+        self.classifier.compile(loss='categorical_crossentropy',
+                      optimizer=SGD(lr=1e-4, momentum=0.9),
+                      metrics=['accuracy'])
 
     def train(self, continuous_train=False):
         if continuous_train:
@@ -76,21 +83,19 @@ class Cnn2(object):
         image_gen = ImageDataGenerator(rescale=1.0 / 255)
 
         train_set = image_gen.flow_from_directory("data/train/",
-                                                  # TODO change batch size
                                                   batch_size=32,
-                                                  target_size=(64, 64),
-                                                  class_mode='binary')
+                                                  target_size=(124, 124),
+                                                  class_mode='categorical')
         test_set = image_gen.flow_from_directory("data/test",
                                                  batch_size=32,
-                                                 target_size=(64, 64),
-                                                 class_mode='binary',
+                                                 target_size=(124, 124),
+                                                 class_mode='categorical',
                                                  shuffle=False)
         try:
             self.history = self.classifier.fit_generator(
                 train_set,
-                steps_per_epoch=100,  # 8000
-                # TODO try more epoch with slow learning rate
-                epochs=5,  # 10
+                samples_per_epoch=1000,  # 8000
+                epochs=50,  # 10
                 validation_data=test_set,
                 validation_steps=800  # 800
             )
