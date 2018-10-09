@@ -4,8 +4,12 @@ from classifiers.cnn2 import Cnn2
 #images, labels = loader.load_train_data()
 #print(images.shape)
 #cnn = Cnn(None, None)
-print("mi van veled python..")
+from test import manual_accuracy_test, safer_manual_accuracy_test
+
 cnn = Cnn2()
-cnn.train()
-cnn.save()
-cnn.visualize_history()
+cnn.load()
+#cnn.train()
+#cnn.save()
+#cnn.visualize_history()
+
+safer_manual_accuracy_test(cnn)
