@@ -18,7 +18,7 @@ def safer_manual_accuracy_test(classifier):
     print("%f accuracy measured" % acc)
     return acc
 
-# Important to classifier have use function
+# Important to classifier have predict function
 def manual_accuracy_test(classifier):
     categories = os.listdir(test_dir)
     total = len(categories) * limit_per_class

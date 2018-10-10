@@ -14,6 +14,7 @@ from tensorflow.python.keras.layers import Input, Lambda, Dense, BatchNormalizat
 from tensorflow.python.keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D, Dropout
 from tensorflow.python.keras.optimizers import Adam, SGD
 from keras import regularizers
+from keras import applications
 
 from keras.models import load_model
 
@@ -32,11 +33,19 @@ class Cnn2(object):
         if id is None:
             self.id = uuid.uuid4()
             self.name = "cnn_model" + str(self.id)
+            print("New model created with id: ", self.id)
         else:
             self.id = id
             self.name = "cnn_model" + str(self.id)
-        self.width = 128
-        self.height = 128
+            print("Set up model with id: ", self.id)
+
+        '''Model params'''
+        self.width = 224
+        self.height = 224
+
+        self.epochs = 50
+        self.batch_size = 32
+
 
     def build(self):
 

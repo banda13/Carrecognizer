@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
-import com.ai.deep.andy.carrecognizer.Constants;
+import com.ai.deep.andy.carrecognizer.utils.Constants;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;

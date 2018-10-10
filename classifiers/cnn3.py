@@ -213,7 +213,7 @@ class Cnn3(object):
         label = inv_map[inID]
 
         # get the prediction label
-        print("Image ID: {}, Label: {}".format(inID, label))
+        print("Image ID: {}, Label: {}, Probability {}".format(inID, label, probabilities))
 
         # display the predictions with the image
         cv2.putText(orig, "Predicted: {}".format(label), (10, 30),
