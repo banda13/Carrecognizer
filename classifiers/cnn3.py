@@ -15,9 +15,14 @@ from PIL import ImageFile
 
 class Cnn3(object):
 
-    def __init__(self):
+    def __init__(self, mid=None):
         self.img_width, self.img_height = 224, 224
-        self.id = uuid.uuid4()
+        if id is None:
+            self.id = uuid.uuid4()
+            print("Creating new classifier with id ", str(self.id))
+        else:
+            self.id = mid
+            print("Using classifier with id ", str(self.id))
         self.train_dir = "data/train/"
         self.test_dir = "data/test/"
 
@@ -27,11 +32,10 @@ class Cnn3(object):
         self.bottleneck_model = "model/bottleneck/bigmodel.h5"
 
         # TOP model
-
-        self.top_model_weights = 'classifiers/pre_train/bottleneck_' + str(self.id) + ".h5"
+        self.top_model_weights = 'model/bottleneck/bottleneck_' + str(self.id) + ".h5"
         self.class_indices = "model/" + str(self.id) + "class_indices.npy"
 
-        # TRAIN params
+        # TRAIN and MODEL params
         self.epochs = 25
         self.batch_size = 16
         self.learning_rate = 0.00001
@@ -145,6 +149,8 @@ class Cnn3(object):
         print("Accuracy: {:.2f}%".format(eval_accuracy * 100))
         print("Loss: {}".format(eval_loss))
 
+        self.evaluate()
+
     def evaluate(self):
         plt.figure(1)
         plt.subplot(211)
@@ -166,3 +172,52 @@ class Cnn3(object):
 
         with open('statistics/' + str(self.id) + '.json', 'w') as outfile:
             json.dump(self.history.history, outfile, indent=4)
+
+    def predict(self, image_path, img_name):
+
+        class_dictionary = np.load('model/class_indices.npy').item()  # TODO add the class variable
+
+        num_classes = len(class_dictionary)
+
+        orig = cv2.imread(image_path)
+
+        print("Loading and preprocessing image...")
+        image = load_img(image_path, target_size=(self.img_width, self.img_height))
+        image = img_to_array(image)
+        image = image / 255
+        image = np.expand_dims(image, axis=0)
+
+        # build the VGG16 network
+        model = applications.VGG16(include_top=False, weights='imagenet')
+        # get the bottleneck prediction from the pre-trained VGG16 model
+        bottleneck_prediction = model.predict(image)
+
+        # build top model
+        model = Sequential()
+        model.add(Flatten(input_shape=bottleneck_prediction.shape[1:]))
+        model.add(Dense(256, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(num_classes, activation='softmax'))
+
+        model.load_weights(self.top_model_weights)
+
+        # use the bottleneck prediction on the top model to get the final
+        # classification
+        class_predicted = model.predict_classes(bottleneck_prediction)
+        probabilities = model.predict_proba(bottleneck_prediction)
+
+        inID = class_predicted[0]
+
+        inv_map = {v: k for k, v in class_dictionary.items()}
+
+        label = inv_map[inID]
+
+        # get the prediction label
+        print("Image ID: {}, Label: {}".format(inID, label))
+
+        # display the predictions with the image
+        cv2.putText(orig, "Predicted: {}".format(label), (10, 30),
+                    cv2.FONT_HERSHEY_PLAIN, 1.5, (43, 99, 255), 2)
+
+        cv2.imwrite("statistics/" + img_name, orig)
+        cv2.destroyAllWindows()
