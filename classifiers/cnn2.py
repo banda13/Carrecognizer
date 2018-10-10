@@ -14,87 +14,96 @@ from tensorflow.python.keras.layers import Input, Lambda, Dense, BatchNormalizat
 from tensorflow.python.keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D, Dropout
 from tensorflow.python.keras.optimizers import Adam, SGD
 from keras import regularizers
-from IPython.display import SVG
-from keras.utils.vis_utils import model_to_dot
 
 from keras.models import load_model
 
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
+from keras import backend as K
 
 from test import safer_manual_accuracy_test
 
 
 class Cnn2(object):
 
-    def __init__(self):
+    def __init__(self, id = None):
         self.classifier = None
         self.history = None
-        self.id = uuid.uuid4()
-        self.name = "cnn_model" + str(self.id)
+        if id is None:
+            self.id = uuid.uuid4()
+            self.name = "cnn_model" + str(self.id)
+        else:
+            self.id = id
+            self.name = "cnn_model" + str(self.id)
+        self.width = 128
+        self.height = 128
 
     def build(self):
+
+        print("Building model ", self.name)
         self.classifier = Sequential()
         self.history = None
 
-        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, 124, 124)))
-
-        self.classifier.add(Convolution2D(64, 3, 3, activation='relu', name='conv1_1'))
+        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(self.width, self.height, 3)))
+        self.classifier.add(Convolution2D(64, (3, 3), activation='relu'))
         self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(64, 3, 3, activation='relu', name='conv1_2'))
+        self.classifier.add(Convolution2D(64, (3, 3), activation='relu'))
         self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
+        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, self.width, self.height)))
+        self.classifier.add(Convolution2D(128, (3, 3), activation='relu'))
         self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(128, 3, 3, activation='relu', name='conv2_1'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(128, 3, 3, activation='relu', name='conv2_2'))
+        self.classifier.add(Convolution2D(128, (3, 3), activation='relu'))
         self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
+        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, self.width, self.height)))
+        self.classifier.add(Convolution2D(256, (3, 3), activation='relu'))
         self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(512, 3, 3, activation='relu', name='conv4_1'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(512, 3, 3, activation='relu', name='conv4_2'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(512, 3, 3, activation='relu', name='conv4_3'))
+        self.classifier.add(Convolution2D(256, (3, 3), activation='relu'))
         self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
-        # build a classifier model to put on top of the convolutional model
-        top_model = Sequential()
-        top_model.add(Flatten(input_shape=self.classifier.output_shape[1:]))
-        top_model.add(Dense(256, activation='relu'))
-        top_model.add(Dropout(0.5))
-        top_model.add(Dense(5, activation='softmax'))
+        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, self.width, self.height)))
+        self.classifier.add(Convolution2D(512, (3, 3), activation='relu'))
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(512, (3, 3), activation='relu'))
+        self.classifier.add(ZeroPadding2D((1, 1)))
+        self.classifier.add(Convolution2D(512, (3, 3), activation='relu'))
+        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
-        # set some weights not trainable
-
-        self.classifier.add(top_model)
+        self.classifier.add(Flatten())
+        self.classifier.add(Dense(512, activation='relu'))
+        self.classifier.add(Dropout(0.25))
+        self.classifier.add(Dense(4, activation='softmax'))
 
         self.classifier.compile(loss='categorical_crossentropy',
-                      optimizer=SGD(lr=1e-4, momentum=0.9),
-                      metrics=['accuracy'])
+                                optimizer=SGD(lr=1e-4, momentum=0.9),
+                                metrics=['accuracy'])
+        self.classifier.summary()
 
     def train(self, continuous_train=False):
+
+        print("Training model ", self.name)
         if continuous_train:
             self.load()
         else:
             self.build()
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
-        image_gen = ImageDataGenerator(rescale=1.0 / 255)
+        image_gen = ImageDataGenerator(rescale=1.0 / 255, horizontal_flip=True)
 
         train_set = image_gen.flow_from_directory("data/train/",
                                                   batch_size=32,
-                                                  target_size=(124, 124),
+                                                  target_size=(self.width, self.height),
                                                   class_mode='categorical')
         test_set = image_gen.flow_from_directory("data/test",
                                                  batch_size=32,
-                                                 target_size=(124, 124),
+                                                 target_size=(self.width, self.height),
                                                  class_mode='categorical',
                                                  shuffle=False)
         try:
             self.history = self.classifier.fit_generator(
                 train_set,
-                samples_per_epoch=1000,  # 8000
+                steps_per_epoch=1000,  # 8000
                 epochs=50,  # 10
                 validation_data=test_set,
                 validation_steps=800  # 800
@@ -107,6 +116,8 @@ class Cnn2(object):
         self.evaluate()
 
     def evaluate(self):
+
+        print("Evaluating model")
         if self.history is None:
             raise Exception("Train the model before evaluate it")
         manual_accuracy = safer_manual_accuracy_test(self)
@@ -145,7 +156,7 @@ class Cnn2(object):
     def show_the_model(self):
         if self.classifier is None:
             self.build()
-        SVG(model_to_dot(self.classifier).create(prog='dot', format='svg'))
+        # SVG(model_to_dot(self.classifier).create(prog='dot', format='svg'))
 
     def clear(self):
         if self.classifier is not None:
