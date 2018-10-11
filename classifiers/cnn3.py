@@ -11,13 +11,20 @@ import cv2
 import uuid
 import json
 from PIL import ImageFile
+from tensorflow.python.framework import graph_util
+from tensorflow.python.framework import graph_io
+from keras import backend as K
+import os.path as osp
+import os
+import tensorflow as tf
+
 
 
 class Cnn3(object):
 
     def __init__(self, mid=None):
         self.img_width, self.img_height = 224, 224
-        if id is None:
+        if mid is None:
             self.id = uuid.uuid4()
             print("Creating new classifier with id ", str(self.id))
         else:
@@ -221,3 +228,46 @@ class Cnn3(object):
 
         cv2.imwrite("statistics/" + img_name, orig)
         cv2.destroyAllWindows()
+
+    def model_to_graph(self):
+        class_dictionary = np.load('model/class_indices.npy').item()  # TODO add the class variable
+        inv_map = {v: k for k, v in class_dictionary.items()}
+
+        node_names = list(inv_map.values())
+        num_classes = len(node_names)
+
+        bottleneck_model_name = "bottleneck_graph.pb"
+        bottleneck_model = applications.VGG16(include_top=False, weights='imagenet')
+
+        top_mode_name = "top_graph.pb"
+        train_data = np.load(self.bottleneck_train_features)
+        model = Sequential()
+        model.add(Flatten(input_shape=train_data.shape[1:]))
+        model.add(Dense(256, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(num_classes, activation='softmax'))
+        model.load_weights(self.top_model_weights)
+
+        K.set_learning_phase(0)
+
+        print('output nodes names are: ', node_names)
+
+        bottleneck_pred = [None] * len(node_names)
+        for i in range(len(node_names)):
+            bottleneck_pred[i] = tf.identity(bottleneck_model.output[i], name=node_names[i])
+
+        top_pred = [None] * len(node_names)
+        for i in range(len(node_names)):
+            top_pred[i] = tf.identity(bottleneck_model.output[i], name=node_names[i])
+
+        with K.get_session() as sess:
+            bottle_constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(), node_names)
+            graph_io.write_graph(bottle_constant_graph, "model/", bottleneck_model_name, as_text=False)
+            print('saved the bottom constant graph (ready for inference) at: ', osp.join("model/", bottleneck_model_name))
+
+            top_constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(), node_names)
+            graph_io.write_graph(top_constant_graph, "model/", top_mode_name, as_text=False)
+            print('saved the top constant graph (ready for inference) at: ', osp.join("model/", top_mode_name))
+
+
+

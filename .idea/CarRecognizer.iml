@@ -2,9 +2,12 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/android" />
+      <excludeFolder url="file://$MODULE_DIR$/classifiers/pre_train" />
       <excludeFolder url="file://$MODULE_DIR$/data" />
       <excludeFolder url="file://$MODULE_DIR$/model" />
       <excludeFolder url="file://$MODULE_DIR$/statistics" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.6 (1)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
