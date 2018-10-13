@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.ai.deep.andy.carrecognizer.ai.Classifier;
 import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
 
 import java.io.IOException;
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ImageView imageView = (ImageView) findViewById(R.id.imgView);
+        ImageProcessor image = new ImageProcessor();
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
@@ -120,17 +122,18 @@ public class MainActivity extends AppCompatActivity
             cursor.close();
 
 
-
-            ImageProcessor image = new ImageProcessor();
             image.setImageFromUri(this, selectedImage);
             imageView.setImageBitmap(image.getImage());
 
         }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+            image.setImage(photo);
             imageView.setImageBitmap(photo);
         }
 
+
+        Classifier.classify(this, image.getImage());
     }
 
     @Override
