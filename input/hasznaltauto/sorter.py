@@ -31,8 +31,8 @@ def sort_train_vs_text(p_train, p_test, limit):
         if not os.path.exists(test_dir + category + "/"):
             os.makedirs(test_dir + category + "/")
 
-        for i in range(category_length):
-            if i <= limit:
+        for i in range(limit):
+            if i <= train_count:
                 copy(root_dir + category + "/" + files_in_category[i], train_dir + category)
             else:
                 copy(root_dir + category + "/" + files_in_category[i], test_dir + category)
@@ -40,4 +40,4 @@ def sort_train_vs_text(p_train, p_test, limit):
         print("%s category done" % category)
 
 
-sort_train_vs_text(0.8, 0.2, 25000)
+sort_train_vs_text(0.8, 0.2, 5000)
