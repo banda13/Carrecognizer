@@ -1,9 +1,11 @@
+import time
+
 import numpy as np
 from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras.models import Sequential
 from keras.layers import Dropout, Flatten, Dense
-from keras.optimizers import RMSprop
-from keras import applications
+from keras.optimizers import RMSprop, Adam
+from keras import applications, regularizers
 from keras.utils.np_utils import to_categorical
 import matplotlib.pyplot as plt
 import math
@@ -17,7 +19,6 @@ from keras import backend as K
 import os.path as osp
 import os
 import tensorflow as tf
-
 
 
 class Cnn3(object):
@@ -40,19 +41,21 @@ class Cnn3(object):
 
         # TOP model
         self.top_model_weights = 'model/bottleneck/bottleneck_' + str(self.id) + ".h5"
-        self.class_indices = "model/" + str(self.id) + "class_indices.npy"
+        self.class_indices = "model/" + str(self.id) + "_class_indices.npy"
 
         # TRAIN and MODEL params
-        self.epochs = 25
+        self.epochs = 50
         self.batch_size = 16
-        self.learning_rate = 0.00001
+        self.learning_rate = 0.0001
 
         self.model = None
         self.history = None
 
     def save_bottlebeck_features(self):
+
+        print("Saving bottleneck features started")
         # build the VGG16 network
-        model = applications.VGG16(include_top=False, weights='imagenet')
+        model = applications.VGG16(include_top=False, weights='imagenet', )
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         datagen = ImageDataGenerator(rescale=1. / 255)
@@ -64,9 +67,7 @@ class Cnn3(object):
             class_mode=None,
             shuffle=False)
 
-        print(len(generator.filenames))
         print(generator.class_indices)
-        print(len(generator.class_indices))
 
         nb_train_samples = len(generator.filenames)
         num_classes = len(generator.class_indices)
@@ -77,6 +78,7 @@ class Cnn3(object):
             generator, predict_size_train)
 
         np.save(self.bottleneck_train_features, bottleneck_features_train)
+        print("Bottleneck train features saved as ", self.bottleneck_train_features)
 
         generator = datagen.flow_from_directory(
             self.test_dir,
@@ -94,17 +96,27 @@ class Cnn3(object):
             generator, predict_size_validation)
 
         np.save(self.bottleneck_test_features, bottleneck_features_validation)
+        print("Bottleneck validation features saved as ", self.bottleneck_test_features)
+
         model.save(self.bottleneck_model)
+        print("Bottleneck models saved")
+
+    def get_top_model_input_shape(self):
+        return np.load(self.bottleneck_train_features).shape[1:]
+
+    def set_top_model(self, model):
+        self.model = model
 
     def train_top_model(self):
 
+        print("Training top model started")
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         datagen_top = ImageDataGenerator(rescale=1. / 255)
         generator_top = datagen_top.flow_from_directory(
             self.train_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode='categorical',
+            class_mode=None,
             shuffle=False)
 
         nb_train_samples = len(generator_top.filenames)
@@ -112,6 +124,7 @@ class Cnn3(object):
 
         # save the class indices to use use later in predictions
         np.save(self.class_indices, generator_top.class_indices)
+        print("Class indices save as ", self.class_indices)
 
         train_data = np.load(self.bottleneck_train_features)
 
@@ -134,14 +147,16 @@ class Cnn3(object):
         validation_labels = to_categorical(
             validation_labels, num_classes=num_classes)
 
-        self.model = Sequential()
-        self.model.add(Flatten(input_shape=train_data.shape[1:]))
-        self.model.add(Dense(256, activation='relu'))
-        self.model.add(Dropout(0.5))
-        self.model.add(Dense(num_classes, activation='softmax'))
+        if self.model is None:
+            self.model = Sequential()
+            self.model.add(Flatten(input_shape=train_data.shape[1:], name="csakmert"))
+            self.model.add(Dense(256, activation='relu'))
+            self.model.add(Dropout(0.3))
+            self.model.add(Dense(num_classes, activation='softmax'))
 
-        self.model.compile(optimizer=RMSprop(lr=self.learning_rate),
-                           loss='categorical_crossentropy', metrics=['accuracy'])
+            self.model.compile(optimizer=RMSprop(lr=self.learning_rate),
+                               loss='categorical_crossentropy', metrics=['accuracy'])
+
 
         self.history = self.model.fit(train_data, train_labels,
                                       epochs=self.epochs,
@@ -149,6 +164,7 @@ class Cnn3(object):
                                       validation_data=(validation_data, validation_labels))
 
         self.model.save_weights(self.top_model_weights)
+        print("Top model trained, weights saved as ", self.top_model_weights)
 
         (eval_loss, eval_accuracy) = self.model.evaluate(
             validation_data, validation_labels, batch_size=self.batch_size, verbose=1)
@@ -175,14 +191,14 @@ class Cnn3(object):
         plt.ylabel('loss')
         plt.xlabel('epoch')
         plt.legend(['train', 'test'], loc='upper left')
-        plt.savefig("statistics/" + str(self.id) + ".png")
+        plt.savefig("statistics/" + str(self.id) + "_" + str(time.time()) + ".png")
 
-        with open('statistics/' + str(self.id) + '.json', 'w') as outfile:
+        with open('statistics/' + str(self.id) + "_" + str(time.time()) + '.json', 'w') as outfile:
             json.dump(self.history.history, outfile, indent=4)
 
     def predict(self, image_path, img_name):
 
-        class_dictionary = np.load('model/class_indices.npy').item()  # TODO add the class variable
+        class_dictionary = np.load(self.class_indices).item()
 
         num_classes = len(class_dictionary)
 
@@ -203,7 +219,7 @@ class Cnn3(object):
         model = Sequential()
         model.add(Flatten(input_shape=bottleneck_prediction.shape[1:]))
         model.add(Dense(256, activation='relu'))
-        model.add(Dropout(0.5))
+        model.add(Dropout(0.3))
         model.add(Dense(num_classes, activation='softmax'))
 
         model.load_weights(self.top_model_weights)
@@ -229,17 +245,36 @@ class Cnn3(object):
         cv2.imwrite("statistics/" + img_name, orig)
         cv2.destroyAllWindows()
 
+    def print_graph_nodes(self, filename):
+        import tensorflow as tf
+        g = tf.GraphDef()
+        g.ParseFromString(open(filename, 'rb').read())
+        print()
+        print(filename)
+        print("=======================INPUT=========================")
+        print([n for n in g.node if n.name.find('input') != -1])
+        print("=======================OUTPUT========================")
+        print([n for n in g.node if n.name.find('output') != -1])
+        print("===================KERAS_LEARNING=====================")
+        print([n for n in g.node if n.name.find('keras_learning_phase') != -1])
+        print("======================================================")
+        print()
+
     def model_to_graph(self):
-        class_dictionary = np.load('model/class_indices.npy').item()  # TODO add the class variable
+        train_data = np.load(self.bottleneck_train_features)
+        prefix_output_node_names_of_final_network = 'output_node'
+        class_dictionary = np.load(self.class_indices).item()
         inv_map = {v: k for k, v in class_dictionary.items()}
 
         node_names = list(inv_map.values())
         num_classes = len(node_names)
 
         bottleneck_model_name = "bottleneck_graph.pb"
+        bottleneck_model_name_txt = "bottleneck_graph.pbtxt"
         bottleneck_model = applications.VGG16(include_top=False, weights='imagenet')
 
         top_mode_name = "top_graph.pb"
+        top_mode_name_txt = "top_graph.pbtxt"
         train_data = np.load(self.bottleneck_train_features)
         model = Sequential()
         model.add(Flatten(input_shape=train_data.shape[1:]))
@@ -252,22 +287,29 @@ class Cnn3(object):
 
         print('output nodes names are: ', node_names)
 
-        bottleneck_pred = [None] * len(node_names)
-        for i in range(len(node_names)):
-            bottleneck_pred[i] = tf.identity(bottleneck_model.output[i], name=node_names[i])
+        sess = K.get_session()
 
-        top_pred = [None] * len(node_names)
-        for i in range(len(node_names)):
-            top_pred[i] = tf.identity(bottleneck_model.output[i], name=node_names[i])
+        [print(node.op.name) for node in bottleneck_model.outputs]
+        [print(node.op.name) for node in bottleneck_model.inputs]
+        print(bottleneck_model.input_shape)
+        print(bottleneck_model.output_shape)
+        graph_def = sess.graph.as_graph_def()
+        bottle_constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(),
+                                                                          [node.op.name for node in
+                                                                           bottleneck_model.outputs])
+        graph_io.write_graph(bottle_constant_graph, "model/", bottleneck_model_name, as_text=False)
+        graph_io.write_graph(bottle_constant_graph, "model/", bottleneck_model_name_txt, as_text=True)
+        print('saved the bottom constant graph (ready for inference) at: ', osp.join("model/", bottleneck_model_name))
 
-        with K.get_session() as sess:
-            bottle_constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(), node_names)
-            graph_io.write_graph(bottle_constant_graph, "model/", bottleneck_model_name, as_text=False)
-            print('saved the bottom constant graph (ready for inference) at: ', osp.join("model/", bottleneck_model_name))
+        K.clear_session()
 
-            top_constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(), node_names)
-            graph_io.write_graph(top_constant_graph, "model/", top_mode_name, as_text=False)
-            print('saved the top constant graph (ready for inference) at: ', osp.join("model/", top_mode_name))
-
-
-
+        [print(node.op.name) for node in model.outputs]
+        [print(node.op.name) for node in bottleneck_model.inputs]
+        print(model.input_shape)
+        print(model.output_shape)
+        graph_def = sess.graph.as_graph_def()
+        top_constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(),
+                                                                       [node.op.name for node in model.outputs])
+        graph_io.write_graph(top_constant_graph, "model/", top_mode_name, as_text=False)
+        graph_io.write_graph(top_constant_graph, "model/", top_mode_name_txt, as_text=True)
+        print('saved the top constant graph (ready for inference) at: ', osp.join("model/", top_mode_name))
