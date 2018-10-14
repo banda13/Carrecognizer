@@ -10,4 +10,4 @@ app.register_blueprint(test_service, url_prefix='/test')
 app.register_blueprint(file_upload, url_prefix='/file')
 app.register_blueprint(file_uploader, url_prefix='/file')
 
-app.run(debug=True)
+app.run()
