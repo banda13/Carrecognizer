@@ -8,7 +8,7 @@ import cv2
 source_folder = "data/hasznaltauto/"
 sub_dir_pattern = 'href="https://www.hasznaltauto.hu/szemelyauto/'
 image_pattern = 'href="https://hasznaltauto.medija.hu/'
-result_list_pattern = 'href="https://www.hasznaltauto.hu/talalatilista/'
+result_list_pattern = 'https://www.autotrader.co.uk/car-search/page/'
 
 car_types = {
     "abarth" : "https://www.hasznaltauto.hu/talalatilista/PDNG2VC3V2NTAEG5RNLRASGSUTHGPJKK64TVWQETGIIMPD4JNSBW5OGK3Y5QNGTCN27BRHJTR4ZQ6A3SLPFK6IELKIFA2EK36IFM5WELCNRYKFDBICF6MAK5UQI5USIBEZ3TZT7YKX4RUI4GDZVARAZYLXSGMTWSGNWMAV2WXGKGII4FLAZ7BOLE6ZJGBZ5LFTXPZDSIMGX7UXGVQGE5KDN45XDDYUQU4P3SARILD3OB6BKGQU3Q4ZPKCQGLSNY4266KAR3TYVEG72CX472BW3QRNYYCXYS6DILMTM7YVBU4NCQXW3UGSCP65ODQK6YMTWESDVLAOXCWMLDWLSH7SV7QZUKMFFAFV6QVE5LS3VFHCPA6SL2ZGCNK2GMJDGK5UO5HPYMGM22Q73FZIGEG6NXVMKZE3MKOVV5BL42EVS36DA4JKHNXLJUMZJJLDTEOR4G5YA62XQBBQA3XRLRAI4RPX7KHIVXD7CKSYJV3JR3DTWO3MRXSO64X5TOWJ36F5HEQMD7GRKXELX7ZN566MXD6SOOID52LXLREHMNQ5KUTGGHQHPCT34MMBXNIC5ESL6GG7DOHT7PJHBII6MSW2ZTHBJQ5A7DLPKE77ECCAVVNJZYSFQMELAZ2PKZBIKVYDDEIEUQN2PYV2ONVQT4ZNNKRCZLK4EPNHXU4SKUMN4BH3LYGJXXNCLZZTYJYN62KPRHY5LXEVHG3F4H6HAD3UB4GVIQ57AVRTGRMH5AT4DD7SH35H37QESWANLZA",
@@ -113,6 +113,9 @@ for car_type, type_url in car_types.items():
                                 except Exception as e:
                                     print("%s error while downloading image: %s" % (str(e), word2))
                         sub_pages.append(url)
+                        if len(sub_pages) > 3:
+                            print("Debug mod, downloading from page %d ended" % page)
+                            break
                     except Exception as e:
                         print("%s error while loading from page: %s. " % (str(e), word))
 
@@ -120,7 +123,7 @@ for car_type, type_url in car_types.items():
             page += 1
             end_of_category = True
             for word in page_txt.split():
-                if word.startswith(result_list_pattern) and word.__contains__("page" + str(page)):
+                if word.startswith(result_list_pattern) and word.__contains__("page/" + str(page)):
                     new_url = word.replace('href="', "").split('"', 1)[0]
                     new_page = requests.get(new_url)
                     page_txt = new_page.text
