@@ -11,5 +11,5 @@ scikit-learn==0.19.2
 pydot==1.2.4
 Flask==1.0.2
 Werkzeug==0.14.1
-substring=0.2
+substring==0.2
 #tensorflow-gpu==1.10.0
