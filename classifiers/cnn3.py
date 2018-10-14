@@ -150,13 +150,11 @@ class Cnn3(object):
         if self.model is None:
             self.model = Sequential()
             self.model.add(Flatten(input_shape=train_data.shape[1:], name="csakmert"))
-            self.model.add(Dense(256, activation='relu'))
-            self.model.add(Dropout(0.3))
+            self.model.add(Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
             self.model.add(Dense(num_classes, activation='softmax'))
 
-            self.model.compile(optimizer=RMSprop(lr=self.learning_rate),
+            self.model.compile(optimizer=RMSprop(lr=0.0001),
                                loss='categorical_crossentropy', metrics=['accuracy'])
-
 
         self.history = self.model.fit(train_data, train_labels,
                                       epochs=self.epochs,
@@ -217,17 +215,19 @@ class Cnn3(object):
 
         # build top model
         model = Sequential()
-        model.add(Flatten(input_shape=bottleneck_prediction.shape[1:]))
-        model.add(Dense(256, activation='relu'))
-        model.add(Dropout(0.3))
+        model.add(Flatten(input_shape=bottleneck_prediction.shape[1:], name="csakmert"))
+        model.add(Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
         model.add(Dense(num_classes, activation='softmax'))
+
+        model.compile(optimizer=RMSprop(lr=0.0001),
+                      loss='categorical_crossentropy', metrics=['accuracy'])
 
         model.load_weights(self.top_model_weights)
 
         # use the bottleneck prediction on the top model to get the final
         # classification
         class_predicted = model.predict_classes(bottleneck_prediction)
-        probabilities = model.predict_proba(bottleneck_prediction)
+        probabilities = np.argmax(model.predict_proba(bottleneck_prediction))
 
         inID = class_predicted[0]
 
@@ -242,8 +242,14 @@ class Cnn3(object):
         cv2.putText(orig, "Predicted: {}".format(label), (10, 30),
                     cv2.FONT_HERSHEY_PLAIN, 1.5, (43, 99, 255), 2)
 
-        cv2.imwrite("statistics/" + img_name, orig)
+        K.clear_session()
+
+        # cv2.imwrite("statistics/" + img_name, orig)
         cv2.destroyAllWindows()
+        if probabilities == 1:
+            return label
+        else:
+            return "Nem tudom talán " + label
 
     def print_graph_nodes(self, filename):
         import tensorflow as tf
@@ -277,10 +283,12 @@ class Cnn3(object):
         top_mode_name_txt = "top_graph.pbtxt"
         train_data = np.load(self.bottleneck_train_features)
         model = Sequential()
-        model.add(Flatten(input_shape=train_data.shape[1:]))
-        model.add(Dense(256, activation='relu'))
-        model.add(Dropout(0.5))
+        model.add(Flatten(input_shape=train_data.shape[1:], name="csakmert"))
+        model.add(Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
         model.add(Dense(num_classes, activation='softmax'))
+
+        model.compile(optimizer=RMSprop(lr=0.0001),
+                      loss='categorical_crossentropy', metrics=['accuracy'])
         model.load_weights(self.top_model_weights)
 
         K.set_learning_phase(0)
