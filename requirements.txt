@@ -1,4 +1,4 @@
-requests
+requests==2.19.1
 tensorflow==1.10.0
 numpy==1.14.5
 matplotlib==2.2.3
@@ -12,4 +12,7 @@ pydot==1.2.4
 Flask==1.0.2
 Werkzeug==0.14.1
 substring==0.2
+connexion==1.5.3
+h5py==2.8.0
+urllib3==1.23
 #tensorflow-gpu==1.10.0
