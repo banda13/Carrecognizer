@@ -5,7 +5,7 @@ from shutil import copy, copy2
 
 
 def sort_train_vs_text(p_train, p_test, limit, categories = None):
-    root_dir = "../data/hasznaltauto/"
+    root_dir = "../data/autotrader/"
     train_dir = "../data/train/"
     test_dir = "../data/test/"
 
@@ -25,7 +25,7 @@ def sort_train_vs_text(p_train, p_test, limit, categories = None):
         train_count = int(p_train * limit)
         test_count = int(p_test * limit)
 
-        print("%d train and %d test data determined in category %s in hasznaltauto" % (train_count, test_count, category))
+        print("%d train and %d test data determined in category %s in autotrader" % (train_count, test_count, category))
 
         if not os.path.exists(train_dir + category + "/"):
             os.makedirs(train_dir + category + "/")
@@ -34,11 +34,11 @@ def sort_train_vs_text(p_train, p_test, limit, categories = None):
 
         for i in range(limit):
             if i <= train_count:
-                copy2(root_dir + category + "/" + files_in_category[i], train_dir + category + "/hasznaltauto_" + files_in_category[i])
+                copy2(root_dir + category + "/" + files_in_category[i], train_dir + category + "/autotrader" + files_in_category[i])
             else:
-                copy2(root_dir + category + "/" + files_in_category[i], test_dir + category + "/hasznaltauto_" + files_in_category[i])
+                copy2(root_dir + category + "/" + files_in_category[i], test_dir + category + "/autotrader" + files_in_category[i])
 
-        print("%s category done in hasznaltauto" % category)
+        print("%s category done in autotrader" % category)
 
 
 # sort_train_vs_text(0.8, 0.2, 5000)
