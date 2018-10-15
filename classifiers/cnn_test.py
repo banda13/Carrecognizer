@@ -4,7 +4,7 @@ import time
 from keras import regularizers
 from keras.models import Sequential
 from keras.layers import Dropout, Flatten, Dense
-from keras.optimizers import RMSprop, Adam
+from keras.optimizers import RMSprop, Adam, SGD
 
 from classifiers.cnn3 import Cnn3
 
@@ -68,6 +68,28 @@ class cnn3_test(object):
         model.compile(optimizer=RMSprop(lr=0.0001),
                       loss='categorical_crossentropy', metrics=['accuracy'])
         self.tests.append({'comment': 'regularized' ,'model': model,'epochs': self.epochs, 'dropout': 0, 'loss': 'categorical_crossentropy', 'optimalizer': 'RMSprop', 'classes': self.num_classes, 'lr': 0.0001})
+
+        model = Sequential()
+        model.add(Flatten(input_shape=self.shape, name="csakmert"))
+        model.add(Dense(4096, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+        model.add(Dense(self.num_classes, activation='softmax'))
+
+        model.compile(optimizer=RMSprop(lr=0.0001),
+                      loss='categorical_crossentropy', metrics=['accuracy'])
+        self.tests.append({'comment': 'big model', 'model': model, 'epochs': self.epochs, 'dropout': 0,
+                           'loss': 'categorical_crossentropy', 'optimalizer': 'RMSprop', 'classes': self.num_classes,
+                           'lr': 0.0001})
+
+        model = Sequential()
+        model.add(Flatten(input_shape=self.shape, name="csakmert"))
+        model.add(Dense(4096, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+        model.add(Dense(self.num_classes, activation='softmax'))
+
+        model.compile(optimizer=SGD(lr=0.0001),
+                      loss='categorical_crossentropy', metrics=['accuracy'])
+        self.tests.append({'comment': 'big model', 'model': model, 'epochs': self.epochs, 'dropout': 0,
+                           'loss': 'categorical_crossentropy', 'optimalizer': 'RMSprop', 'classes': self.num_classes,
+                           'lr': 0.0001})
 
         model = Sequential()
         model.add(Flatten(input_shape=self.shape, name="csakmert"))
