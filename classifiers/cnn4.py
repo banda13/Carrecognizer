@@ -3,7 +3,7 @@ from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras.models import Sequential
 from keras.layers import Dropout, Flatten, Dense
 from keras.optimizers import RMSprop
-from keras import applications
+from keras import applications, Input
 from keras.utils.np_utils import to_categorical
 import matplotlib.pyplot as plt
 import math
@@ -33,19 +33,31 @@ class Cnn4(object):
 
     def build_model(self, num_classes):
         print("Building model for %d classes" % num_classes)
-        model = applications.VGG16(include_top=False, weights='imagenet')
+        input_tensor = Input(shape=(self.img_width, self.img_height, 3))
+        model = applications.VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
+
+        new_model = Sequential()
+        for l in model.layers:
+            new_model.add(l)
+
+        # LOCK THE TOP CONV LAYERS
+        # for layer in new_model.layers:
+        #    layer.trainable = False
 
         top_model = Sequential()
-        top_model.add(Flatten())
+        shape = model.output_shape[1:]
+        top_model.add(Flatten(input_shape=model.output_shape[1:]))
         top_model.add(Dense(256, activation='relu'))
         top_model.add(Dropout(0.5))
         top_model.add(Dense(num_classes, activation='softmax'))
 
-        top_model.compile(optimizer='SGD',
+        new_model.add(top_model)
+
+        new_model.compile(optimizer='SGD',
                            loss='categorical_crossentropy', metrics=['accuracy'])
-        model.add(top_model)
-        model.summarize()
-        return model
+
+        new_model.summary()
+        return new_model
 
     def train(self):
         print("Training %s started" % self.name)
@@ -61,15 +73,15 @@ class Cnn4(object):
             class_mode=None,
             shuffle=False)
 
-        test_generator = idg_test.flow_from_directory(
+        test_generator = idg_train.flow_from_directory(
             self.test_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
             class_mode=None,
             shuffle=False)
 
-        train_samples = len(train_generator.filenames)
-        test_samples = len(test_generator.filenames)
+        train_samples = 1000 # len(train_generator.filenames)
+        test_samples =  500 # len(test_generator.filenames)
 
         num_classes = len(train_generator.class_indices)
         model = self.build_model(num_classes)
@@ -80,7 +92,7 @@ class Cnn4(object):
             samples_per_epoch=train_samples,
             epochs=10,
             validation_data=test_generator,
-            nb_val_samples=test_samples)
+            validation_steps=test_samples)
 
         print("Training ended")
         self.evaluate(history)
