@@ -1,4 +1,5 @@
 import os
+import csv
 import random
 from collections import Counter
 import input.autotrader.utils as autotrader
@@ -31,6 +32,20 @@ def reduce_data_size(limit_in_categories):
                 else:
                     print("The file does not exist: %s " % (category_dir + f))
 
+def get_all_make_model():
+    csv_resources = ["../resources/cars(1992-1999).csv", "../resources/cars(2000-2008).csv", "../resources/cars(2008-2018).csv"]
+    model_make_dict = {}
+    for file in csv_resources:
+        print("Reading make&model pairs from resource: %s " % file)
+        with open(file, newline='') as csv_file:
+            reader = csv.DictReader(csv_file)
+            for row in reader:
+                if row['model'] not in model_make_dict:
+                    model_make_dict[row['model']] = row['make']
 
-print("reduce")
-reduce_data_size(1000)
+    print("%d unique model-make pair found (years ignored)" % len(model_make_dict.keys()))
+    return model_make_dict
+
+
+
+
