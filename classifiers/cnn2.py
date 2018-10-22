@@ -45,6 +45,8 @@ class Cnn2(object):
 
         self.epochs = 50
         self.batch_size = 32
+        self.learning_rate = 0.001
+
 
 
     def build(self):
@@ -53,41 +55,18 @@ class Cnn2(object):
         self.classifier = Sequential()
         self.history = None
 
-        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(self.width, self.height, 3)))
-        self.classifier.add(Convolution2D(64, (3, 3), activation='relu'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(64, (3, 3), activation='relu'))
-        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
-
-        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, self.width, self.height)))
-        self.classifier.add(Convolution2D(128, (3, 3), activation='relu'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(128, (3, 3), activation='relu'))
-        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
-
-        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, self.width, self.height)))
-        self.classifier.add(Convolution2D(256, (3, 3), activation='relu'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(256, (3, 3), activation='relu'))
-        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
-
-        self.classifier.add(ZeroPadding2D((1, 1), input_shape=(3, self.width, self.height)))
-        self.classifier.add(Convolution2D(512, (3, 3), activation='relu'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(512, (3, 3), activation='relu'))
-        self.classifier.add(ZeroPadding2D((1, 1)))
-        self.classifier.add(Convolution2D(512, (3, 3), activation='relu'))
-        self.classifier.add(MaxPooling2D((2, 2), strides=(2, 2)))
+        self.classifier.add(Convolution2D(128, 3, 3, input_shape=(self.width, self.height, 3), activation='relu'))
+        self.classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
         self.classifier.add(Flatten())
-        self.classifier.add(Dense(512, activation='relu'))
-        self.classifier.add(Dropout(0.25))
-        self.classifier.add(Dense(4, activation='softmax'))
+        self.classifier.add(Dense(128, activation='relu'))
+        self.classifier.add(Dropout(0.5))
+        self.classifier.add(Dense(19, activation='softmax'))
 
-        self.classifier.compile(loss='categorical_crossentropy',
-                                optimizer=SGD(lr=1e-4, momentum=0.9),
-                                metrics=['accuracy'])
-        self.classifier.summary()
+        # SGD(lr=1e-4, momentum=0.9)
+        self.classifier.compile(optimizer=Adam(lr = self.learning_rate), loss='categorical_crossentropy', metrics=['accuracy'])
+        print("Model build")
+
 
     def train(self, continuous_train=False):
 

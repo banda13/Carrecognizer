@@ -1,9 +1,10 @@
 import time
 
 import numpy as np
+from keras.engine.saving import load_model
 from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras.models import Sequential
-from keras.layers import Dropout, Flatten, Dense
+from keras.layers import Dropout, Flatten, Dense, Convolution2D, MaxPooling2D, GlobalAveragePooling2D
 from keras.optimizers import RMSprop, Adam
 from keras import applications, regularizers
 from keras.utils.np_utils import to_categorical
@@ -46,7 +47,7 @@ class Cnn3(object):
         # TRAIN and MODEL params
         self.epochs = 50
         self.batch_size = 16
-        self.learning_rate = 0.0001
+        self.learning_rate = 0.00001
 
         self.model = None
         self.history = None
@@ -55,7 +56,7 @@ class Cnn3(object):
 
         print("Saving bottleneck features started")
         # build the VGG16 network
-        model = applications.VGG16(include_top=False, weights='imagenet', )
+        model = applications.VGG16(include_top=False, weights='imagenet', input_shape=(self.img_width, self.img_height, 3))
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         datagen = ImageDataGenerator(rescale=1. / 255)
@@ -149,11 +150,20 @@ class Cnn3(object):
 
         if self.model is None:
             self.model = Sequential()
-            self.model.add(Flatten(input_shape=train_data.shape[1:], name="csakmert"))
-            self.model.add(Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
-            self.model.add(Dense(num_classes, activation='softmax'))
 
-            self.model.compile(optimizer=RMSprop(lr=0.0001),
+            self.model.add(Convolution2D(128, 3, 3, input_shape=train_data.shape[1:], activation='relu'))
+            self.model.add(Dropout(0.5))
+            self.model.add(MaxPooling2D(pool_size=(2, 2)))
+
+            # self.model.add(GlobalAveragePooling2D())
+
+            self.model.add(Flatten())
+            self.model.add(Dense(128, activation='relu'))
+            self.model.add(Dropout(0.5))
+            self.model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
+
+            'SGD'
+            self.model.compile(optimizer='SGD',
                                loss='categorical_crossentropy', metrics=['accuracy'])
 
         self.history = self.model.fit(train_data, train_labels,
@@ -171,6 +181,31 @@ class Cnn3(object):
         print("Loss: {}".format(eval_loss))
 
         self.evaluate()
+
+    @staticmethod
+    def visualize_class_activation_map(img_path):
+        model = load_model("model/bottleneck/bigmodel.h5")
+        original_img = cv2.imread(img_path, 1)
+        width, height, _ = original_img.shape
+
+        # Reshape to the network input shape (3, w, h).
+        img = np.array([np.transpose(np.float32(original_img), (2, 0, 1))])
+
+        # Get the 512 input weights to the softmax.
+        layers = model.layers
+        class_weights = model.layers[-2].get_weights()[0]
+        final_conv_layer = model.layers[-2]
+        get_output = K.function([model.layers[0].input],
+                                [final_conv_layer.output,
+                                 model.layers[-1].output])
+        [conv_outputs, predictions] = get_output([img])
+        conv_outputs = conv_outputs[0, :, :, :]
+
+        # Create the class activation map.
+        cam = np.zeros(dtype=np.float32, shape=conv_outputs.shape[1:3])
+        target_class = 1
+        for i, w in enumerate(class_weights[:, target_class]):
+            cam += w * conv_outputs[i, :, :]
 
     def evaluate(self):
         plt.figure(1)
@@ -207,6 +242,7 @@ class Cnn3(object):
         image = img_to_array(image)
         image = image / 255
         image = np.expand_dims(image, axis=0)
+        # TODO show what' s left
 
         # build the VGG16 network
         model = applications.VGG16(include_top=False, weights='imagenet')
@@ -227,7 +263,7 @@ class Cnn3(object):
         # use the bottleneck prediction on the top model to get the final
         # classification
         class_predicted = model.predict_classes(bottleneck_prediction)
-        probabilities = np.argmax(model.predict_proba(bottleneck_prediction))
+        probabilities = model.predict_proba(bottleneck_prediction)
 
         inID = class_predicted[0]
 
@@ -236,7 +272,7 @@ class Cnn3(object):
         label = inv_map[inID]
 
         # get the prediction label
-        print("Image ID: {}, Label: {}, Probability {}".format(inID, label, probabilities))
+        print("Image ID: {}, Label: {}, Probability {}".format(inID, label, probabilities[0][inID]))
 
         # display the predictions with the image
         cv2.putText(orig, "Predicted: {}".format(label), (10, 30),
@@ -246,10 +282,10 @@ class Cnn3(object):
 
         # cv2.imwrite("statistics/" + img_name, orig)
         cv2.destroyAllWindows()
-        if probabilities == 1:
+        if probabilities[0][inID] > 0.5:
             return label
         else:
-            return "Nem tudom talán " + label
+            return "Nem tudom talán " + label + " (" + str(probabilities[0][inID]) + "%)"
 
     def print_graph_nodes(self, filename):
         import tensorflow as tf
