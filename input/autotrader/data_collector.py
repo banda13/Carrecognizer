@@ -7,6 +7,7 @@ import substring
 import cv2
 import re
 
+
 source_folder = "../../data/autotrader/"
 sub_dir_pattern = '/classified/advert/'
 sub_dir_start = "https://www.autotrader.co.uk/classified/advert/"
@@ -14,23 +15,6 @@ image_pattern = "data-src='https://m.atcdn.co.uk/a/media/"
 result_list_pattern = 'href="https://www.autotrader.co.uk/car-search/page/'
 
 car_types = {
-    "maserati": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=MASERATI&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "mini": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&postcode=EC1A+1BB&radius=&make=MINI&model=&price-search-type=total-price&price-from=&price-to=&search-used-vehicles=&page=1",
-    "mitsubishi": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=MITSUBISHI&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "nissan": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=NISSAN&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "porsche": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=PORSCHE&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "smart": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=SMART&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "subaru": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=SUBARU&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "suzuki": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=SUZUKI&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "volvo": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=VOLVO&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "seat": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=SEAT&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "peugeot": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=PEUGEOT&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "skoda": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=SKODA&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "alfa_romeo": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=ALFA%20ROMEO&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "mazda": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=MAZDA&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "renault": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=RENAULT&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "mercedes": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=MERCEDES-BENZ&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
-    "ford": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=FORD&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
     "audi": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=AUDI&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
     "volkswagen": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=VOLKSWAGEN&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
     "bmw": "https://www.autotrader.co.uk/car-search?advertising-location=at_cars&search-target=usedcars&is-quick-search=true&radius=&make=BMW&model=&price-search-type=total-price&price-from=&price-to=&postcode=ec1a1bb&page=1",
@@ -41,6 +25,7 @@ for car_type, type_url in car_types.items():
     if not os.path.exists(path):
         os.makedirs(path)
     print("Downloading images : ", car_type)
+
     resp = requests.get(type_url)
     counter = 0
     sleep(round(uniform(0.5, 0.9), 4))
@@ -119,7 +104,8 @@ for car_type, type_url in car_types.items():
                 if word.startswith(result_list_pattern) and word.__contains__("page/" + str(page)):
                     if images_in_page == 0:
                         print("No new image found on page %s going to next category" % (str(page)))
-                        has_more_page = False
+                        end_of_category = True
+                        break
                     new_url = type_url[:-1] + str(page)
                     new_page = requests.get(new_url)
                     page_txt = new_page.text

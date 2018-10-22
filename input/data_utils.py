@@ -13,4 +13,4 @@ def summ_categories(limit = 0):
             input_summ_with_limit[key] = value
     return input_summ_with_limit, hasznaltauto_input, autotrader_input
 
-# summ_categories(10000)
+summ_categories(10000)
