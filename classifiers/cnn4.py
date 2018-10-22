@@ -3,7 +3,7 @@ from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras.models import Sequential
 from keras.layers import Dropout, Flatten, Dense
 from keras.optimizers import RMSprop
-from keras import applications, Input
+from keras import applications, Input, Model
 from keras.utils.np_utils import to_categorical
 import matplotlib.pyplot as plt
 import math
@@ -27,31 +27,25 @@ class Cnn4(object):
     test_dir = "data/test/"
     img_width, img_height = 224, 224
 
-    def __init__(self):
-        self.batch_size = 16
-        self.name = "trata"
+    def __init__(self, name="test"):
+        self.batch_size = 32
+        self.name = name
+        self.model_path = "model/" + name + ".h5"
+        self.class_indices_path = "model/" + name + "-classes.npy"
 
     def build_model(self, num_classes):
         print("Building model for %d classes" % num_classes)
         input_tensor = Input(shape=(self.img_width, self.img_height, 3))
         model = applications.VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
 
-        new_model = Sequential()
-        for l in model.layers:
-            new_model.add(l)
+        model_output = model(input_tensor)
 
-        # LOCK THE TOP CONV LAYERS
-        # for layer in new_model.layers:
-        #    layer.trainable = False
+        top_model = Flatten()(model_output)
+        top_model = Dense(256, activation='relu')(top_model)
+        top_model = Dropout(0.5)(top_model)
+        top_model = Dense(num_classes, activation='softmax')(top_model)
 
-        top_model = Sequential()
-        shape = model.output_shape[1:]
-        top_model.add(Flatten(input_shape=model.output_shape[1:]))
-        top_model.add(Dense(256, activation='relu'))
-        top_model.add(Dropout(0.5))
-        top_model.add(Dense(num_classes, activation='softmax'))
-
-        new_model.add(top_model)
+        new_model = Model(input=input_tensor, output=top_model)
 
         new_model.compile(optimizer='SGD',
                            loss='categorical_crossentropy', metrics=['accuracy'])
@@ -70,14 +64,14 @@ class Cnn4(object):
             self.train_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode=None,
+            class_mode='categorical',
             shuffle=False)
 
         test_generator = idg_train.flow_from_directory(
             self.test_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode=None,
+            class_mode='categorical',
             shuffle=False)
 
         train_samples = 1000 # len(train_generator.filenames)
@@ -96,6 +90,7 @@ class Cnn4(object):
 
         print("Training ended")
         self.evaluate(history)
+        model.save(self.model_path)
 
     def evaluate(self, history):
         plt.figure(1)
@@ -118,5 +113,23 @@ class Cnn4(object):
 
         with open('statistics/' + self.name + "_" + str(time.time()) + '.json', 'w') as outfile:
             json.dump(history.history, outfile, indent=4)
+
+    def predict(self, image_path):
+        print("Predicting image: %s " % image_path)
+        orig = cv2.imread(image_path)
+
+        print("Loading and preprocessing image...")
+        image = load_img(image_path, target_size=(self.img_width, self.img_height))
+        image = img_to_array(image)
+        image = image / 255
+        image = np.expand_dims(image, axis=0)
+
+        print("Loading model: %s" % self.model_path)
+        model = load_model(self.model_path)
+
+        prediction = model.predict(image)
+        print(prediction)
+        return prediction
+
 
 
