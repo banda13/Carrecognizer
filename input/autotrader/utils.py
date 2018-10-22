@@ -8,4 +8,4 @@ def count_images_per_class():
         cars[type] = count
     return cars
 
-count_images_per_class()
+# count_images_per_class()
