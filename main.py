@@ -1,31 +1,11 @@
+from classifiers.cnn4 import Cnn4
 from classifiers.cnn3 import Cnn3
+from classifiers.cnn2 import Cnn2
 from random import sample
 import os
 
 from classifiers.cnn_test import cnn3_test
+from input.data_loader import sort_into_train_and_test
+from input.data_utils import summ_categories
 
-
-def test():
-    paths = ["data/hasznaltauto/bmw/", "data/hasznaltauto/ford/", "data/hasznaltauto/mercedes/",
-             "data/hasznaltauto/volkswagen/"]
-
-    for path in paths:
-        for car in sample(os.listdir(path), 3):
-            Cnn3("e7247c4f-88c1-4f0d-bf62-f7850de6d949").predict(path + car, car)
-
-
-#cnn = Cnn3("e7247c4f-88c1-4f0d-bf62-f7850de6d949")
-#cnn.model_to_graph()
-#cnn.print_graph_nodes("model/bottleneck_graph.pb")
-
-#cnn = Cnn3()
-#cnn.save_bottlebeck_features()
-#cnn.train_top_model()
-#cnn.model_to_graph()
-
-
-cnn = Cnn3()
-# cnn.save_bottlebeck_features()
-tezt = cnn3_test()
-tezt.setup_models()
-tezt.run_tests()
+sort_into_train_and_test(0.8, 0.2, 10000, 100)

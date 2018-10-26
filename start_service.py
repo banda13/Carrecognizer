@@ -14,5 +14,5 @@ app.register_blueprint(file_uploader, url_prefix='/file')
 app.register_blueprint(classifier)
 
 port = int(os.environ.get("PORT", 5000))
-
+app.debug = True
 app.run(host='0.0.0.0', port=port)

@@ -30,17 +30,25 @@ image_pattern = "data-src='https://m.atcdn.co.uk/a/media/"
 result_list_pattern = 'href="https://www.autotrader.co.uk/car-search/page/'
 
 make_models = get_all_make_model()
+c_counter = 0
 
-for key, value in make_models.items():
+for key, value in (make_models.items()):
+    c_counter += 1
+    if c_counter < 16:
+        print("Category skipped %s - %s" % (value, key))
+        continue
     print("Downloading : %s - %s " % (value, key))
-    url = search_url % (value, key)
+    type_url = search_url % (value, key)
 
     path = source_folder + value + "/" + key
     if not os.path.exists(path):
         os.makedirs(path)
-    print("Downloading images into: %s from %s " %(path, url))
+    else:
+        print("Category skipped %s - %s" % (value, key))
+        continue
+    print("Downloading images into: %s from %s " %(path, type_url))
 
-    resp = requests.get(url)
+    resp = requests.get(type_url)
     counter = 0
     sleep(round(uniform(0.5, 0.9), 4))
     car_type_dir = value + "/" + key
@@ -107,9 +115,9 @@ for key, value in make_models.items():
                                     except Exception as e:
                                         print("%s error while downloading image: %s" % (str(e), word2))
                             sub_pages.append(url)
-                            if len(sub_pages) > 3:
-                                 print("Debug mod, downloading from page %d ended" % page)
-                                 break
+                            #if len(sub_pages) > 3:
+                            #     print("Debug mod, downloading from page %d ended" % page)
+                            #     break
                     except Exception as e:
                         print("%s error while loading from page: %s. " % (str(e), word))
 
@@ -123,7 +131,8 @@ for key, value in make_models.items():
                         print("No new image found on page %s going to next category" % (str(page)))
                         end_of_category = True
                         break
-                    new_url = url[:-1] + str(page)
+
+                    new_url = (re.sub('#check-history$', '', type_url))[:-1] + str(page)
                     new_page = requests.get(new_url)
                     page_txt = new_page.text
                     end_of_category = False
@@ -133,6 +142,6 @@ for key, value in make_models.items():
             has_more_page = (not end_of_category)
         except Exception as e:
             print("Failed to load more image from category: %s. %d image downloaded. Error: %s" % (
-                url, counter, str(e)))
+                type_url, counter, str(e)))
 
     print("%d images downloaded to category %s" % (counter, car_type))

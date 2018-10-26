@@ -5,9 +5,9 @@ from shutil import copy, copy2
 
 
 def sort_train_vs_text(p_train, p_test, limit, categories = None):
-    root_dir = "../data/autotrader/"
-    train_dir = "../data/train/"
-    test_dir = "../data/test/"
+    root_dir = "data/autotrader/"
+    train_dir = "data/train/"
+    test_dir = "data/test/"
 
     if categories is None:
         categories = os.listdir(root_dir)

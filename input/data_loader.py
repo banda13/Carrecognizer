@@ -3,11 +3,20 @@ import input.hasznaltauto.sorter as hasznaltauto_sorter
 import input.autotrader.sorter as autotrader_sorter
 
 
-def sort_into_train_and_test(p_train, p_test, limit):
-    input_summ, hasznaltauto_input, autotrader_input = summ_categories(10000)
+def sort_into_train_and_test(p_train, p_test, limit, max_category):
+    input_summ, hasznaltauto_input, autotrader_input = summ_categories(limit)
+    counter = 0
     for category in input_summ.keys():
         if category == 'deleted':
             continue
+        counter += 1
+        if counter < 14:
+            print("Category skipped %s" % category)
+            continue
+
+        if counter > max_category:
+            print("Category limit reached: %d" % max_category)
+            break
         hasznaltauto_count = hasznaltauto_input[category] if hasznaltauto_input[category] < limit else limit
         autotrader_count = limit - hasznaltauto_count
 
@@ -21,5 +30,3 @@ def sort_into_train_and_test(p_train, p_test, limit):
             print("Category ready : %d data loaded" % (hasznaltauto_count + autotrader_count))
         except Exception as e:
             print("%s category skipped becasue %s" % (category, str(e)))
-
-sort_into_train_and_test(0.8, 0.2, 10000)
