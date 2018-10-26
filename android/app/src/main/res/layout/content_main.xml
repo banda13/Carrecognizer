@@ -33,6 +33,13 @@
             android:layout_height="100dp"
             android:contentDescription="@string/gallery_button" />
 
+            <ImageButton
+                android:id="@+id/availability"
+                android:src="@drawable/ic_network_check_black_24dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/gallery_button" />
+
         </LinearLayout>
 
         <ImageView

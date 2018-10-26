@@ -30,7 +30,20 @@ import android.widget.Toast;
 import com.ai.deep.andy.carrecognizer.ai.Classifier;
 import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,6 +79,7 @@ public class MainActivity extends AppCompatActivity
 
         final ImageButton camera = findViewById(R.id.camera);
         final ImageButton gallery = findViewById(R.id.gallery);
+        final ImageButton availability = findViewById(R.id.availability);
 
         gallery.setOnClickListener(new View.OnClickListener() {
 
@@ -101,6 +115,37 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
+
+        availability.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    run("https://192.168.0.13:5000/test");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    String run(String urlString) throws IOException {
+        java.net.URL url = new URL(urlString);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        try {
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            InputStreamReader read = new InputStreamReader(in);
+            BufferedReader buff = new BufferedReader(read);
+            StringBuilder dta = new StringBuilder();
+            String chunks ;
+            while((chunks = buff.readLine()) != null)
+            {
+                dta.append(chunks);
+            }
+            Toast.makeText(this, dta.toString(), Toast.LENGTH_SHORT).show();
+            return null;
+        } finally {
+            urlConnection.disconnect();
+        }
     }
 
     @Override
