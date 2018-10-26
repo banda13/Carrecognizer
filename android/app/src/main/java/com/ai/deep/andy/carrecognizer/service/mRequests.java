@@ -60,27 +60,6 @@ public class mRequests {
         MyRequestQueue.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
-    public static void postImage(final Context context, final cClassify.ClassificationCallback callback, String url){
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        callback.onSuccess(response);
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        callback.onError(error.getMessage());
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
-            }
-        };
-        MyRequestQueue.getInstance(context).addToRequestQueue(jsonObjectRequest);
-    }
 
 }

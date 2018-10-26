@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import com.ai.deep.andy.carrecognizer.ai.Classifier;
 import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
-import com.ai.deep.andy.carrecognizer.callbacks.BaseCallback;
 import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
 
 import java.io.BufferedInputStream;
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 cWakeUpServer wakeUpServer = new cWakeUpServer(context);
-                wakeUpServer.setListener(new BaseCallback() {
+                wakeUpServer.setListener(new cWakeUpServer.StringCallback() {
                     @Override
                     public void onSuccess(String response) {
                         Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
