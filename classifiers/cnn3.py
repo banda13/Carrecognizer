@@ -5,7 +5,7 @@ from keras.engine.saving import load_model
 from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras.models import Sequential
 from keras.layers import Dropout, Flatten, Dense, Convolution2D, MaxPooling2D, GlobalAveragePooling2D
-from keras.optimizers import RMSprop, Adam
+from keras.optimizers import RMSprop, Adam, SGD
 from keras import applications, regularizers
 from keras.utils.np_utils import to_categorical
 import matplotlib.pyplot as plt
@@ -25,7 +25,7 @@ import tensorflow as tf
 class Cnn3(object):
 
     def __init__(self, mid=None):
-        self.img_width, self.img_height = 224, 224
+        self.img_width, self.img_height = 128, 128
         if mid is None:
             self.id = uuid.uuid4()
             print("Creating new classifier with id ", str(self.id))
@@ -36,8 +36,8 @@ class Cnn3(object):
         self.test_dir = "data/test/"
 
         # VGG16
-        self.bottleneck_test_features = "model/bottleneck/bottleneck_features_train.npy"
-        self.bottleneck_train_features = "model/bottleneck/bottleneck_features_validation.npy"
+        self.bottleneck_train_features = "model/bottleneck/bottleneck_features_train.npy"
+        self.bottleneck_test_features = "model/bottleneck/bottleneck_features_validation.npy"
         self.bottleneck_model = "model/bottleneck/bigmodel.h5"
 
         # TOP model
@@ -56,10 +56,15 @@ class Cnn3(object):
 
         print("Saving bottleneck features started")
         # build the VGG16 network
-        model = applications.VGG16(include_top=False, weights='imagenet', input_shape=(self.img_width, self.img_height, 3))
+        model = applications.VGG16(include_top=False, weights='imagenet',
+                                   input_shape=(self.img_width, self.img_height, 3))
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
-        datagen = ImageDataGenerator(rescale=1. / 255)
+        datagen = ImageDataGenerator(
+            shear_range=0.2,
+            zoom_range=0.2,
+            horizontal_flip=True,
+            rescale=1. / 255)
 
         generator = datagen.flow_from_directory(
             self.train_dir,
@@ -78,9 +83,12 @@ class Cnn3(object):
         bottleneck_features_train = model.predict_generator(
             generator, predict_size_train)
 
-        np.save(self.bottleneck_train_features, bottleneck_features_train)
+        np.save(self.bottleneck_train_features,
+                bottleneck_features_train)
+
         print("Bottleneck train features saved as ", self.bottleneck_train_features)
 
+        datagen = ImageDataGenerator(rescale=1. / 255)
         generator = datagen.flow_from_directory(
             self.test_dir,
             target_size=(self.img_width, self.img_height),
@@ -96,7 +104,8 @@ class Cnn3(object):
         bottleneck_features_validation = model.predict_generator(
             generator, predict_size_validation)
 
-        np.save(self.bottleneck_test_features, bottleneck_features_validation)
+        np.save(self.bottleneck_test_features,
+                bottleneck_features_validation)
         print("Bottleneck validation features saved as ", self.bottleneck_test_features)
 
         model.save(self.bottleneck_model)
@@ -112,7 +121,9 @@ class Cnn3(object):
 
         print("Training top model started")
         ImageFile.LOAD_TRUNCATED_IMAGES = True
-        datagen_top = ImageDataGenerator(rescale=1. / 255)
+        datagen_top = ImageDataGenerator(
+            rescale=1. / 255)
+
         generator_top = datagen_top.flow_from_directory(
             self.train_dir,
             target_size=(self.img_width, self.img_height),
@@ -128,11 +139,10 @@ class Cnn3(object):
         print("Class indices save as ", self.class_indices)
 
         train_data = np.load(self.bottleneck_train_features)
-
         train_labels = generator_top.classes
-
         train_labels = to_categorical(train_labels, num_classes=num_classes)
 
+        datagen_top = ImageDataGenerator(rescale=1. / 255)
         generator_top = datagen_top.flow_from_directory(
             self.test_dir,
             target_size=(self.img_width, self.img_height),
@@ -143,7 +153,6 @@ class Cnn3(object):
         nb_validation_samples = len(generator_top.filenames)
 
         validation_data = np.load(self.bottleneck_test_features)
-
         validation_labels = generator_top.classes
         validation_labels = to_categorical(
             validation_labels, num_classes=num_classes)
@@ -155,15 +164,15 @@ class Cnn3(object):
             self.model.add(Dropout(0.5))
             self.model.add(MaxPooling2D(pool_size=(2, 2)))
 
-            # self.model.add(GlobalAveragePooling2D())
+            self.model.add(GlobalAveragePooling2D())
 
             self.model.add(Flatten())
             self.model.add(Dense(128, activation='relu'))
             self.model.add(Dropout(0.5))
             self.model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
 
-            'SGD'
-            self.model.compile(optimizer='SGD',
+            #     'SGD'
+            self.model.compile(optimizer=RMSprop(lr=0.0001, rho=0.9, epsilon=None, decay=0.0),
                                loss='categorical_crossentropy', metrics=['accuracy'])
 
         self.history = self.model.fit(train_data, train_labels,

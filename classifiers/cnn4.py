@@ -22,13 +22,12 @@ import tensorflow as tf
 
 
 class Cnn4(object):
-
     train_dir = "data/train/"
     test_dir = "data/test/"
     img_width, img_height = 224, 224
 
     def __init__(self, name="test"):
-        self.batch_size = 32
+        self.batch_size = 8
         self.name = name
         self.model_path = "model/" + name + ".h5"
         self.class_indices_path = "model/" + name + "-classes.npy"
@@ -37,6 +36,9 @@ class Cnn4(object):
         print("Building model for %d classes" % num_classes)
         input_tensor = Input(shape=(self.img_width, self.img_height, 3))
         model = applications.VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
+
+        for layer in model.layers:
+            layer.trainable = False
 
         model_output = model(input_tensor)
 
@@ -48,7 +50,7 @@ class Cnn4(object):
         new_model = Model(input=input_tensor, output=top_model)
 
         new_model.compile(optimizer='SGD',
-                           loss='categorical_crossentropy', metrics=['accuracy'])
+                          loss='categorical_crossentropy', metrics=['accuracy'])
 
         new_model.summary()
         return new_model
@@ -56,7 +58,14 @@ class Cnn4(object):
     def train(self):
         print("Training %s started" % self.name)
         ImageFile.LOAD_TRUNCATED_IMAGES = True
-        idg_train = ImageDataGenerator(rescale=1. / 255)
+        idg_train = ImageDataGenerator(
+            rotation_range=10.,
+            width_shift_range=0.1,
+            height_shift_range=0.1,
+            shear_range=0.,
+            zoom_range=.1,
+            horizontal_flip=True,
+            vertical_flip=True)
         idg_test = ImageDataGenerator(rescale=1. / 255)
 
         print("Setting up generators..")
@@ -65,17 +74,17 @@ class Cnn4(object):
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
             class_mode='categorical',
-            shuffle=False)
+            shuffle=True)
 
-        test_generator = idg_train.flow_from_directory(
+        test_generator = idg_test.flow_from_directory(
             self.test_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
             class_mode='categorical',
-            shuffle=False)
+            shuffle=True)
 
-        train_samples = 1000 # len(train_generator.filenames)
-        test_samples =  500 # len(test_generator.filenames)
+        train_samples = len(train_generator.filenames)
+        test_samples = len(test_generator.filenames)
 
         num_classes = len(train_generator.class_indices)
         model = self.build_model(num_classes)
@@ -130,6 +139,3 @@ class Cnn4(object):
         prediction = model.predict(image)
         print(prediction)
         return prediction
-
-
-
