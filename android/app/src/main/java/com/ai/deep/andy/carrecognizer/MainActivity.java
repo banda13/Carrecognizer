@@ -2,6 +2,7 @@ package com.ai.deep.andy.carrecognizer;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -29,6 +30,9 @@ import android.widget.Toast;
 
 import com.ai.deep.andy.carrecognizer.ai.Classifier;
 import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
+import com.ai.deep.andy.carrecognizer.callbacks.BaseCallback;
+import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
+import com.ai.deep.andy.carrecognizer.service.CarRecognizer;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -81,6 +85,8 @@ public class MainActivity extends AppCompatActivity
         final ImageButton gallery = findViewById(R.id.gallery);
         final ImageButton availability = findViewById(R.id.availability);
 
+        final Context context = this;
+
         gallery.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -119,11 +125,19 @@ public class MainActivity extends AppCompatActivity
         availability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    run("https://192.168.0.13:5000/test");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                cWakeUpServer wakeUpServer = new cWakeUpServer(context);
+                wakeUpServer.setListener(new BaseCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                wakeUpServer.wakeUp();
             }
         });
     }
