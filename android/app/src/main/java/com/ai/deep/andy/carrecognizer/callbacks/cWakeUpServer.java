@@ -2,7 +2,7 @@ package com.ai.deep.andy.carrecognizer.callbacks;
 
 import android.content.Context;
 
-import com.ai.deep.andy.carrecognizer.service.CarRecognizer;
+import com.ai.deep.andy.carrecognizer.service.mRequests;
 
 /**
  * Created by andy on 2018.10.26..
@@ -10,22 +10,38 @@ import com.ai.deep.andy.carrecognizer.service.CarRecognizer;
 
 public class cWakeUpServer {
 
-    private BaseCallback listener;
+    private StringCallback listener;
     private Context context;
+    private String url = "/sorosterv/android/hello";
 
     public cWakeUpServer(Context context) {
         this.context = context;
     }
 
-    public BaseCallback getListener() {
+    public StringCallback getListener() {
         return listener;
     }
 
-    public void setListener(BaseCallback listener) {
+    public void setListener(StringCallback listener) {
         this.listener = listener;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public void wakeUp(){
-        CarRecognizer.stringRequest(context, listener);
+        mRequests.stringRequest(context, listener, url);
+    }
+
+    public interface StringCallback{
+
+        void onSuccess(String response);
+
+        void onError(String message);
     }
 }
