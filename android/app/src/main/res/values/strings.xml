@@ -9,4 +9,6 @@
     <string name="camera_button">camera button</string>
     <string name="gallery_button">gallery Button</string>
     <string name="availability">availability</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="oopsie_woopsie_an_error_occured">Oopsie woopsie, an error occured..</string>
 </resources>

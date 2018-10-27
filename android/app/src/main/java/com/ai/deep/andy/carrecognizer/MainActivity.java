@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ai.deep.andy.carrecognizer.ai.Classifier;
@@ -48,14 +49,15 @@ public class MainActivity extends AppCompatActivity
     private static final int CAMERA_PERMISSION_CODE = 100;
     private static final int CAMERA_REQUEST = 1888;
 
-    private ImageButton camera;
-    private ImageButton gallery;
-    private ImageButton availability;
+    private FloatingActionButton camera;
+    private FloatingActionButton gallery;
     private ImageView imageView;
     private ProgressBar serverLoading;
     private ImageView serverOnline;
     private ImageView serverOffline;
     private RelativeLayout mainLayout;
+    private TextView classificationResult;
+    private ProgressBar classificationProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +65,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,9 +75,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        camera = findViewById(R.id.camera);
-        gallery = findViewById(R.id.gallery);
-        availability = findViewById(R.id.availability);
+        camera = (FloatingActionButton) findViewById(R.id.camera);
+        gallery = (FloatingActionButton) findViewById(R.id.gallery);
         imageView = findViewById(R.id.imgView);
         serverLoading = findViewById(R.id.serverLoading);
         serverOnline = findViewById(R.id.serverOnline);
@@ -99,7 +91,6 @@ public class MainActivity extends AppCompatActivity
 
                 @Override
                 public void onClick(View arg0) {
-
                     Intent i = new Intent(
                             Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -129,13 +120,6 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
-
-        availability.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkServerAvailability(context);
-            }
-        });
     }
 
     @Override
@@ -155,7 +139,6 @@ public class MainActivity extends AppCompatActivity
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-
             image.setImageFromUri(this, selectedImage);
             imageView.setImageBitmap(image.getImage());
 
@@ -166,7 +149,6 @@ public class MainActivity extends AppCompatActivity
             imageView.setImageBitmap(photo);
         }
 
-        //Classifier.classify(this, image.getImage());
     }
 
     @Override
@@ -214,6 +196,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if(id == R.id.action_reconnect){
+            checkServerAvailability(this);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -244,6 +229,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkServerAvailability(final Context context){
+        serverLoading.setVisibility(View.VISIBLE);
+        serverOffline.setVisibility(View.GONE);
+        serverOnline.setVisibility(View.GONE);
         cWakeUpServer wakeUpServer = new cWakeUpServer(context);
         wakeUpServer.setListener(new cWakeUpServer.StringCallback() {
             @Override
