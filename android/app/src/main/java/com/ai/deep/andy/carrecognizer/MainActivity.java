@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ai.deep.andy.carrecognizer.ai.Classifier;
@@ -45,6 +47,15 @@ public class MainActivity extends AppCompatActivity
     private static int RESULT_LOAD_IMAGE = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
     private static final int CAMERA_REQUEST = 1888;
+
+    private ImageButton camera;
+    private ImageButton gallery;
+    private ImageButton availability;
+    private ImageView imageView;
+    private ProgressBar serverLoading;
+    private ImageView serverOnline;
+    private ImageView serverOffline;
+    private RelativeLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +82,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final ImageButton camera = findViewById(R.id.camera);
-        final ImageButton gallery = findViewById(R.id.gallery);
-        final ImageButton availability = findViewById(R.id.availability);
+        camera = findViewById(R.id.camera);
+        gallery = findViewById(R.id.gallery);
+        availability = findViewById(R.id.availability);
+        imageView = findViewById(R.id.imgView);
+        serverLoading = findViewById(R.id.serverLoading);
+        serverOnline = findViewById(R.id.serverOnline);
+        serverOffline = findViewById(R.id.serverOfflie);
+        mainLayout = findViewById(R.id.main_layout);
 
         final Context context = this;
+        checkServerAvailability(context);
+
 
         gallery.setOnClickListener(new View.OnClickListener() {
 
@@ -115,47 +133,14 @@ public class MainActivity extends AppCompatActivity
         availability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cWakeUpServer wakeUpServer = new cWakeUpServer(context);
-                wakeUpServer.setListener(new cWakeUpServer.StringCallback() {
-                    @Override
-                    public void onSuccess(String response) {
-                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                wakeUpServer.wakeUp();
+                checkServerAvailability(context);
             }
         });
-    }
-
-    String run(String urlString) throws IOException {
-        java.net.URL url = new URL(urlString);
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        try {
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            InputStreamReader read = new InputStreamReader(in);
-            BufferedReader buff = new BufferedReader(read);
-            StringBuilder dta = new StringBuilder();
-            String chunks ;
-            while((chunks = buff.readLine()) != null)
-            {
-                dta.append(chunks);
-            }
-            Toast.makeText(this, dta.toString(), Toast.LENGTH_SHORT).show();
-            return null;
-        } finally {
-            urlConnection.disconnect();
-        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ImageView imageView = (ImageView) findViewById(R.id.imgView);
         ImageProcessor image = new ImageProcessor();
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
@@ -181,8 +166,7 @@ public class MainActivity extends AppCompatActivity
             imageView.setImageBitmap(photo);
         }
 
-
-        Classifier.classify(this, image.getImage());
+        //Classifier.classify(this, image.getImage());
     }
 
     @Override
@@ -257,5 +241,42 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void checkServerAvailability(final Context context){
+        cWakeUpServer wakeUpServer = new cWakeUpServer(context);
+        wakeUpServer.setListener(new cWakeUpServer.StringCallback() {
+            @Override
+            public void onSuccess(String response) {
+                serverLoading.setVisibility(View.GONE);
+                serverOffline.setVisibility(View.GONE);
+                serverOnline.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError(String message) {
+                serverLoading.setVisibility(View.GONE);
+                serverOnline.setVisibility(View.GONE);
+                serverOffline.setVisibility(View.VISIBLE);
+
+                Snackbar.make(mainLayout, "Server is not available", Snackbar.LENGTH_INDEFINITE).setAction("Reconnect", new MyUndoListener(context)).show();
+            }
+        });
+        wakeUpServer.wakeUp();
+    }
+
+    private class MyUndoListener implements View.OnClickListener{
+
+        private Context context;
+
+        MyUndoListener(Context context){
+            super();
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View v) {
+            checkServerAvailability(this.context);
+        }
     }
 }
