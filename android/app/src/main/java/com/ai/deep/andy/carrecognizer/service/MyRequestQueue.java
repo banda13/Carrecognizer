@@ -8,7 +8,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by szabog on 2018.10.26..
+ * Created by andy on 2018.10.26..
  */
 
 public class MyRequestQueue {

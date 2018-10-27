@@ -6,13 +6,14 @@ import android.widget.Toast;
 import com.ai.deep.andy.carrecognizer.callbacks.cClassIndices;
 import com.ai.deep.andy.carrecognizer.callbacks.cClassify;
 import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.request.StringRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -33,11 +34,12 @@ public class mRequests {
                         callback.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                callback.onError(error.getMessage());
-            }
-        });
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.getCause().printStackTrace();
+                        callback.onError(error.getMessage());
+                    }
+                });
 
         MyRequestQueue.getInstance(context).addToRequestQueue(wakeUpRequest);
     }
@@ -54,12 +56,35 @@ public class mRequests {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        error.getCause().printStackTrace();
                         callback.onError(error.getMessage());
                     }
                 });
         MyRequestQueue.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
+    public static void postImage(final Context context, String imagePath, String url, final cClassify.ClassificationCallback callback) {
+        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, apiUrl + url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            callback.onSuccess(jObj);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onError("json error");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onError(error.getMessage());
+            }
+        });
+        smr.addFile("image", imagePath);
+        MyRequestQueue.getInstance(context).addToRequestQueue(smr);
+    }
 
 
 }

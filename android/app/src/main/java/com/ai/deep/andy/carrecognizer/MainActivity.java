@@ -32,10 +32,15 @@ import android.widget.Toast;
 
 import com.ai.deep.andy.carrecognizer.ai.Classifier;
 import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
+import com.ai.deep.andy.carrecognizer.callbacks.cClassify;
 import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
+import com.ai.deep.andy.carrecognizer.utils.FileUtils;
+
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -56,8 +61,12 @@ public class MainActivity extends AppCompatActivity
     private ImageView serverOnline;
     private ImageView serverOffline;
     private RelativeLayout mainLayout;
+    private ImageButton classifyButton;
     private TextView classificationResult;
     private ProgressBar classificationProgress;
+    private DrawerLayout drawer;
+
+    private ImageProcessor imageProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -75,13 +84,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        camera = (FloatingActionButton) findViewById(R.id.camera);
-        gallery = (FloatingActionButton) findViewById(R.id.gallery);
+        camera = findViewById(R.id.camera);
+        gallery = findViewById(R.id.gallery);
         imageView = findViewById(R.id.imgView);
         serverLoading = findViewById(R.id.serverLoading);
         serverOnline = findViewById(R.id.serverOnline);
         serverOffline = findViewById(R.id.serverOfflie);
         mainLayout = findViewById(R.id.main_layout);
+        classifyButton = findViewById(R.id.classify);
+        classificationResult = findViewById(R.id.classificationResult);
+        classificationProgress = findViewById(R.id.classificationProgress);
 
         final Context context = this;
         checkServerAvailability(context);
@@ -120,17 +132,54 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
+
+        classifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(imageProcessor == null || imageProcessor.getImage() == null){
+                    Snackbar.make(drawer, "Please select or capture an image", Snackbar.LENGTH_SHORT).show();
+                }
+                else{
+                    classificationProgress.setVisibility(View.VISIBLE);
+                    classificationResult.setVisibility(View.GONE);
+
+                    final cClassify classifier = new cClassify(context);
+                    classifier.setListener(new cClassify.ClassificationCallback() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            classificationResult.setText(response.toString());
+                            classificationProgress.setVisibility(View.GONE);
+                            classificationResult.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onError(String message) {
+                            classificationResult.setText(message);
+                            classificationProgress.setVisibility(View.GONE);
+                            classificationResult.setVisibility(View.VISIBLE);
+                        }
+                    });
+
+                    classifier.classifyimage(imageProcessor.getImagePath());
+                }
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ImageProcessor image = new ImageProcessor();
+        imageProcessor = new ImageProcessor();
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
+            if(selectedImage == null){
+                Snackbar.make(drawer, "Selecting image failed", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
             Cursor cursor = getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
             cursor.moveToFirst();
@@ -139,16 +188,17 @@ public class MainActivity extends AppCompatActivity
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-            image.setImageFromUri(this, selectedImage);
-            imageView.setImageBitmap(image.getImage());
+            imageProcessor.setImageFromUri(this, selectedImage);
+            imageView.setImageBitmap(imageProcessor.getImage());
 
         }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            image.setImage(photo);
+            Uri tempUri = FileUtils.getImageUri(getApplicationContext(), photo);
+
+            imageProcessor.setImageFromUri(this, tempUri);
             imageView.setImageBitmap(photo);
         }
-
     }
 
     @Override
@@ -239,6 +289,8 @@ public class MainActivity extends AppCompatActivity
                 serverLoading.setVisibility(View.GONE);
                 serverOffline.setVisibility(View.GONE);
                 serverOnline.setVisibility(View.VISIBLE);
+
+                Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -247,7 +299,7 @@ public class MainActivity extends AppCompatActivity
                 serverOnline.setVisibility(View.GONE);
                 serverOffline.setVisibility(View.VISIBLE);
 
-                Snackbar.make(mainLayout, "Server is not available", Snackbar.LENGTH_INDEFINITE).setAction("Reconnect", new MyUndoListener(context)).show();
+                Snackbar.make(drawer, "Server is not available", Snackbar.LENGTH_INDEFINITE).setAction("Reconnect", new MyUndoListener(context)).show();
             }
         });
         wakeUpServer.wakeUp();
