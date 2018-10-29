@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
 
-                    classifier.classifyimage(imageProcessor.getImagePath());
+                    classifier.classifyimage(imageProcessor.getImage());
                 }
             }
         });

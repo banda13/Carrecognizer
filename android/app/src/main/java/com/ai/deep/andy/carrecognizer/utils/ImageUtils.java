@@ -5,7 +5,15 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
+import java.io.ByteArrayOutputStream;
+
 public class ImageUtils {
+
+    public static byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
 
     public static Bitmap getCroppedBitmap(Bitmap bitmap){
         Bitmap croppedBitmap = Bitmap.createBitmap(224, 224, Bitmap.Config.ARGB_8888);

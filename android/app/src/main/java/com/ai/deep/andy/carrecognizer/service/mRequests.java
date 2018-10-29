@@ -8,10 +8,9 @@ import com.ai.deep.andy.carrecognizer.callbacks.cClassify;
 import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.request.SimpleMultiPartRequest;
-import com.android.volley.request.StringRequest;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +35,9 @@ public class mRequests {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        error.getCause().printStackTrace();
+                        if(error.getCause() != null) {
+                            error.getCause().printStackTrace();
+                        }
                         callback.onError(error.getMessage());
                     }
                 });
@@ -64,7 +65,7 @@ public class mRequests {
     }
 
     public static void postImage(final Context context, String imagePath, String url, final cClassify.ClassificationCallback callback) {
-        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, apiUrl + url,
+        /*SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, apiUrl + url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -83,7 +84,8 @@ public class mRequests {
             }
         });
         smr.addFile("image", imagePath);
-        MyRequestQueue.getInstance(context).addToRequestQueue(smr);
+        MyRequestQueue.getInstance(context).addToRequestQueue(smr);*/
+        Toast.makeText(context, "Oopsie", Toast.LENGTH_SHORT).show();
     }
 
 
