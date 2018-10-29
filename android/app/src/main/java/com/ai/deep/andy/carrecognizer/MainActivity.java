@@ -125,10 +125,18 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.CAMERA)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.CAMERA},
-                                CAMERA_PERMISSION_CODE);
-
+                            != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED ) {
+                        if((checkSelfPermission(Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED)){
+                            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                    CAMERA_PERMISSION_CODE);
+                        }
+                        if((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                != PackageManager.PERMISSION_GRANTED)){
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    CAMERA_PERMISSION_CODE);
+                        }
                     } else {
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
@@ -201,6 +209,10 @@ public class MainActivity extends AppCompatActivity
 
         Collections.sort(resolvedPredictions,
                 (o1, o2) -> o2.getProbability().compareTo(o1.getProbability()));
+
+        if(resolvedPredictions.get(0).getProbability() < 0.1){
+            return "I can't recognize it, are you sure it's a car?";
+        }
 
         for(int i = 0; i < 3; i++){
             Prediction pred = resolvedPredictions.get(i);
