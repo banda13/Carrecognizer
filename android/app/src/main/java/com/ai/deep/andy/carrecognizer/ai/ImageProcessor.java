@@ -6,9 +6,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.ai.deep.andy.carrecognizer.callbacks.cClassIndices;
 import com.ai.deep.andy.carrecognizer.utils.Constants;
 import com.ai.deep.andy.carrecognizer.utils.FileUtils;
+
+import org.json.JSONObject;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -18,6 +22,8 @@ public class ImageProcessor {
 
     private Bitmap image;
     private String imagePath;
+
+    private JSONObject classIndices;
 
     public Bitmap getImage() {
         return image;
@@ -35,7 +41,31 @@ public class ImageProcessor {
         this.imagePath = imagePath;
     }
 
-    public void setImageFromUri(Context context, Uri uri){
+    public JSONObject getClassIndices() {
+        return classIndices;
+    }
+
+    public void setClassIndices(JSONObject classIndices) {
+        this.classIndices = classIndices;
+    }
+
+    public void setImageFromUri(final Context context, Uri uri){
+        final ImageProcessor thiz = this;
+        // TODO refactor class infices resolver
+        cClassIndices classIndicesResolver = new cClassIndices(context);
+        classIndicesResolver.setListener(new cClassIndices.JsonCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                Toast.makeText(context, "Class indices resolved..", Toast.LENGTH_SHORT).show();
+                thiz.classIndices = response;
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(context, "Failed to resolve class indices", Toast.LENGTH_SHORT).show();
+            }
+        });
+        classIndicesResolver.queryClassIndices();
         ParcelFileDescriptor parcelFileDescriptor =
                 null;
         try {

@@ -1,5 +1,9 @@
 package com.ai.deep.andy.carrecognizer.callbacks;
 
+import android.content.Context;
+
+import com.ai.deep.andy.carrecognizer.service.mRequests;
+
 import org.json.JSONObject;
 
 /**
@@ -8,9 +12,12 @@ import org.json.JSONObject;
 
 public class cClassIndices {
 
+    private static String url = "/classindices";
     private JsonCallback listener;
+    private Context context;
 
-    public cClassIndices() {
+    public cClassIndices(Context context) {
+        this.context = context;
     }
 
     public JsonCallback getListener() {
@@ -19,6 +26,10 @@ public class cClassIndices {
 
     public void setListener(JsonCallback listener) {
         this.listener = listener;
+    }
+
+    public void queryClassIndices(){
+        mRequests.getJSON(context, this.listener, url);
     }
 
     public interface JsonCallback {

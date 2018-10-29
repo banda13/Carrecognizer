@@ -47,7 +47,7 @@ public class mRequests {
 
     public static void getJSON(final Context context, final cClassIndices.JsonCallback callback, String url) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, apiUrl + url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {

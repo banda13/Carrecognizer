@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,8 +35,12 @@ import com.ai.deep.andy.carrecognizer.ai.Classifier;
 import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
 import com.ai.deep.andy.carrecognizer.callbacks.cClassify;
 import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
+import com.ai.deep.andy.carrecognizer.model.Prediction;
 import com.ai.deep.andy.carrecognizer.utils.FileUtils;
+import com.ai.deep.andy.carrecognizer.utils.JSONUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -46,6 +51,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -148,9 +157,15 @@ public class MainActivity extends AppCompatActivity
                     classifier.setListener(new cClassify.ClassificationCallback() {
                         @Override
                         public void onSuccess(JSONObject response) {
-                            classificationResult.setText(response.toString());
                             classificationProgress.setVisibility(View.GONE);
                             classificationResult.setVisibility(View.VISIBLE);
+
+                            try {
+                                String resolvedPredictions = resolvePredictions(response.getJSONArray("predictions"), imageProcessor.getClassIndices());
+                                classificationResult.setText(resolvedPredictions);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override
@@ -165,6 +180,33 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+    private String resolvePredictions(JSONArray predictions, JSONObject classIndices) throws JSONException {
+        StringBuilder response = new StringBuilder();
+        List<Prediction> resolvedPredictions = new ArrayList<>();
+
+        for(int i = 0; i < predictions.getJSONArray(0).length(); i ++){
+            Double prediction = predictions.getJSONArray(0).getDouble(i);
+            Iterator<String> keys = classIndices.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                int id = classIndices.getInt(key);
+                if(id == i){
+                    resolvedPredictions.add(new Prediction(prediction, key));
+                    break;
+                }
+            }
+        }
+
+        Collections.sort(resolvedPredictions,
+                (o1, o2) -> o2.getProbability().compareTo(o1.getProbability()));
+
+        for(int i = 0; i < 3; i++){
+            Prediction pred = resolvedPredictions.get(i);
+            response.append(pred.getLabel() + " : " +String.format( "%.2f", pred.getProbability() ) + "\n");
+        }
+        return response.toString();
     }
 
     @Override

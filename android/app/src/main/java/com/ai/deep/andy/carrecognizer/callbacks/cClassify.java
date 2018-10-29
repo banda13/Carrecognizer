@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class cClassify{
 
-    private static final String CLASSIFICATION_URL = "/classify";
+    private static final String CLASSIFICATION_URL = "https://carrecognizer.herokuapp.com/classify";
     private ClassificationCallback listener;
     private Context context;
 
@@ -59,16 +59,17 @@ public class cClassify{
                     public void onResponse(NetworkResponse response) {
                         try {
                             JSONObject obj = new JSONObject(new String(response.data));
-                            Toast.makeText(context, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                            listener.onSuccess(obj);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            listener.onError("Json error");
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        listener.onError(error.getMessage());
                     }
                 }) {
 
