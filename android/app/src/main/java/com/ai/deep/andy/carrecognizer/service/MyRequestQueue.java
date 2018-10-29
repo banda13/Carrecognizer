@@ -2,6 +2,7 @@ package com.ai.deep.andy.carrecognizer.service;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -17,6 +18,8 @@ public class MyRequestQueue {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
+
+    private int MY_SOCKET_TIMEOUT_MS = 20000;
 
     public static synchronized MyRequestQueue getInstance(Context context) {
         if (ourInstance == null) {
@@ -40,6 +43,12 @@ public class MyRequestQueue {
     }
 
     public <T> void addToRequestQueue(Request<T> req) {
+
+        req.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         getRequestQueue().add(req);
     }
 }
