@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,36 +30,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ai.deep.andy.carrecognizer.ai.Classifier;
 import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
 import com.ai.deep.andy.carrecognizer.callbacks.cClassify;
 import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
 import com.ai.deep.andy.carrecognizer.model.Prediction;
 import com.ai.deep.andy.carrecognizer.utils.FileUtils;
-import com.ai.deep.andy.carrecognizer.utils.JSONUtils;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static int RESULT_LOAD_IMAGE = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
+    private static final int WRITE_EXTERAL_PERMISSION_CODE = 101;
     private static final int CAMERA_REQUEST = 1888;
 
     private FloatingActionButton camera;
@@ -107,11 +99,11 @@ public class MainActivity extends AppCompatActivity
         final Context context = this;
         checkServerAvailability(context);
 
-
         gallery.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
+                    Logger.d("Opening gallery");
                     Intent i = new Intent(
                             Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -129,11 +121,13 @@ public class MainActivity extends AppCompatActivity
                             != PackageManager.PERMISSION_GRANTED ) {
                         if((checkSelfPermission(Manifest.permission.CAMERA)
                                 != PackageManager.PERMISSION_GRANTED)){
+                            Logger.d("Requesting camera permission..");
                             requestPermissions(new String[]{Manifest.permission.CAMERA},
                                     CAMERA_PERMISSION_CODE);
                         }
                         if((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                 != PackageManager.PERMISSION_GRANTED)){
+                            Logger.d("Requesting ");
                             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     CAMERA_PERMISSION_CODE);
                         }
@@ -216,7 +210,7 @@ public class MainActivity extends AppCompatActivity
 
         for(int i = 0; i < 3; i++){
             Prediction pred = resolvedPredictions.get(i);
-            response.append(pred.getLabel() + " : " +String.format( "%.2f", pred.getProbability() ) + "\n");
+            response.append(pred.getLabel()).append(" : ").append(String.format(Locale.ENGLISH, "%.2f", pred.getProbability())).append("\n");
         }
         return response.toString();
     }
@@ -333,6 +327,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkServerAvailability(final Context context){
+        Logger.d("Checking server availability..");
         serverLoading.setVisibility(View.VISIBLE);
         serverOffline.setVisibility(View.GONE);
         serverOnline.setVisibility(View.GONE);
@@ -344,7 +339,7 @@ public class MainActivity extends AppCompatActivity
                 serverOffline.setVisibility(View.GONE);
                 serverOnline.setVisibility(View.VISIBLE);
 
-                Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+                Logger.i("Server is available, version: " + response);
             }
 
             @Override
@@ -353,17 +348,18 @@ public class MainActivity extends AppCompatActivity
                 serverOnline.setVisibility(View.GONE);
                 serverOffline.setVisibility(View.VISIBLE);
 
-                Snackbar.make(drawer, "Server is not available", Snackbar.LENGTH_INDEFINITE).setAction("Reconnect", new MyUndoListener(context)).show();
+                Logger.e("Server is not available");
+                Snackbar.make(drawer, "Server is not available", Snackbar.LENGTH_INDEFINITE).setAction("Reconnect", new AvailabilitySnackListener(context)).show();
             }
         });
         wakeUpServer.wakeUp();
     }
 
-    private class MyUndoListener implements View.OnClickListener{
+    private class AvailabilitySnackListener implements View.OnClickListener{
 
         private Context context;
 
-        MyUndoListener(Context context){
+        AvailabilitySnackListener(Context context){
             super();
             this.context = context;
         }
