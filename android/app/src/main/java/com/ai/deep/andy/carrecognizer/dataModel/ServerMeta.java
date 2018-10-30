@@ -61,10 +61,4 @@ public class ServerMeta extends SugarRecord{
         this.classIndices = classIndices;
         this.classIndicesJson = new Gson().toJson(classIndices);
     }
-
-    @Override
-    public long save(){
-        this.classIndicesJson = new Gson().toJson(classIndices);
-        return super.save();
-    }
 }

@@ -168,6 +168,8 @@ public class MainActivity extends AppCompatActivity
                             image.setClassificationResults(response.getString("server_version"), response.getDouble("classification_duration"),
                                     response.getString("classificationId"), predictions);
 
+                            image.setMainPrediction(predictions.get(0).getLabel());
+
                             image.save();
                             Logger.i("Image updated with classification results");
 
@@ -206,16 +208,21 @@ public class MainActivity extends AppCompatActivity
             }
             Cursor cursor = getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
-            cursor.moveToFirst();
+            if (cursor != null) {
+                cursor.moveToFirst();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
 
-            image = new Image(this, selectedImage);
+                image = new Image(this, selectedImage);
 
-            imageView.setImageBitmap(image.getBitmap());
+                imageView.setImageBitmap(image.getBitmap());
 
+            }
+            else{
+                Logger.e("Cursor is null!");
+            }
         }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = null;
@@ -296,7 +303,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            Intent i = new Intent(MainActivity.this, GalleryActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
