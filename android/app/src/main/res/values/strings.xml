@@ -13,5 +13,5 @@
     <string name="oopsie_woopsie_an_error_occured">Oopsie woopsie, an error occured..</string>
     <string name="galleryimage_contentDescriptor">galleryImage</string>
     <string name="unknown_prediction">Unknown prediction</string>
-    <string name="not_found_recognized_image">Not found recognized image</string>
+    <string name="not_found_recognized_image">Not found recognized images</string>
 </resources>

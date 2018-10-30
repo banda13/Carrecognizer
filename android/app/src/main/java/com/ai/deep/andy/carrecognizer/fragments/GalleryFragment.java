@@ -1,4 +1,4 @@
-package com.ai.deep.andy.carrecognizer;
+package com.ai.deep.andy.carrecognizer.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ai.deep.andy.carrecognizer.R;
+import com.ai.deep.andy.carrecognizer.adapters.GalleryRecyclerViewAdapter;
 import com.ai.deep.andy.carrecognizer.dataModel.Image;
 
 import java.util.List;

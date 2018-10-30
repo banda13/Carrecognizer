@@ -38,6 +38,7 @@ import com.ai.deep.andy.carrecognizer.middleware.ServerStatusMiddleware;
 import com.ai.deep.andy.carrecognizer.dataModel.Prediction;
 import com.ai.deep.andy.carrecognizer.service.Callbacks;
 import com.ai.deep.andy.carrecognizer.utils.FileUtils;
+import com.ai.deep.andy.carrecognizer.utils.MenuHandler;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
@@ -294,33 +295,17 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            Intent i = new Intent(MainActivity.this, GalleryActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_slideshow) {
+        MenuHandler.handleNavigationItemSelection(id, this);
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void checkServerAvailability(final Context context){
+    public void checkServerAvailability(final Context context){
         Logger.d("Checking server availability..");
         serverLoading.setVisibility(View.VISIBLE);
         serverOffline.setVisibility(View.GONE);

@@ -1,4 +1,4 @@
-package com.ai.deep.andy.carrecognizer;
+package com.ai.deep.andy.carrecognizer.adapters;
 
 import android.annotation.SuppressLint;
 import android.graphics.BitmapFactory;
@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ai.deep.andy.carrecognizer.GalleryFragment.OnListFragmentInteractionListener;
+import com.ai.deep.andy.carrecognizer.fragments.GalleryFragment.OnListFragmentInteractionListener;
+import com.ai.deep.andy.carrecognizer.R;
 import com.ai.deep.andy.carrecognizer.dataModel.Image;
 import com.orhanobut.logger.Logger;
 
@@ -26,7 +27,7 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 
-    GalleryRecyclerViewAdapter(List<Image> items, OnListFragmentInteractionListener listener) {
+    public GalleryRecyclerViewAdapter(List<Image> items, OnListFragmentInteractionListener listener) {
         Logger.i("Initializing recycle view with " + items.size() + " image");
         mValues = items;
         mListener = listener;

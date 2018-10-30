@@ -43,7 +43,6 @@
             android:layout_alignParentRight="true"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_done_black_24dp"
             android:contentDescription="@string/galleryimage_contentDescriptor" />
 
     </RelativeLayout>
