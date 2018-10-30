@@ -1,5 +1,6 @@
 package com.ai.deep.andy.carrecognizer.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -12,16 +13,16 @@ import com.android.volley.toolbox.Volley;
  * Created by andy on 2018.10.26..
  */
 
+@SuppressLint("StaticFieldLeak")
 public class MyRequestQueue {
 
     private static MyRequestQueue ourInstance;
     private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
     private static Context mCtx;
 
-    private int MY_SOCKET_TIMEOUT_MS = 20000;
+    private static final int MY_SOCKET_TIMEOUT_MS = 30000;
 
-    public static synchronized MyRequestQueue getInstance(Context context) {
+    static synchronized MyRequestQueue getInstance(Context context) {
         if (ourInstance == null) {
             ourInstance = new MyRequestQueue(context);
         }
@@ -33,7 +34,7 @@ public class MyRequestQueue {
         mRequestQueue = getRequestQueue();
     }
 
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
@@ -42,8 +43,7 @@ public class MyRequestQueue {
         return mRequestQueue;
     }
 
-    public <T> void addToRequestQueue(Request<T> req) {
-
+    <T> void addToRequestQueue(Request<T> req) {
         req.setRetryPolicy(new DefaultRetryPolicy(
                 MY_SOCKET_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
