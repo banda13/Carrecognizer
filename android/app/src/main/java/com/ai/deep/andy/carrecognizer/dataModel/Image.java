@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 
 import com.ai.deep.andy.carrecognizer.utils.FileUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
@@ -14,6 +16,7 @@ import com.orm.dsl.Ignore;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +33,10 @@ public class Image extends SugarRecord{
 
     private Date captured;
 
-    private List<Prediction> predictions;
+    @Ignore
+    private List<Prediction> predictions  = new ArrayList<>();
+
+    private String predictionJson;
 
     private Date lastClassificationDate;
 
@@ -54,6 +60,7 @@ public class Image extends SugarRecord{
             parcelFileDescriptor.close();
 
             path = FileUtils.getPath(context, uri);
+            captured = new Date();
 
             Logger.i("Image create from uri: " + uri.getPath());
         } catch (FileNotFoundException e) {
@@ -88,11 +95,21 @@ public class Image extends SugarRecord{
     }
 
     public List<Prediction> getPredictions() {
-        return predictions;
+        Gson gson = new Gson();
+        return gson.fromJson(this.predictionJson,new TypeToken<List<Prediction>>(){}.getType());
     }
 
     public void setPredictions(List<Prediction> predictions) {
         this.predictions = predictions;
+        this.predictionJson = new Gson().toJson(predictions);
+    }
+
+    public String getPredictionJson() {
+        return predictionJson;
+    }
+
+    public void setPredictionJson(String predictionJson) {
+        this.predictionJson = predictionJson;
     }
 
     public Date getLastClassificationDate() {
@@ -133,5 +150,12 @@ public class Image extends SugarRecord{
         this.serverVersion = serverVersion;
         this.classificationId = classificationId;
         this.predictions = predictions;
+    }
+
+
+    @Override
+    public long save(){
+        this.predictionJson = new Gson().toJson(predictions);
+        return super.save();
     }
 }

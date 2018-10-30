@@ -14,6 +14,9 @@ public class ClassIndex extends SugarRecord{
 
     private int carIndex;
 
+    public ClassIndex() {
+    }
+
     public ClassIndex(String label, int id) {
         this.label = label;
         this.carIndex = id;

@@ -35,7 +35,7 @@ public class Classifier {
     public static Classifier getInstance() {
 
         if (serverMeta == null) {
-            ServerMeta.findById(ServerMeta.class, DatabaseConstans.serverId);
+            serverMeta = ServerMeta.findById(ServerMeta.class, DatabaseConstans.serverId);
             if(serverMeta != null) {
                 Logger.i("Server metadata loaded. Version: " + serverMeta.getVersion());
             }
@@ -59,8 +59,8 @@ public class Classifier {
         serverMeta.save();
     }
 
-    public void addNewServerVersion(ServerMeta serverMeta, Context context) {
-        Logger.i("Setting new server version: " + serverMeta.getVersion());
+    public void addNewServerVersion(ServerMeta newServerMeta, Context context) {
+        Logger.i("Setting new server version: " + newServerMeta.getVersion());
 
         ClassIndicesMiddleware classIndicesMiddleware = new ClassIndicesMiddleware(context, new Callbacks.JSONCallback() {
             @Override
@@ -70,6 +70,8 @@ public class Classifier {
                     int deleted = ClassIndex.deleteAll(ClassIndex.class);
                     Logger.i(deleted + " old class indices were deleted");
                     int newIndices = 0;
+
+                    ClassIndex.deleteAll(ClassIndex.class);
                     while (keys.hasNext()) {
                         String key = keys.next();
                         int id = 0;
@@ -78,18 +80,19 @@ public class Classifier {
                         index.save();
                         newIndices ++;
                     }
-                    ClassIndex.deleteAll(ClassIndex.class);
+
                     try {
-                        serverMeta.setClassIndices((List<ClassIndex>) ClassIndex.findAll(ClassIndex.class));
+                        List<ClassIndex> indexList = ClassIndex.listAll(ClassIndex.class);
+                        newServerMeta.setClassIndices(indexList);
                     } catch (Exception e){
                         Logger.e("Cast exception while converting class indices", e);
                     }
                     Logger.i(newIndices + " new index saved");
 
-                    Classifier.serverMeta = serverMeta;
-                    serverMeta.setId(DatabaseConstans.serverId);
-                    ServerMeta.save(serverMeta);
-                    Logger.i("Setting new server version was successful: " + serverMeta.getVersion());
+                    Classifier.serverMeta = newServerMeta;
+                    Classifier.serverMeta.setId(DatabaseConstans.serverId);
+                    ServerMeta.save(Classifier.serverMeta);
+                    Logger.i("Setting new server version was successful: " + Classifier.serverMeta.getVersion());
                 } catch (JSONException e) {
                     Logger.e("Failed to set new server version due to JSONException", e);
                 }
