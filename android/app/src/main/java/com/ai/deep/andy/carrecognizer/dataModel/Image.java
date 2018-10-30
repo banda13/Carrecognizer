@@ -1,10 +1,19 @@
 package com.ai.deep.andy.carrecognizer.dataModel;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 
+import com.ai.deep.andy.carrecognizer.utils.FileUtils;
+import com.orhanobut.logger.Logger;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +41,26 @@ public class Image extends SugarRecord{
     private String classificationId;
 
     public Image() {
+    }
+
+    public Image(final Context context, Uri uri){
+        ParcelFileDescriptor parcelFileDescriptor =
+                null;
+        try {
+            parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r");
+
+            FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+            bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            parcelFileDescriptor.close();
+
+            path = FileUtils.getPath(context, uri);
+
+            Logger.i("Image create from uri: " + uri.getPath());
+        } catch (FileNotFoundException e) {
+            Logger.e("Cannot create image from URI: " + uri.getPath(), e);
+        } catch (IOException e) {
+            Logger.e("Cannot create image from URI: " + uri.getPath(), e);
+        }
     }
 
     public String getPath() {
@@ -96,5 +125,13 @@ public class Image extends SugarRecord{
 
     public void setClassificationId(String classificationId) {
         this.classificationId = classificationId;
+    }
+
+    public void setClassificationResults(String serverVersion, Double classificationDuration, String classificationId, List<Prediction> predictions){
+        this.lastClassificationDate = new Date();
+        this.classificationDuration = classificationDuration;
+        this.serverVersion = serverVersion;
+        this.classificationId = classificationId;
+        this.predictions = predictions;
     }
 }

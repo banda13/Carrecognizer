@@ -43,7 +43,13 @@ public class RequestHandler {
                 (Request.Method.GET, url, null,
                         callback::onSuccess,
                         error -> {
-                            Logger.e("Volley error in json request", error.getCause());
+                            if(error.getCause() != null) {
+                                Logger.e("Volley error in json request", error.getCause());
+                            }
+                            else{
+                                Logger.e("Volley error in json request");
+
+                            }
                             callback.onError(error.getMessage());
                         });
         MyRequestQueue.getInstance(context).addToRequestQueue(jsonObjectRequest);

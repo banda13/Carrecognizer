@@ -30,10 +30,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ai.deep.andy.carrecognizer.ai.ImageProcessor;
-import com.ai.deep.andy.carrecognizer.callbacks.cClassify;
-import com.ai.deep.andy.carrecognizer.callbacks.cWakeUpServer;
-import com.ai.deep.andy.carrecognizer.model.Prediction;
+import com.ai.deep.andy.carrecognizer.ai.Classifier;
+import com.ai.deep.andy.carrecognizer.dataModel.Image;
+import com.ai.deep.andy.carrecognizer.dataModel.ServerMeta;
+import com.ai.deep.andy.carrecognizer.middleware.ClassificationMiddleware;
+import com.ai.deep.andy.carrecognizer.middleware.ServerStatusMiddleware;
+import com.ai.deep.andy.carrecognizer.dataModel.Prediction;
+import com.ai.deep.andy.carrecognizer.service.Callbacks;
 import com.ai.deep.andy.carrecognizer.utils.FileUtils;
 import com.orhanobut.logger.Logger;
 
@@ -67,12 +70,13 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar classificationProgress;
     private DrawerLayout drawer;
 
-    private ImageProcessor imageProcessor;
+    private Image image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -99,126 +103,98 @@ public class MainActivity extends AppCompatActivity
         final Context context = this;
         checkServerAvailability(context);
 
-        gallery.setOnClickListener(new View.OnClickListener() {
+        //TODO read image from bundle
 
-                @Override
-                public void onClick(View arg0) {
-                    Logger.d("Opening gallery");
-                    Intent i = new Intent(
-                            Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        gallery.setOnClickListener(arg0 -> {
+            Logger.d("Starting intent with result code " + RESULT_LOAD_IMAGE + " to open gallery");
+            Intent i = new Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                    startActivityForResult(i, RESULT_LOAD_IMAGE);
-                }
+            startActivityForResult(i, RESULT_LOAD_IMAGE);
         });
 
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA)
-                            != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED ) {
-                        if((checkSelfPermission(Manifest.permission.CAMERA)
-                                != PackageManager.PERMISSION_GRANTED)){
-                            Logger.d("Requesting camera permission..");
-                            requestPermissions(new String[]{Manifest.permission.CAMERA},
-                                    CAMERA_PERMISSION_CODE);
-                        }
-                        if((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                != PackageManager.PERMISSION_GRANTED)){
-                            Logger.d("Requesting ");
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    CAMERA_PERMISSION_CODE);
-                        }
-                    } else {
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        camera.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED ) {
+                    if((checkSelfPermission(Manifest.permission.CAMERA)
+                            != PackageManager.PERMISSION_GRANTED)){
+                        Logger.d("Requesting camera permission: " + CAMERA_PERMISSION_CODE);
+                        requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                CAMERA_PERMISSION_CODE);
                     }
-                }
-                else{
+                    if((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED)){
+                        Logger.d("Requesting external storage permission: " + WRITE_EXTERAL_PERMISSION_CODE);
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                CAMERA_PERMISSION_CODE);
+                    }
+                } else {
+                    Logger.d("Permissions ok, starting camera activity with result code " + CAMERA_REQUEST);
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 }
             }
-
-        });
-
-        classifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(imageProcessor == null || imageProcessor.getImage() == null){
-                    Snackbar.make(drawer, "Please select or capture an image", Snackbar.LENGTH_SHORT).show();
-                }
-                else{
-                    classificationProgress.setVisibility(View.VISIBLE);
-                    classificationResult.setVisibility(View.GONE);
-
-                    final cClassify classifier = new cClassify(context);
-                    classifier.setListener(new cClassify.ClassificationCallback() {
-                        @Override
-                        public void onSuccess(JSONObject response) {
-                            classificationProgress.setVisibility(View.GONE);
-                            classificationResult.setVisibility(View.VISIBLE);
-
-                            try {
-                                String resolvedPredictions = resolvePredictions(response.getJSONArray("predictions"), imageProcessor.getClassIndices());
-                                classificationResult.setText(resolvedPredictions);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onError(String message) {
-                            classificationResult.setText(message);
-                            classificationProgress.setVisibility(View.GONE);
-                            classificationResult.setVisibility(View.VISIBLE);
-                        }
-                    });
-
-                    classifier.classifyimage(imageProcessor.getImage());
-                }
+            else{
+                Logger.w("Build version is lower than " + Build.VERSION_CODES.M + " no need for permission request");
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         });
-    }
 
-    private String resolvePredictions(JSONArray predictions, JSONObject classIndices) throws JSONException {
-        StringBuilder response = new StringBuilder();
-        List<Prediction> resolvedPredictions = new ArrayList<>();
+        classifyButton.setOnClickListener(view -> {
 
-        for(int i = 0; i < predictions.getJSONArray(0).length(); i ++){
-            Double prediction = predictions.getJSONArray(0).getDouble(i);
-            Iterator<String> keys = classIndices.keys();
-            while(keys.hasNext()) {
-                String key = keys.next();
-                int id = classIndices.getInt(key);
-                if(id == i){
-                    resolvedPredictions.add(new Prediction(prediction, key));
-                    break;
-                }
+            if(image == null || image.getBitmap() == null){
+                Logger.e("No image was selected, classification can't start");
+                Snackbar.make(drawer, "Please select or capture an image", Snackbar.LENGTH_SHORT).show();
             }
-        }
+            else{
+                classificationProgress.setVisibility(View.VISIBLE);
+                classificationResult.setVisibility(View.GONE);
 
-        Collections.sort(resolvedPredictions,
-                (o1, o2) -> o2.getProbability().compareTo(o1.getProbability()));
+                ClassificationMiddleware classificationMiddleware = new ClassificationMiddleware(context, new Callbacks.JSONCallback() {
+                    @Override
+                    public void onSuccess(JSONObject response) {
+                        Logger.i("Classification ended for image" + image.getPath());
+                        classificationProgress.setVisibility(View.GONE);
+                        classificationResult.setVisibility(View.VISIBLE);
 
-        if(resolvedPredictions.get(0).getProbability() < 0.1){
-            return "I can't recognize it, are you sure it's a car?";
-        }
+                        try {
+                            List<Prediction> predictions = Classifier.getInstance().getPredictions(response.getJSONArray("predictions"));
+                            String resolvedPredictions = Classifier.getInstance().getTopPredictionsAsString(3, predictions);
 
-        for(int i = 0; i < 3; i++){
-            Prediction pred = resolvedPredictions.get(i);
-            response.append(pred.getLabel()).append(" : ").append(String.format(Locale.ENGLISH, "%.2f", pred.getProbability())).append("\n");
-        }
-        return response.toString();
+                            image.setClassificationResults(response.getString("server_version"), response.getDouble("classification_duration"),
+                                    response.getString("classificationId"), predictions);
+
+                            image.save();
+                            Logger.i("Image updated with classification results");
+
+                            Logger.i("Prediction for image: " + resolvedPredictions);
+                            classificationResult.setText(resolvedPredictions);
+                        } catch (JSONException e) {
+                            Logger.e("Json processing error while resolving predictions: ", e);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        Logger.e("Classification error: " + message);
+                        classificationResult.setText(message);
+                        classificationProgress.setVisibility(View.GONE);
+                        classificationResult.setVisibility(View.VISIBLE);
+                    }
+                });
+                classificationMiddleware.call(image.getBitmap());
+                Logger.d("Classification started for image: " + image.getPath());
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        imageProcessor = new ImageProcessor();
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
@@ -236,16 +212,27 @@ public class MainActivity extends AppCompatActivity
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-            imageProcessor.setImageFromUri(this, selectedImage);
-            imageView.setImageBitmap(imageProcessor.getImage());
+            image = new Image(this, selectedImage);
+
+            imageView.setImageBitmap(image.getBitmap());
 
         }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            Uri tempUri = FileUtils.getImageUri(getApplicationContext(), photo);
-
-            imageProcessor.setImageFromUri(this, tempUri);
-            imageView.setImageBitmap(photo);
+            Bitmap photo = null;
+            if (data != null) {
+                photo = (Bitmap) data.getExtras().get("data");
+                if(photo != null) {
+                    Uri tempUri = FileUtils.getImageUri(getApplicationContext(), photo);
+                    image = new Image(this, tempUri);
+                    imageView.setImageBitmap(photo);
+                }
+                else{
+                    Logger.e("Cannot set image because its null");
+                }
+            }
+            else{
+                Logger.e("Cannot set image because its null");
+            }
         }
     }
 
@@ -254,16 +241,15 @@ public class MainActivity extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new
                         Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+                Logger.e("Camera permission denied");
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show();
             }
-
         }
-
     }
 
     @Override
@@ -331,15 +317,31 @@ public class MainActivity extends AppCompatActivity
         serverLoading.setVisibility(View.VISIBLE);
         serverOffline.setVisibility(View.GONE);
         serverOnline.setVisibility(View.GONE);
-        cWakeUpServer wakeUpServer = new cWakeUpServer(context);
-        wakeUpServer.setListener(new cWakeUpServer.StringCallback() {
+        ServerStatusMiddleware serverStatusMiddleware = new ServerStatusMiddleware(context, new Callbacks.JSONCallback() {
             @Override
-            public void onSuccess(String response) {
+            public void onSuccess(JSONObject response) {
                 serverLoading.setVisibility(View.GONE);
                 serverOffline.setVisibility(View.GONE);
                 serverOnline.setVisibility(View.VISIBLE);
 
-                Logger.i("Server is available, version: " + response);
+                try {
+                    String serverVersion = response.getString("version");
+                    Double estimatedClassificationTime = response.getDouble("class_time");
+                    Logger.i("Server is available, version: " + serverVersion + " estimated classtime: " + estimatedClassificationTime);
+
+                    if(Classifier.getInstance().getServerMeta() == null || !Classifier.getInstance().getServerMeta().getVersion().equals(serverVersion)){
+                        ServerMeta meta = new ServerMeta();
+                        meta.setVersion(serverVersion);
+                        meta.setEstimatedClassificationTime(estimatedClassificationTime);
+                        Classifier.getInstance().addNewServerVersion(meta, context);
+                    }
+                    else{
+                        Classifier.getInstance().updateEstimatedClassificationTime(estimatedClassificationTime);
+                    }
+
+                } catch (JSONException e) {
+                    Logger.e("Json processing error in server status result processing:", e);
+                }
             }
 
             @Override
@@ -352,7 +354,7 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(drawer, "Server is not available", Snackbar.LENGTH_INDEFINITE).setAction("Reconnect", new AvailabilitySnackListener(context)).show();
             }
         });
-        wakeUpServer.wakeUp();
+        serverStatusMiddleware.call();
     }
 
     private class AvailabilitySnackListener implements View.OnClickListener{

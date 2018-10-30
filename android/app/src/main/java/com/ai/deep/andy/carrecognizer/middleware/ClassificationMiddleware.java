@@ -33,7 +33,7 @@ public class ClassificationMiddleware extends AbstractMiddleware{
         super(context, listener);
     }
 
-    protected void call(Bitmap bitmap) {
+    public void call(Bitmap bitmap) {
         Logger.i("Classifying image started");
         RequestHandler.multipartPostRequest(context, bitmap, EndpointURL.CLASSIFICATION_URL, (Callbacks.JSONCallback) listener);
     }

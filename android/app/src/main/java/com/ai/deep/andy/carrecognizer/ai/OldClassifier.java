@@ -53,7 +53,6 @@ public class OldClassifier {
         top_model.run(new String[] {TOP_INPUT_NODES}, false);
         top_model.fetch(TOP_OUTPUT_NODES, results2);
 
-        Log.i(Constants.LogTag, results2.toString());
         return "juppi";
     }
 

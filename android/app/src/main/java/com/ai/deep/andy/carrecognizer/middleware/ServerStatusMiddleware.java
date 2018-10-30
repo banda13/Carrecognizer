@@ -17,9 +17,9 @@ public class ServerStatusMiddleware extends AbstractMiddleware{
         super(context, listener);
     }
 
-    public void use(){
+    public void call(){
         Logger.d("Checking server status");
-        RequestHandler.jsonRequest(context, (Callbacks.JSONCallback) listener, EndpointURL.SERVER_STATUS);
+        RequestHandler.jsonRequest(context, (Callbacks.JSONCallback) listener, EndpointURL.SERVER_STATUS + "/android/test");
     }
 
 }

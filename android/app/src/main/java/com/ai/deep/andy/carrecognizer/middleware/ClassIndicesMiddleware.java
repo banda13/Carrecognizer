@@ -17,7 +17,7 @@ public class ClassIndicesMiddleware extends AbstractMiddleware{
         super(context, listener);
     }
 
-    public void use(){
+    public void call(){
         Logger.d("Querying class indices started");
         RequestHandler.jsonRequest(context, (Callbacks.JSONCallback) this.listener, EndpointURL.CLASS_INDICES);
     }
