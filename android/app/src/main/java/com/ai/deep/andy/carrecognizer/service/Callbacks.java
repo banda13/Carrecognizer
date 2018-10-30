@@ -8,14 +8,16 @@ import org.json.JSONObject;
 
 public class Callbacks {
 
-    public interface StringCallback {
+    public interface AbstractCallback{}
+
+    public interface StringCallback extends AbstractCallback{
 
         void onSuccess(String response);
 
         void onError(String message);
     }
 
-    public interface JSONCallback {
+    public interface JSONCallback extends AbstractCallback{
 
         void onSuccess(JSONObject response);
 

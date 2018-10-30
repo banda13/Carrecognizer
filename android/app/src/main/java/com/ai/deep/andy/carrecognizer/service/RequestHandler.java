@@ -49,7 +49,7 @@ public class RequestHandler {
         MyRequestQueue.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
-    public void multipartPostRequest(final Context context, final Bitmap bitmap, String url, Callbacks.JSONCallback listener) {
+    public static void multipartPostRequest(final Context context, final Bitmap bitmap, String url, Callbacks.JSONCallback listener) {
         Logger.t("REQUEST").d("Multipart post request for: " + url);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 response -> {
