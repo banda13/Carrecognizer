@@ -1,69 +1,83 @@
 package com.ai.deep.andy.carrecognizer.ai;
+
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.util.Log;
 
-import com.ai.deep.andy.carrecognizer.utils.Constants;
-import com.ai.deep.andy.carrecognizer.utils.FileUtils;
-import com.ai.deep.andy.carrecognizer.utils.ImageUtils;
+import com.ai.deep.andy.carrecognizer.middleware.ClassIndicesMiddleware;
+import com.ai.deep.andy.carrecognizer.dataModel.ClassIndex;
+import com.ai.deep.andy.carrecognizer.dataModel.DatabaseConstans;
+import com.ai.deep.andy.carrecognizer.dataModel.ServerMeta;
+import com.ai.deep.andy.carrecognizer.service.Callbacks;
+import com.orhanobut.logger.Logger;
 
-import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.nio.FloatBuffer;
+import java.util.Iterator;
+
+/**
+ * Created by Szabó András on 2018. 10. 30..
+ */
 
 public class Classifier {
 
-    private static final String LABELS_FILE = "file:///android_asset/labels.txt";
-    private static final int imageSize = 224;
-    private static final int NUM_CHANGELS = 3;
+    private static final Classifier ourInstance = new Classifier();
 
-    private static final String BOTTLENECK_MODEL_PATH = "file:///android_asset/bottleneck_graph.pb";
-    private static final String BOTTLENECK_INPUT_NODES = "input_1";
-    private static final String BOTTLENECK_OUTPUT_NODES = "block5_pool/MaxPool";
+    private static ServerMeta serverMeta;
 
-    private static final String TOP_MODEL_PATH = "file:///android_asset/top_graph.pb";
-    private static final String TOP_INPUT_NODES = "flatten_1_input";
-    private static final String TOP_OUTPUT_NODES = "dense_2/Softmax";
+    public static Classifier getInstance() {
 
-    private static int [] imageBitmapPixels = new int[imageSize * imageSize];
-    private static float [] imageNormalizedPixels =  new float[imageSize * imageSize * NUM_CHANGELS];
-    private static float[] results = new float[7*7*512];
-    private static float[] results2 = new float[4];
+        if (serverMeta == null) {
+            ServerMeta.findById(ServerMeta.class, DatabaseConstans.serverId);
+            Logger.i("Server metadata loaded. Version: " + serverMeta.getVersion());
+        }
 
-
-    public static String classify(Context context, Bitmap image){
-        TensorFlowInferenceInterface bottleneck_model = new TensorFlowInferenceInterface(context.getAssets(), BOTTLENECK_MODEL_PATH);
-        TensorFlowInferenceInterface top_model = new TensorFlowInferenceInterface(context.getAssets(), TOP_MODEL_PATH);
-
-        Bitmap croppedBitmap = ImageUtils.getCroppedBitmap(image);
-        preProcessImage(croppedBitmap);
-
-        String[] labels = FileUtils.getLabels(context.getAssets(), LABELS_FILE);
-
-        bottleneck_model.feed(BOTTLENECK_INPUT_NODES, imageNormalizedPixels, 1L, imageSize, imageSize, NUM_CHANGELS);
-        bottleneck_model.run(new String[] {BOTTLENECK_OUTPUT_NODES}, false);
-        bottleneck_model.fetch(BOTTLENECK_OUTPUT_NODES, results);
-
-        float[][] asd = new float[3][3];
-        top_model.feed(TOP_INPUT_NODES, results, 1L, 7, 7,  512);
-        top_model.run(new String[] {TOP_INPUT_NODES}, false);
-        top_model.fetch(TOP_OUTPUT_NODES, results2);
-
-        Log.i(Constants.LogTag, results2.toString());
-        return "juppi";
+        return ourInstance;
     }
 
-    private static  void preProcessImage(Bitmap bitmap){
-        int imageMean = 128;
-        float imageStd = 128.0f;
-        bitmap.getPixels(imageBitmapPixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+    private Classifier() {
+    }
 
-        for(int i = 0; i < imageBitmapPixels.length; i++){
-            int pix = imageBitmapPixels[i];
-            imageNormalizedPixels[i * 3 + 0] = (float)((pix >> 16 & 255) - imageMean) / imageStd;
-            imageNormalizedPixels[i * 3 + 1] = (float)((pix >> 8 & 255) - imageMean) / imageStd;
-            imageNormalizedPixels[i * 3 + 2] = (float)((pix & 255) - imageMean) / imageStd;
-        }
+    public ServerMeta getServerMeta() {
+        return serverMeta;
+    }
+
+    public void addNewServerVersion(ServerMeta serverMeta, Context context) {
+        Logger.i("Setting new server version: " + serverMeta.getVersion());
+
+        ClassIndicesMiddleware classIndicesResolver = new ClassIndicesMiddleware(context, new Callbacks.JSONCallback() {
+            @Override
+            public void onSuccess(JSONObject classIndices) {
+                try {
+                    Iterator<String> keys = classIndices.keys();
+                    int deleted = ClassIndex.deleteAll(ClassIndex.class);
+                    Logger.i(deleted + " old class indices were deleted");
+                    int newIndices = 0;
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        int id = 0;
+                        id = classIndices.getInt(key);
+                        ClassIndex index = new ClassIndex(key, id);
+                        index.save();
+                        newIndices ++;
+                    }
+                    serverMeta.setClassIndices(ClassIndex.findAll(ClassIndex.class));
+                    Logger.i(newIndices + " new index saved");
+
+                    Classifier.serverMeta = serverMeta;
+                    serverMeta.setId(DatabaseConstans.serverId);
+                    ServerMeta.save(serverMeta);
+                    Logger.i("Setting new server version was successful: " + serverMeta.getVersion());
+                } catch (JSONException e) {
+                    Logger.e("Failed to set new server version due to JSONException", e);
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                Logger.e("New server version was not set: " + message);
+            }
+        }).use();
+
+        Logger.d("Resolving class indices for new server version started");
     }
 }
