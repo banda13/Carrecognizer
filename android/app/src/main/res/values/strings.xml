@@ -14,4 +14,5 @@
     <string name="galleryimage_contentDescriptor">galleryImage</string>
     <string name="unknown_prediction">Unknown prediction</string>
     <string name="not_found_recognized_image">Not found recognized images</string>
+    <string name="title_activity_categories">CategoriesActivity</string>
 </resources>
