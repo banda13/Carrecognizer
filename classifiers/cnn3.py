@@ -25,7 +25,7 @@ import tensorflow as tf
 class Cnn3(object):
 
     def __init__(self, mid=None):
-        self.img_width, self.img_height = 128, 128
+        self.img_width, self.img_height = 250, 250
         if mid is None:
             self.id = uuid.uuid4()
             print("Creating new classifier with id ", str(self.id))

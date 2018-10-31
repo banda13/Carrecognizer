@@ -19,8 +19,14 @@ class VggPreClassifier(object):
     bad_vgg_categories = ["car_mirror", "neck_brace", "knee_pad", "odometer", "seat_belt", "gasmask", "backpack", "magnetic_compass",
                           "can_opener", "carpenter's_kit", "dumbbell", "binoculars", "paper_towel", "mask", "cassette_player",
                           "disk_brake", "radio", "oil_filter", "bulletproof_vest", "spotlight", "tape_player", "projector",
-                          "reel", "envelope", "wardrobe", "CD_player", "oxygen_mask", "sunglasses", "reflex_camera"]
-    percentage_limit = 0.1
+                          "reel", "envelope", "wardrobe", "CD_player", "oxygen_mask", "sunglasses", "reflex_camera", "web_site",
+                          "parking_meter", "monitor", "hand_blower", "cassette", "binder", "rotisserie", "submarine", "refrigerator",
+                          "lotion", "stove", "hook", "lighter", "barber_chair", "radiator", "washer", "projector", "lighter",
+                          "projector", "Windsor_tie", "slide_rule", "espresso_maker", "suit", "whistle", "hook", "iPod", "street_sign",
+                          "paper_towel", "book_jacket", "cellular_telephone", "bookshop", "puck", "sunscreen",
+                          "bathing_cap", "cash_machine", "plastic_bag", "bathtub", "Band_Aid", "switch", "tennis_ball",
+                          "digital_clock", ]
+    percentage_limit = 0.05
 
     def __init__(self):
         self.model = VGG16()
