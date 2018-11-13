@@ -164,9 +164,7 @@ class Cnn3(object):
             self.model.add(Dropout(0.5))
             self.model.add(MaxPooling2D(pool_size=(2, 2)))
 
-            self.model.add(GlobalAveragePooling2D())
-
-            self.model.add(Flatten())
+            self.model.add(Flatten(input_shape=train_data.shape[1:]))
             self.model.add(Dense(128, activation='relu'))
             self.model.add(Dropout(0.5))
             self.model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))

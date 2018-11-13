@@ -10,15 +10,17 @@ from keras.layers import Dropout, Flatten, Dense, regularizers, Convolution2D, M
 
 # path to the model weights files.
 weights_path = 'pre_train/vgg16_weights.h5'
-top_model_weights_path = '../model/bottleneck/bottleneck_080e858c-1fb9-42f8-a933-fa3c10900367.h5'
+#top_model_weights_path = '../model/bottleneck/bottleneck_080e858c-1fb9-42f8-a933-fa3c10900367.h5'
+#top_model_weights_path = '../model/bottleneck/bottleneck_2984277f-51b3-4567-b55a-83fb4c1874be.h5'
+top_model_weights_path = '../model/bottleneck/bottleneck_215cde26-ad77-4c58-abe3-f26098878e0c.h5'
 # dimensions of our images.
-img_width, img_height = 224, 224
+img_width, img_height = 250, 250
 
 train_data_dir = '../data//train'
 validation_data_dir = '../data/test'
-epochs = 25
+epochs = 100
 batch_size = 16
-num_classes = 19
+num_classes = 17
 
 # build the VGG16 network
 base_model = applications.VGG16(weights='imagenet', include_top=False, input_shape=(img_width, img_height, 3))
@@ -50,14 +52,18 @@ for layer in model.layers[:15]:
 
 # compile the model with a SGD/momentum optimizer
 # and a very slow learning rate.
-model.compile(optimizer=optimizers.SGD(lr=1e-5, momentum=0.5), loss='categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer=optimizers.SGD(lr=1e-5, momentum=0.6), loss='categorical_crossentropy', metrics=['accuracy'])
 
 # prepare data augmentation configuration
 train_datagen = ImageDataGenerator(
-    rescale=1. / 255,
-    shear_range=0.2,
-    zoom_range=0.2,
-    horizontal_flip=True)
+        rotation_range=30,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        rescale=1./255,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest')
 
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 
@@ -86,7 +92,7 @@ try:
         validation_data=validation_generator,
         nb_val_samples=nb_validation_samples // batch_size)
 
-    model.save("asd.h5")
+    model.save("vege.h5")
 
     plt.figure(1)
     plt.subplot(211)
@@ -104,9 +110,9 @@ try:
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig("statistics/" + 'asd' + "_" + str(time.time()) + ".png")
+    plt.savefig("../statistics/" + 'vege' + "_" + str(time.time()) + ".png")
 
-    with open('statistics/' + 'asd' + "_" + str(time.time()) + '.json', 'w') as outfile:
+    with open('../statistics/' + 'vege' + "_" + str(time.time()) + '.json', 'w') as outfile:
         json.dump(history.history, outfile, indent=4)
 except Exception as e:
-    model.save("asd.h5")
+    model.save("vege.h5")

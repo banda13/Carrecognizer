@@ -48,7 +48,7 @@ class VggPreClassifier(object):
         vgg_classes = set()
         for source in self.dirs:
             for make in os.listdir(source):
-                if not os.path.isdir(len(os.listdir(source + make)) > 0 and source + make + '/' + os.listdir(source + make)[0]):
+                if not len(os.listdir(source + make)) > 0 and os.path.isdir(source + make + '/' + os.listdir(source + make)[0]):
                     print("Classifying make: ", make)
                     with open(source + make + '/vgg_classifications.csv', 'w') as csvfile:
                         writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
