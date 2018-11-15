@@ -16,7 +16,7 @@ train_data_dir = '../data/train'
 validation_data_dir = '../data/test'
 epochs = 50
 batch_size = 16
-num_classes = 19
+num_classes = 17
 
 
 def save_bottlebeck_features():

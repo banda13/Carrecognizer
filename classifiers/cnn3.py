@@ -25,7 +25,7 @@ import tensorflow as tf
 class Cnn3(object):
 
     def __init__(self, mid=None):
-        self.img_width, self.img_height = 128, 128
+        self.img_width, self.img_height = 250, 250
         if mid is None:
             self.id = uuid.uuid4()
             print("Creating new classifier with id ", str(self.id))
@@ -164,9 +164,7 @@ class Cnn3(object):
             self.model.add(Dropout(0.5))
             self.model.add(MaxPooling2D(pool_size=(2, 2)))
 
-            self.model.add(GlobalAveragePooling2D())
-
-            self.model.add(Flatten())
+            self.model.add(Flatten(input_shape=train_data.shape[1:]))
             self.model.add(Dense(128, activation='relu'))
             self.model.add(Dropout(0.5))
             self.model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))

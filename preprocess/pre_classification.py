@@ -9,7 +9,9 @@ from keras.applications.vgg16 import VGG16
 
 
 class VggPreClassifier(object):
-    dirs = ["../data/hasznaltauto/", "../data/autotrader/"]
+    # dirs = ["../data/hasznaltauto/", "../data/autotrader/", "../data/autotrader_details"]
+    dirs = ["../data/autotrader_details/"]
+
     fieldnames = ["image", "label", "percentage"]
 
     """
@@ -19,8 +21,14 @@ class VggPreClassifier(object):
     bad_vgg_categories = ["car_mirror", "neck_brace", "knee_pad", "odometer", "seat_belt", "gasmask", "backpack", "magnetic_compass",
                           "can_opener", "carpenter's_kit", "dumbbell", "binoculars", "paper_towel", "mask", "cassette_player",
                           "disk_brake", "radio", "oil_filter", "bulletproof_vest", "spotlight", "tape_player", "projector",
-                          "reel", "envelope", "wardrobe", "CD_player", "oxygen_mask", "sunglasses", "reflex_camera"]
-    percentage_limit = 0.1
+                          "reel", "envelope", "wardrobe", "CD_player", "oxygen_mask", "sunglasses", "reflex_camera", "web_site",
+                          "parking_meter", "monitor", "hand_blower", "cassette", "binder", "rotisserie", "submarine", "refrigerator",
+                          "lotion", "stove", "hook", "lighter", "barber_chair", "radiator", "washer", "projector", "lighter",
+                          "projector", "Windsor_tie", "slide_rule", "espresso_maker", "suit", "whistle", "hook", "iPod", "street_sign",
+                          "paper_towel", "book_jacket", "cellular_telephone", "bookshop", "puck", "sunscreen",
+                          "bathing_cap", "cash_machine", "plastic_bag", "bathtub", "Band_Aid", "switch", "tennis_ball",
+                          "digital_clock", ]
+    percentage_limit = 0.05
 
     def __init__(self):
         self.model = VGG16()
@@ -34,26 +42,46 @@ class VggPreClassifier(object):
         yhat = self.model.predict(image)
         label = decode_predictions(yhat)
         label = label[0][0]
-        # print('%s -> %s (%.2f%%)' % (name, label[1], label[2] * 100))
         return label
 
     def prepare(self):
         vgg_classes = set()
         for source in self.dirs:
-            for category in os.listdir(source):
-                print("Classifying category: ", category)
-                with open(source + category + '/vgg_classifications.csv', 'w') as csvfile:
-                    writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
-                    writer.writeheader()
-                    for image in os.listdir(source + category):
-                        try:
-                            label = self.classify(image,
-                                                  load_img(source + category + "\\" + image, target_size=(224, 224)))
-                            vgg_classes.add(label[1])
-                            writer.writerow({self.fieldnames[0]: image, self.fieldnames[1]: label[1], self.fieldnames[2]: label[2]})
-                        except Exception as e:
-                            print("Error in file: %s. %s" %(image, str(e)))
-        print("Classifying done, found %d unique category" %len(vgg_classes))
+            for make in os.listdir(source):
+                if not len(os.listdir(source + make)) > 0 and os.path.isdir(source + make + '/' + os.listdir(source + make)[0]):
+                    print("Classifying make: ", make)
+                    with open(source + make + '/vgg_classifications.csv', 'w') as csvfile:
+                        writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
+                        writer.writeheader()
+                        for image in os.listdir(source + make):
+                            try:
+                                label = self.classify(image,
+                                                      load_img(source + make + "\\" + image, target_size=(224, 224)))
+                                vgg_classes.add(label[1])
+                                writer.writerow({self.fieldnames[0]: image, self.fieldnames[1]: label[1], self.fieldnames[2]: label[2]})
+                            except Exception as e:
+                                print("Error in file: %s. %s" %(image, str(e)))
+                else:
+                    for model in os.listdir(source + make):
+                        if model.endswith('.csv'):
+                            continue
+                        print("Classifying make: %s model: %s" %(make, model))
+                        with open(source + make + '/' + model + '/vgg_classifications.csv', 'w') as csvfile:
+                            writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
+                            writer.writeheader()
+                            for image in os.listdir(source + make + '/' + model):
+                                try:
+                                    if image.endswith('.csv'):
+                                        continue
+                                    label = self.classify(image,
+                                                          load_img(source + make + "/" + model + "/" + image,
+                                                                   target_size=(224, 224)))
+                                    vgg_classes.add(label[1])
+                                    writer.writerow({self.fieldnames[0]: image, self.fieldnames[1]: label[1],
+                                                     self.fieldnames[2]: label[2]})
+                                except Exception as e:
+                                    print("Error in file: %s. %s" % (image, str(e)))
+        print("Classifying done, found %d unique make" % len(vgg_classes))
         for vgg_class in vgg_classes:
             print(vgg_class)
 
@@ -83,4 +111,5 @@ class VggPreClassifier(object):
 
 
 vgg = VggPreClassifier()
+vgg.prepare()
 vgg.cleanup()

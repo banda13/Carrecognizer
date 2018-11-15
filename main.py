@@ -8,4 +8,5 @@ from classifiers.cnn_test import cnn3_test
 from input.data_loader import sort_into_train_and_test
 from input.data_utils import summ_categories
 
-sort_into_train_and_test(0.8, 0.2, 10000, 100)
+cnn = Cnn3()
+cnn.train_top_model()

@@ -10,15 +10,17 @@ def sort_into_train_and_test(p_train, p_test, limit, max_category):
         if category == 'deleted':
             continue
         counter += 1
-        if counter < 14:
-            print("Category skipped %s" % category)
+
+        if counter < 15:
+            print("%s category skipped" % category)
             continue
 
         if counter > max_category:
             print("Category limit reached: %d" % max_category)
             break
-        hasznaltauto_count = hasznaltauto_input[category] if hasznaltauto_input[category] < limit else limit
-        autotrader_count = limit - hasznaltauto_count
+
+        autotrader_count = autotrader_input[category] if autotrader_input[category] < limit else limit
+        hasznaltauto_count = limit - autotrader_count
 
         print("Loading category %s, %d from hasznaltauto, %d from autotrader" % (category, hasznaltauto_count, autotrader_count))
 
@@ -30,3 +32,5 @@ def sort_into_train_and_test(p_train, p_test, limit, max_category):
             print("Category ready : %d data loaded" % (hasznaltauto_count + autotrader_count))
         except Exception as e:
             print("%s category skipped becasue %s" % (category, str(e)))
+
+

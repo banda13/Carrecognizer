@@ -36,6 +36,8 @@ public class Image extends SugarRecord{
     @Ignore
     private List<Prediction> predictions  = new ArrayList<>();
 
+    private String mainPrediction;
+
     private String predictionJson;
 
     private Date lastClassificationDate;
@@ -144,6 +146,14 @@ public class Image extends SugarRecord{
         this.classificationId = classificationId;
     }
 
+    public String getMainPrediction() {
+        return mainPrediction;
+    }
+
+    public void setMainPrediction(String mainPrediction) {
+        this.mainPrediction = mainPrediction;
+    }
+
     public void setClassificationResults(String serverVersion, Double classificationDuration, String classificationId, List<Prediction> predictions){
         this.lastClassificationDate = new Date();
         this.classificationDuration = classificationDuration;
@@ -152,10 +162,4 @@ public class Image extends SugarRecord{
         this.predictions = predictions;
     }
 
-
-    @Override
-    public long save(){
-        this.predictionJson = new Gson().toJson(predictions);
-        return super.save();
-    }
 }
