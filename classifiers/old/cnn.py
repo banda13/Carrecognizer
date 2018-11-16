@@ -11,6 +11,9 @@ from keras.optimizers import Adam, Adagrad, SGD, RMSprop
 from keras.utils import to_categorical
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
+import paths
+
+
 class Cnn(object):
 
     batch_size = 24
@@ -45,10 +48,10 @@ class Cnn(object):
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         image_gen = ImageDataGenerator(rescale=1.0 / 255)
-        train_iterator = image_gen.flow_from_directory("data/train/",
+        train_iterator = image_gen.flow_from_directory(paths.TRAIN_DIR,
                                                        batch_size=24,
                                                        target_size=(128, 128))
-        val_iterator = image_gen.flow_from_directory("data/test",
+        val_iterator = image_gen.flow_from_directory(paths.TEST_DIR,
                                                      batch_size=1,
                                                      target_size=(128, 128),
                                                      shuffle=False)
