@@ -1,10 +1,11 @@
 import os
+from collections import Counter
+
 import cv2
 import paths
 import random
 import numpy as np
 from enum import Enum
-from shutil import copy2
 from preprocess.pre_classification import VggPreClassifier
 
 
@@ -19,10 +20,11 @@ class LoaderFilter(Enum):
     BLACK_AND_WHITE = 1
     GRAY_SCALE = 2
     EDGE_DETECTION = 3
+    BACKGROUND_SUBTRACT = 4
 
 
 class CleverLoader(object):
-    data_soruce_dirs = [('hasznaltauto', paths.HASZNALT_DIR), ('autotrader', paths.TRADER_DIR)]
+    data_soruce_dirs = [('autotrader', paths.TRADER_DIR), ('hasznaltauto', paths.HASZNALT_DIR)]
     train_dir = paths.TRAIN_DIR
     test_dir = paths.TEST_DIR
 
@@ -41,12 +43,26 @@ class CleverLoader(object):
         if self.pre_filtering == PreClassificationState.CLEANUP or self.pre_filtering == PreClassificationState.CLASSIFY:
             print("VGG pre classification activated")
             vgg = VggPreClassifier()
-            if self.pre_filtering.CLASSIFY:
+            if self.pre_filtering == PreClassificationState.CLASSIFY:
                 vgg.prepare()
             vgg.cleanup()
-        for source in self.data_soruce_dirs:
-            print("Loading images from data source %s " % source[1])
-            self.sort_train_vs_text(source[0], source[1], self.p_train, self.p_test,self.limit)
+
+        categorie_summs, source_categories_summs = self.summ_categoris()
+        for category in categorie_summs.keys():
+            if category == 'deleted':
+                continue
+
+            img_counter = self.limit
+            i = 0
+            for cat_source in source_categories_summs:
+                category_count = cat_source[category] if cat_source[category] < img_counter else img_counter
+                img_counter -= category_count
+
+                if category_count > 0:
+                    print("Loading images from data source %s in category : %s" % (self.data_soruce_dirs[i][1], category))
+                    self.sort_train_vs_text(self.data_soruce_dirs[i][0], self.data_soruce_dirs[i][1], self.p_train, self.p_test, category_count, [category])
+                i += 1
+
 
     def auto_canny(self, image, sigma=0.33):
         v = np.median(image)
@@ -61,18 +77,35 @@ class CleverLoader(object):
     def wide_canny(self, image):
         return cv2.Canny(image, 10, 200)
 
-    def sort_train_vs_text(self, s_name, s, p_train, p_test, limit):
+    def summ_categoris(self):
+        cary_by_dirs = []
+        input_summ = Counter()
+        for source in self.data_soruce_dirs:
+            cars = {}
+            for type in os.listdir(source[1]):
+                count = len(os.listdir(source[1] + type))
+                # print("Category: %s, Sample: %d " % (type, count))
+                cars[type] = count
+            cary_by_dirs.append(cars)
+            input_summ += Counter(cars)
+        input_summ_with_limit = {}
+        for key, value in input_summ.items():
+            if int(value) > self.limit:
+                print(key + ": " + str(value))
+                input_summ_with_limit[key] = value
+        return input_summ_with_limit, cary_by_dirs
+
+    def sort_train_vs_text(self, s_name, s, p_train, p_test, limit, sorting_categories):
         root_dir = s
         source = s_name
-        if self.categories is None:
-            self.categories = os.listdir(root_dir)
-            print("%d category founded" % len(self.categories))
-        for category in self.categories:
+        mog2 = cv2.createBackgroundSubtractorMOG2()
+        if sorting_categories is None:
+            categories = os.listdir(root_dir)
+            print("%d category founded" % len(categories))
+        else:
+            categories = sorting_categories
+        for category in categories:
             files_in_category = os.listdir(root_dir + category)
-
-            if len(files_in_category) < limit:
-                print("Category %s skipped because of the lack of images: %d" % (category, len(files_in_category)))
-                continue
 
             category_length = len(files_in_category)
             random.shuffle(files_in_category)
@@ -94,30 +127,32 @@ class CleverLoader(object):
                     destination = self.train_dir + category + "/" + source + files_in_category[i]
                 else:
                     destination = self.test_dir + category + "/" + source + files_in_category[i]
-                if self.filter == LoaderFilter.BLACK_AND_WHITE:
-                    im_gray = cv2.imread(image_source_dir, cv2.IMREAD_GRAYSCALE)
-                    (thresh, im_bw) = cv2.threshold(im_gray, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-                    cv2.imwrite(destination, im_gray)
-                elif self.filter == LoaderFilter.EDGE_DETECTION:
-                    image = cv2.imread(image_source_dir)
-                    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                    blurred = cv2.GaussianBlur(gray, (3, 3), 0)
-                    edges = self.auto_canny(blurred)
-                    cv2.imwrite(destination, edges)
-                elif self.filter == LoaderFilter.GRAY_SCALE:
-                    image = cv2.imread(image_source_dir, 0)
-                    cv2.imwrite(destination, image)
-                elif self.filter == LoaderFilter.NO:
-                    if i <= train_count:
-                        copy2(image_source_dir,destination)
+                try:
+                    image = None
+                    if self.filter == LoaderFilter.BLACK_AND_WHITE:
+                        image = cv2.imread(image_source_dir, cv2.IMREAD_GRAYSCALE)
+                        (thresh, im_bw) = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+                    elif self.filter == LoaderFilter.EDGE_DETECTION:
+                        image = cv2.imread(image_source_dir)
+                        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                        blurred = cv2.GaussianBlur(gray, (3, 3), 0)
+                        image = self.auto_canny(blurred)
+                    elif self.filter == LoaderFilter.BACKGROUND_SUBTRACT:
+                        image = cv2.imread(image_source_dir)
+                        image = mog2.apply(image)
+                    elif self.filter == LoaderFilter.GRAY_SCALE:
+                        image = cv2.imread(image_source_dir, cv2.IMREAD_GRAYSCALE)
+                    elif self.filter == LoaderFilter.NO:
+                        image = cv2.imread(image_source_dir)
                     else:
-                        copy2(image_source_dir,destination)
-                else:
-                    print("Fatal error, please specify a valid preprocessing filter")
+                        print("Fatal error, please specify a valid preprocessing filter")
+                    cv2.imwrite(destination, image)
+                except Exception as e:
+                    print(e)
 
             print("%s category done in %s" % (category, source))
 
 
-loader = CleverLoader(0.8, 0.2, 1000, f=LoaderFilter.EDGE_DETECTION)
+loader = CleverLoader(0.8, 0.2, 8000, f=LoaderFilter.GRAY_SCALE)
 loader.load()
 
