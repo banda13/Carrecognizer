@@ -126,6 +126,8 @@ class Cnn3(object):
         validation_labels = to_categorical(
             validation_labels, num_classes=num_classes)
 
+        input_shape = train_data.shape[:1]
+
         self.history = self.top_model.fit(train_data, train_labels,
                                           epochs=self.epochs,
                                           batch_size=self.batch_size,
@@ -163,7 +165,7 @@ class Cnn3(object):
         stat_plot_dir = paths.STAT_DIR + str(self.id) + "_" + str(time.time()) + ".png"
         plt.savefig(stat_plot_dir)
         self.out_params['plot'] = stat_plot_dir
-        self.history['histroy'] = self.history.history
+        self.out_params['histroy'] = self.history.history
 
         with open(paths.STAT_DIR + str(self.id) + "_" + str(time.time()) + '.json', 'w') as outfile:
             json.dump(self.history.history, outfile, indent=4)

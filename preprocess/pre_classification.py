@@ -1,11 +1,6 @@
 import os
 import csv
 from shutil import copy, move
-from keras.preprocessing.image import load_img
-from keras.preprocessing.image import img_to_array
-from keras.applications.vgg16 import preprocess_input
-from keras.applications.vgg16 import decode_predictions
-from keras.applications.vgg16 import VGG16
 
 
 class VggPreClassifier(object):
@@ -31,10 +26,15 @@ class VggPreClassifier(object):
     percentage_limit = 0.05
 
     def __init__(self):
+        from keras.applications.vgg16 import VGG16
+
         self.model = VGG16()
         print("VGG pre classifier initialized")
 
     def classify(self, name, image):
+        from keras.preprocessing.image import img_to_array
+        from keras.applications.vgg16 import preprocess_input
+        from keras.applications.vgg16 import decode_predictions
 
         image = img_to_array(image)
         image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
@@ -45,6 +45,7 @@ class VggPreClassifier(object):
         return label
 
     def prepare(self):
+        from keras.preprocessing.image import load_img
         vgg_classes = set()
         for source in self.dirs:
             for make in os.listdir(source):
@@ -109,7 +110,3 @@ class VggPreClassifier(object):
                 print("%d images deleted from category %s " % (deleted_from_category, category))
                 all_deleted += deleted_from_category
 
-
-vgg = VggPreClassifier()
-vgg.prepare()
-vgg.cleanup()

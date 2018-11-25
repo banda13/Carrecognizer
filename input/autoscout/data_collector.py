@@ -9,25 +9,30 @@ import paths
 
 make_mappings = {
     # 2: "alfa_romeo",
-    4: "aston_martin",
-    5: "audi",
-    7: "bentley",
-    9: "bmw",
-    13: "cadillac",
-    15: "chevrolet",
-    16: "chrysler",
-    17: "citroen",
-    18: "dacia",
-    19: "daewoo",
-    23: "dodge",
-    25: "ferrari",
-    26: "fiat",
-    27: "ford",
-    29: "honda",
+    # 4: "aston_martin",
+    # 5: "audi",
+    # 7: "bentley",
+    # 9: "bmw",
+    # 17: "citroen",
+    55: "mitsubishi",
+    40: "kia",
+    70: "seat",
     32: "hyundai",
+    57: "nissan",
+    81: "volvo",
+    29: "honda",
+    78: "toyota",
+    # 13: "cadillac",
+    # 15: "chevrolet",
+    # 16: "chrysler",
+    # 18: "dacia",
+    # 19: "daewoo",
+    # 23: "dodge",
+    # 25: "ferrari",
+    # 26: "fiat",
+    27: "ford",
     38: "jaguar",
     39: "jeep",
-    40: "kia",
     42: "lada",
     43: "lamborghini",
     44: "lancia",
@@ -37,19 +42,14 @@ make_mappings = {
     50: "mazda",
     51: "mercedes",
     54: "mini",
-    55: "mitsubishi",
-    57: "nissan",
     59: "opel",
     60: "peugeot",
     62: "porsche",
     66: "renault",
-    70: "seat",
     71: "skoda",
     72: "smart",
     74: "subaru",
     75: "suzuki",
-    78: "toyota",
-    81: "volvo",
     82: "volkswagen"
 }
 
@@ -137,7 +137,7 @@ for car_id, car_type in make_mappings.items():
                 end_of_category = True
 
             if page > 100:
-                print("50th page reached, going to next category")
+                print("100th page reached, going to next category")
                 end_of_category = True
 
             has_more_page = (not end_of_category)

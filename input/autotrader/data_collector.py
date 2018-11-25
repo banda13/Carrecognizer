@@ -8,7 +8,7 @@ import cv2
 import re
 
 
-source_folder = "../../data/autotrader/"
+source_folder = "../../data/autotrader2/"
 sub_dir_pattern = '/classified/advert/'
 sub_dir_start = "https://www.autotrader.co.uk/classified/advert/"
 image_pattern = "data-src='https://m.atcdn.co.uk/a/media/"
@@ -85,8 +85,8 @@ for car_type, type_url in car_types.items():
 
                                         images_in_subpage.append(img_url)
 
-                                        if car_image_counter > 3:
-                                            break
+                                        # if car_image_counter > 3:
+                                        #     break
                                     except Exception as e:
                                         print("%s error while downloading image: %s" % (str(e), word2))
                             sub_pages.append(url)

@@ -46,6 +46,7 @@ def get_all_make_model():
     print("%d unique model-make pair found (years ignored)" % len(model_make_dict.keys()))
     return model_make_dict
 
+summ_categories(1000)
 
 
 
