@@ -21,50 +21,46 @@ import os.path as osp
 import os
 import tensorflow as tf
 
+import paths
+
 
 class Cnn3(object):
 
-    def __init__(self, mid=None):
-        self.img_width, self.img_height = 250, 250
-        if mid is None:
-            self.id = uuid.uuid4()
-            print("Creating new classifier with id ", str(self.id))
-        else:
-            self.id = mid
-            print("Using classifier with id ", str(self.id))
-        self.train_dir = "data/train/"
-        self.test_dir = "data/test/"
+    def __init__(self, pid, core_params, classification_params, in_params, out_params):
+        self.img_width, self.img_height = classification_params['image_width'], classification_params['image_height']
+        self.id = pid
+        print("Using classifier with id ", str(self.id))
+        self.train_dir = core_params['train_dir']
+        self.test_dir = core_params['test_dir']
 
         # VGG16
-        self.bottleneck_train_features = "model/bottleneck/bottleneck_features_train.npy"
-        self.bottleneck_test_features = "model/bottleneck/bottleneck_features_validation.npy"
-        self.bottleneck_model = "model/bottleneck/bigmodel.h5"
+        self.bottleneck_train_features = in_params['bottleneck_train_features']
+        self.bottleneck_test_features = in_params['bottleneck_test_features']
+        self.bottleneck_model = in_params['bottleneck_model']
 
         # TOP model
-        self.top_model_weights = 'model/bottleneck/bottleneck_' + str(self.id) + ".h5"
-        self.class_indices = "model/" + str(self.id) + "_class_indices.npy"
+        self.top_model_weights = in_params['top_model_weights']
+        self.class_indices = in_params['class_indices']
 
         # TRAIN and MODEL params
-        self.epochs = 50
-        self.batch_size = 16
-        self.learning_rate = 0.00001
+        self.epochs = in_params['epochs']
+        self.batch_size = in_params['batch_size']
+        self.augmentation = in_params['augmentation']
+        self.top_model = in_params['top_model']
 
-        self.model = None
         self.history = None
+        self.out_params = out_params
+        print("Cnn3 initialized")
 
     def save_bottlebeck_features(self):
-
         print("Saving bottleneck features started")
+
         # build the VGG16 network
         model = applications.VGG16(include_top=False, weights='imagenet',
                                    input_shape=(self.img_width, self.img_height, 3))
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
-        datagen = ImageDataGenerator(
-            shear_range=0.2,
-            zoom_range=0.2,
-            horizontal_flip=True,
-            rescale=1. / 255)
+        datagen = ImageDataGenerator(self.augmentation)
 
         generator = datagen.flow_from_directory(
             self.train_dir,
@@ -73,19 +69,10 @@ class Cnn3(object):
             class_mode=None,
             shuffle=False)
 
-        print(generator.class_indices)
-
         nb_train_samples = len(generator.filenames)
-        num_classes = len(generator.class_indices)
-
         predict_size_train = int(math.ceil(nb_train_samples / self.batch_size))
-
-        bottleneck_features_train = model.predict_generator(
-            generator, predict_size_train)
-
-        np.save(self.bottleneck_train_features,
-                bottleneck_features_train)
-
+        bottleneck_features_train = model.predict_generator(generator, predict_size_train)
+        np.save(self.bottleneck_train_features, bottleneck_features_train)
         print("Bottleneck train features saved as ", self.bottleneck_train_features)
 
         datagen = ImageDataGenerator(rescale=1. / 255)
@@ -97,32 +84,19 @@ class Cnn3(object):
             shuffle=False)
 
         nb_validation_samples = len(generator.filenames)
-
-        predict_size_validation = int(
-            math.ceil(nb_validation_samples / self.batch_size))
-
-        bottleneck_features_validation = model.predict_generator(
-            generator, predict_size_validation)
-
-        np.save(self.bottleneck_test_features,
-                bottleneck_features_validation)
+        predict_size_validation = int(math.ceil(nb_validation_samples / self.batch_size))
+        bottleneck_features_validation = model.predict_generator(generator, predict_size_validation)
+        np.save(self.bottleneck_test_features, bottleneck_features_validation)
         print("Bottleneck validation features saved as ", self.bottleneck_test_features)
 
         model.save(self.bottleneck_model)
         print("Bottleneck models saved")
 
-    def get_top_model_input_shape(self):
-        return np.load(self.bottleneck_train_features).shape[1:]
-
-    def set_top_model(self, model):
-        self.model = model
-
     def train_top_model(self):
 
         print("Training top model started")
         ImageFile.LOAD_TRUNCATED_IMAGES = True
-        datagen_top = ImageDataGenerator(
-            rescale=1. / 255)
+        datagen_top = ImageDataGenerator(rescale=1. / 255)
 
         generator_top = datagen_top.flow_from_directory(
             self.train_dir,
@@ -131,10 +105,7 @@ class Cnn3(object):
             class_mode=None,
             shuffle=False)
 
-        nb_train_samples = len(generator_top.filenames)
         num_classes = len(generator_top.class_indices)
-
-        # save the class indices to use use later in predictions
         np.save(self.class_indices, generator_top.class_indices)
         print("Class indices save as ", self.class_indices)
 
@@ -150,48 +121,56 @@ class Cnn3(object):
             class_mode=None,
             shuffle=False)
 
-        nb_validation_samples = len(generator_top.filenames)
-
         validation_data = np.load(self.bottleneck_test_features)
         validation_labels = generator_top.classes
         validation_labels = to_categorical(
             validation_labels, num_classes=num_classes)
 
-        if self.model is None:
-            self.model = Sequential()
+        self.history = self.top_model.fit(train_data, train_labels,
+                                          epochs=self.epochs,
+                                          batch_size=self.batch_size,
+                                          validation_data=(validation_data, validation_labels))
 
-            self.model.add(Convolution2D(128, 3, 3, input_shape=train_data.shape[1:], activation='relu'))
-            self.model.add(Dropout(0.5))
-            self.model.add(MaxPooling2D(pool_size=(2, 2)))
-
-            self.model.add(Flatten(input_shape=train_data.shape[1:]))
-            self.model.add(Dense(128, activation='relu'))
-            self.model.add(Dropout(0.5))
-            self.model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
-
-            #     'SGD'
-            self.model.compile(optimizer=RMSprop(lr=0.0001, rho=0.9, epsilon=None, decay=0.0),
-                               loss='categorical_crossentropy', metrics=['accuracy'])
-
-        self.history = self.model.fit(train_data, train_labels,
-                                      epochs=self.epochs,
-                                      batch_size=self.batch_size,
-                                      validation_data=(validation_data, validation_labels))
-
-        self.model.save_weights(self.top_model_weights)
+        self.top_model.save_weights(self.top_model_weights)
         print("Top model trained, weights saved as ", self.top_model_weights)
 
-        (eval_loss, eval_accuracy) = self.model.evaluate(
+        (eval_loss, eval_accuracy) = self.top_model.evaluate(
             validation_data, validation_labels, batch_size=self.batch_size, verbose=1)
 
         print("Accuracy: {:.2f}%".format(eval_accuracy * 100))
         print("Loss: {}".format(eval_loss))
 
-        self.evaluate()
+        self.out_params['accuracy'] = eval_accuracy
+        self.out_params['loss'] = eval_loss
+
+    def evaluate(self):
+        plt.figure(1)
+        plt.subplot(211)
+        plt.plot(self.history.history['acc'])
+        plt.plot(self.history.history['val_acc'])
+        plt.title('model accuracy')
+        plt.ylabel('accuracy')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+
+        plt.subplot(212)
+        plt.plot(self.history.history['loss'])
+        plt.plot(self.history.history['val_loss'])
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        stat_plot_dir = paths.STAT_DIR + str(self.id) + "_" + str(time.time()) + ".png"
+        plt.savefig(stat_plot_dir)
+        self.out_params['plot'] = stat_plot_dir
+        self.history['histroy'] = self.history.history
+
+        with open(paths.STAT_DIR + str(self.id) + "_" + str(time.time()) + '.json', 'w') as outfile:
+            json.dump(self.history.history, outfile, indent=4)
 
     @staticmethod
     def visualize_class_activation_map(img_path):
-        model = load_model("model/bottleneck/bigmodel.h5")
+        model = load_model(paths.ROOT_DIR + "/model/bottleneck/bigmodel.h5")
         original_img = cv2.imread(img_path, 1)
         width, height, _ = original_img.shape
 
@@ -214,27 +193,6 @@ class Cnn3(object):
         for i, w in enumerate(class_weights[:, target_class]):
             cam += w * conv_outputs[i, :, :]
 
-    def evaluate(self):
-        plt.figure(1)
-        plt.subplot(211)
-        plt.plot(self.history.history['acc'])
-        plt.plot(self.history.history['val_acc'])
-        plt.title('model accuracy')
-        plt.ylabel('accuracy')
-        plt.xlabel('epoch')
-        plt.legend(['train', 'test'], loc='upper left')
-
-        plt.subplot(212)
-        plt.plot(self.history.history['loss'])
-        plt.plot(self.history.history['val_loss'])
-        plt.title('model loss')
-        plt.ylabel('loss')
-        plt.xlabel('epoch')
-        plt.legend(['train', 'test'], loc='upper left')
-        plt.savefig("statistics/" + str(self.id) + "_" + str(time.time()) + ".png")
-
-        with open('statistics/' + str(self.id) + "_" + str(time.time()) + '.json', 'w') as outfile:
-            json.dump(self.history.history, outfile, indent=4)
 
     def predict(self, image_path, img_name):
 
