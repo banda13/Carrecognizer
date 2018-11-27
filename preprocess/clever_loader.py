@@ -6,6 +6,7 @@ import paths
 import random
 import numpy as np
 from enum import Enum
+import matplotlib.pyplot as plt
 from preprocess.pre_classification import VggPreClassifier
 
 
@@ -21,6 +22,7 @@ class LoaderFilter(Enum):
     GRAY_SCALE = 2
     EDGE_DETECTION = 3
     BACKGROUND_SUBTRACT = 4
+    LAPLACE_GRADIENT = 5
 
 
 class CleverLoader(object):
@@ -55,14 +57,16 @@ class CleverLoader(object):
             img_counter = self.limit
             i = 0
             for cat_source in source_categories_summs:
-                category_count = cat_source[category] if cat_source[category] < img_counter else img_counter
-                img_counter -= category_count
+                if category in cat_source:
+                    category_count = cat_source[category] if cat_source[category] < img_counter else img_counter
+                    img_counter -= category_count
 
-                if category_count > 0:
-                    print("Loading images from data source %s in category : %s" % (self.data_soruce_dirs[i][1], category))
-                    self.sort_train_vs_text(self.data_soruce_dirs[i][0], self.data_soruce_dirs[i][1], self.p_train, self.p_test, category_count, [category])
-                i += 1
-
+                    if category_count > 0:
+                        print("Loading images from data source %s in category : %s" % (self.data_soruce_dirs[i][1], category))
+                        self.sort_train_vs_text(self.data_soruce_dirs[i][0], self.data_soruce_dirs[i][1], self.p_train, self.p_test, category_count, [category])
+                    i += 1
+                else:
+                    print("%s category missing from source %s " % (category, self.data_soruce_dirs[i][1]))
 
     def auto_canny(self, image, sigma=0.33):
         v = np.median(image)
@@ -76,6 +80,19 @@ class CleverLoader(object):
 
     def wide_canny(self, image):
         return cv2.Canny(image, 10, 200)
+
+    def fordeground_extraction(self, image):
+        mask = np.zeros(image.shape[:2], np.uint8)
+
+        bgdModel = np.zeros((1, 65), np.float64)
+        fgdModel = np.zeros((1, 65), np.float64)
+
+        rect = (50, 50, 450, 290)
+        cv2.grabCut(image, mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
+
+        mask2 = np.where((mask == 2) | (mask == 0), 0, 1).astype('uint8')
+        img = image * mask2[:, :, np.newaxis]
+        return img
 
     def summ_categoris(self):
         cary_by_dirs = []
@@ -105,7 +122,11 @@ class CleverLoader(object):
         else:
             categories = sorting_categories
         for category in categories:
-            files_in_category = os.listdir(root_dir + category)
+            try:
+                files_in_category = os.listdir(root_dir + category)
+            except FileNotFoundError:
+                print("Skip category %s " % category)
+                continue
 
             category_length = len(files_in_category)
             random.shuffle(files_in_category)
@@ -139,7 +160,10 @@ class CleverLoader(object):
                         image = self.auto_canny(blurred)
                     elif self.filter == LoaderFilter.BACKGROUND_SUBTRACT:
                         image = cv2.imread(image_source_dir)
-                        image = mog2.apply(image)
+                        # TODO did not find any good algorithm
+                    elif self.filter == LoaderFilter.LAPLACE_GRADIENT:
+                        img = cv2.imread(image_source_dir)
+                        # TODO
                     elif self.filter == LoaderFilter.GRAY_SCALE:
                         image = cv2.imread(image_source_dir, cv2.IMREAD_GRAYSCALE)
                     elif self.filter == LoaderFilter.NO:
@@ -153,6 +177,6 @@ class CleverLoader(object):
             print("%s category done in %s" % (category, source))
 
 
-loader = CleverLoader(0.8, 0.2, 8000, f=LoaderFilter.GRAY_SCALE)
-loader.load()
+# loader = CleverLoader(0.8, 0.2, 8000, f=LoaderFilter.LAPLACE_GRADIENT)
+# loader.load()
 
