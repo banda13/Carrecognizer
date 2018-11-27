@@ -29,7 +29,7 @@ class Cnn3(object):
     def __init__(self, pid, core_params, classification_params, in_params, out_params):
         self.img_width, self.img_height = classification_params['image_width'], classification_params['image_height']
         self.id = pid
-        print("Using classifier with id ", str(self.id))
+        print("Using cnn3 classifier with id ", str(self.id))
         self.train_dir = core_params['train_dir']
         self.test_dir = core_params['test_dir']
 
