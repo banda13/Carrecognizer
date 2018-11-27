@@ -2,11 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Car recognizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
-<img>
-    <p>NAME: {{report.pid}}</p>
-    <img src= "{{ url_for('static', filename = report.cnn3_out.plot)}}" />
+<body>
+<div class="container-fluid text-center">
+    <div class="row content">
+        <div class="col-sm-2 sidenav"></div>
+        <div class="col-sm-8 text-left well">
+            <h1>{{report.pid}} {% if report.test %}- TEST{% endif %}</h1>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Core params
+                </div>
+                <div class="panel-body">
+                    <p><b>Start time:</b> {{report.history.creation_date.__isoformat__}}</p>
+                    <p><b>Image width/height:</b> {{report.classification.image_width}}/{{report.classification.image_height}}</p>
+                    <p><b>Accuracy:</b> {{report.history.accuracy}}</p>
+                    <p><b>Loss:</b> {{report.history.loss}}</p>
+                    <p><b>Train directory:</b> {{report.core.train_dir}}</p>
+                    <p><b>Validation directory:</b> {{report.core.test_dir}}</p>
+                    <p><b>Categories:</b> {{report.core.num_classes}}</p>
 
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#categories">Categories</button>
+                    <div id="categories" class="button collapse">
+                        <ul class="list-group">
+                            {% for cat in report.core.categories %}
+                            {{cat}},
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Pre-processing
+                </div>
+                <div class="panel-body">
+                    <p><b>Pre classification categories:</b> {{report.preclassifier.pre_classifier_categories_count}}
+                    </p>
+                    <p><b>Filter:</b> {{report.preprocessor.pre_loader_filter}}</p>
+                    <p><b>Train percent:</b> {{report.preprocessor.p_train}}</p>
+                    <p><b>Validation percent:</b> {{report.preprocessor.p_test}}</p>
+                    <p><b>Count per classes:</b> {{report.preprocessor.limit}}</p>
+                    <p><b>Pre-processing runtime:</b> {{report.preprocessor.run_time}}</p>
+                    <p><b>Data sources:</b></p>
+                    <ul class="list-group">
+                        {% for data_source in report.preprocessor.data_soruces %}
+                        <li class="list-group-item">
+                            <p><b>{{data_source[0]}}</b>: {{data_source[1]}}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Transfer train
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p><b>Train accuracy:</b> {{report.cnn3_out.accuracy}}</p>
+                            <p><b>Train loss:</b> {{report.cnn3_out.loss}}</p>
+                            <p><b>Run time:</b> {{report.history.transfer_train_time}}</p>
+                            <p><b>Params:</b></p>
+                            <li><b>Epochs:</b> {{report.cnn3_in.epochs}} </li>
+                            <li><b>Batch size:</b> {{report.cnn3_in.batch_size}} </li>
+                            <li><b>Augmentation:</b><ul>
+                                {% for aug in report.cnn3_in.augmentation %}
+                                <li>{{aug}}: {{report.cnn3_in.augmentation.get(aug)}}</li>
+                                {% endfor %}
+                            </li>
+                            </ul>
+                            <li><b>Learning rate:</b> {{report.cnn3_in.learning_rate}} </li>
+
+                        </div>
+                        <div class="col-sm-8">
+                            {% if report.cnn3_out.plot is not none%}
+                            <img src= "{{ url_for('static', filename = report.cnn3_out.plot)}}" width="400" height="300" align="right"/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Fine tune
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p><b>Train accuracy:</b> {{report.cnn7_out.accuracy}}</p>
+                            <p><b>Train loss:</b> {{report.cnn7_out.loss}}</p>
+                            <p><b>Run time:</b> {{report.history.transfer_train_time}}</p>
+                            <p><b>Params:</b></p>
+                            <li><b>Epochs:</b> {{report.cnn7_in.epochs}} </li>
+                            <li><b>Batch size:</b> {{report.cnn7_in.batch_size}} </li>
+                            <li><b>Frozen layers:</b> {{report.cnn7_in.frozen_layers}} </li>
+                            <li><b>Augmentation:</b><ul>
+                                {% for aug in report.cnn7_in.augmentation %}
+                                <li>{{aug}}: {{report.cnn7_in.augmentation.get(aug)}}</li>
+                                {% endfor %}
+                            </li>
+                            </ul>
+                            <li><b>Learning rate:</b> {{report.cnn7_in.learning_rate}} </li>
+                            <li><b>Momentum:</b> {{report.cnn7_in.momentum}} </li>
+                        </div>
+                        <div class="col-sm-8">
+                            {% if report.cnn7_out.plot is not none%}
+                                <img src= "{{ url_for('static', filename = report.cnn7_out.plot)}}" width="400" height="300" align="right"/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
