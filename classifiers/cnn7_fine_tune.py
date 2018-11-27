@@ -104,11 +104,11 @@ class Cnn7(object):
         plt.xlabel('epoch')
         plt.legend(['train', 'test'], loc='upper left')
 
-        stat_plot_dir = paths.STAT_DIR + "fine_" + str(self.id) + "_" + str(time.time()) + ".png"
+        stat_plot_dir = paths.STAT_DIR + "/fine_" + str(self.id) + "_" + str(time.time()) + ".png"
         plt.savefig(stat_plot_dir)
         self.out_params['plot'] = stat_plot_dir
-        self.out_params['histroy'] = self.history.history
+        self.out_params['history'] = self.history.history
 
-        with open('../statistics/' + 'vege' + "_" + str(time.time()) + '.json', 'w') as outfile:
+        with open(paths.STAT_DIR + str(self.id) + "_" + str(time.time()) + '.json', 'w') as outfile:
             json.dump(self.history.history, outfile, indent=4)
 

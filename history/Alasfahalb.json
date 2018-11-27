@@ -1,7 +1,7 @@
 {
     "pid": "Alasfahalb",
     "history_location": "D:\\Projects\\CarRecognizer/history/Alasfahalb.json",
-    "test": true,
+    "test": false,
     "core": {
         "train_dir": "D:\\Projects\\CarRecognizer/data/train/",
         "test_dir": "D:\\Projects\\CarRecognizer/data/test/",

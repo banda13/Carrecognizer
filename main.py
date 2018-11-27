@@ -65,7 +65,7 @@ class ConvolutionalNeuralNetwork(object):
             "pre_loader_filter": LoaderFilter.NO,
             "p_train": 0.8,
             "p_test": 0.2,
-            "limit": 100,
+            "limit": 10000,
             "run_time": None
         }
 
@@ -77,6 +77,7 @@ class ConvolutionalNeuralNetwork(object):
             "image_height": 250
         }
 
+        lr = 0.0001
         model = Sequential()
         model.add(Convolution2D(128, 3, 3, input_shape=(7, 7, 512), activation='relu'))
         model.add(Dropout(0.5))
@@ -85,7 +86,7 @@ class ConvolutionalNeuralNetwork(object):
         model.add(Dense(128, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
-        model.compile(optimizer=RMSprop(lr=0.0001, rho=0.9, epsilon=None, decay=0.0),
+        model.compile(optimizer=RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0),
                       loss='categorical_crossentropy', metrics=['accuracy'])
 
         # CNN3 - transfer train (in and out params)
@@ -96,14 +97,15 @@ class ConvolutionalNeuralNetwork(object):
             "top_model_weights": paths.ROOT_DIR + '/model/bottleneck/bottleneck_' + str(self.pid) + ".h5",
             "class_indices": paths.ROOT_DIR + "/model/" + str(self.pid) + "_class_indices.npy",
             "top_model": model,
-            "epochs": 1,
+            "epochs": 50,
             "batch_size": 16,
             "augmentation": {
-                "shear_range": 0.2,
-                "zoom_range": 0.2,
+                "shear_range": 0.1,
+                "zoom_range": 0.1,
                 "horizontal_flip": True,
                 "rescale": 1. / 255
             },
+            "learning_rate": lr
         }
         self.cnn3_out = {
             "accuracy": None,
@@ -113,12 +115,12 @@ class ConvolutionalNeuralNetwork(object):
         }
 
         # recomiple model for cnn7
-        model.compile(optimizer=RMSprop(lr=0.001, rho=0.8, epsilon=None, decay=0.0),
+        model.compile(optimizer=RMSprop(lr=lr, rho=0.8, epsilon=None, decay=0.0),
                       loss='categorical_crossentropy', metrics=['accuracy'])
 
         # CNN7 - fine tune
         self.cnn7_in = {
-            "epochs": 1,
+            "epochs": 20,
             "batch_size": 16,
             "num_classes": num_classes,
             "frozen_layers": 15,
@@ -168,7 +170,7 @@ class ConvolutionalNeuralNetwork(object):
         print("Transfer train started")
         start_time = time.time()
         cnn = Cnn3(self.pid, self.core, self.classification, self.cnn3_in, self.cnn3_out)
-        cnn.save_bottlebeck_features()
+        # cnn.save_bottlebeck_features()
         cnn.train_top_model()
         cnn.evaluate()
         self.cnn3_out = cnn.out_params
@@ -180,9 +182,9 @@ class ConvolutionalNeuralNetwork(object):
         start_time = time.time()
         cnn = Cnn7(self.pid, self.core, self.classification, self.cnn7_in, self.cnn7_out)
         cnn.fine_tune()
-        self.evaluate()
+        cnn.evaluate()
         self.cnn7_out = cnn.out_params
-        self.history['transfer_train_time'] = time.time() - start_time
+        self.history['fine_tune_train_time'] = time.time() - start_time
         self.save()
 
     def test(self):
@@ -196,6 +198,6 @@ test = ConvolutionalNeuralNetwork()
 test.create()
 test.save()
 # test.load(test.pid)
-# test.preprocess()
+test.preprocess()
 test.transfer_train()
 test.fine_tune_train()
