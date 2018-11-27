@@ -15,8 +15,9 @@
             <h1>{{report.pid}} {% if report.test %}- TEST{% endif %}</h1>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Core params
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#core">Core params</a>
                 </div>
+                <div id="core" class="panel-collapse collapse">
                 <div class="panel-body">
                     <p><b>Start time:</b> {{report.history.creation_date.__isoformat__}}</p>
                     <p><b>Image width/height:</b> {{report.classification.image_width}}/{{report.classification.image_height}}</p>
@@ -35,11 +36,13 @@
                         </ul>
                     </div>
                 </div>
+                </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Pre-processing
+                     <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#preproc">Pre-processing</a>
                 </div>
+                <div id="preproc" class="panel-collapse collapse">
                 <div class="panel-body">
                     <p><b>Pre classification categories:</b> {{report.preclassifier.pre_classifier_categories_count}}
                     </p>
@@ -57,11 +60,13 @@
                         {% endfor %}
                     </ul>
                 </div>
+                </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Transfer train
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#transfer">Transfer train</a>
                 </div>
+                <div id="transfer" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-4">
@@ -87,11 +92,13 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Fine tune
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#finetune">Fine tune</a>
                 </div>
+                <div id="finetune" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-4">
@@ -118,17 +125,20 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Testing
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#test">Testing</a>
                 </div>
+                <div id="test" class="panel-collapse collapse">
                 <div class="panel-body">
                     <p><b>Test's perc class:</b> {{report.test.test_count_per_class}}</p>
                     <p><b>Run time:</b> {{report.test.run_time}}</p>
                     <p><b>Accuracy:</b> {{report.test.accuracy}}</p>
                     <p><b>Results per class:</b> {{report.preprocessor.p_test}}</p>
                 </div>
+            </div>
             </div>
         </div>
     </div>
