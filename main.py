@@ -12,6 +12,7 @@ import paths
 
 from classifiers.cnn3 import Cnn3
 from classifiers.cnn7_fine_tune import Cnn7
+from classifiers.cnn_test import TestCNN
 from classifiers.lstm0 import NameGenerator
 from preprocess.clever_loader import LoaderFilter, CleverLoader
 from preprocess.pre_classification import VggPreClassifier
@@ -60,8 +61,9 @@ class ConvolutionalNeuralNetwork(object):
             "pre_classifier_categories_count": len(VggPreClassifier.bad_vgg_categories)
         }
 
+        data_source_dirs = CleverLoader.data_soruce_dirs
         self.preprocessor = {
-            "data_soruces": CleverLoader.data_soruce_dirs,
+            "data_soruces": data_source_dirs,
             "pre_loader_filter": LoaderFilter.NO,
             "p_train": 0.8,
             "p_test": 0.2,
@@ -155,6 +157,18 @@ class ConvolutionalNeuralNetwork(object):
             "fine_tune_train_time": 0.0
         }
 
+        '''
+        Test
+        '''
+        self.test = {
+            "model": paths.ROOT_DIR + '/model/' + str(self.pid) + ".h5",
+            "test_count_per_class": 1000,
+            "run_time": 0,
+            "accuracy": 0,
+            "category_results": [],
+            "data_source_dirs": data_source_dirs
+        }
+
         print("New classifier created with id: %s" % (str(self.pid)))
 
     def preprocess(self):
@@ -187,12 +201,13 @@ class ConvolutionalNeuralNetwork(object):
         self.history['fine_tune_train_time'] = time.time() - start_time
         self.save()
 
-    def test(self):
+    def test_classifiers(self):
         print("Testing started")
-
-    def evaluate(self):
-        print("Evaluating started")
-
+        start_time = time.time()
+        cnn = TestCNN(self.pid, self.test)
+        cnn.test()
+        self.test['run_time'] = time.time() - start_time
+        self.save()
 
 test = ConvolutionalNeuralNetwork()
 test.create()
