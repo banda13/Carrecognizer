@@ -5,7 +5,7 @@ import time
 import datetime
 
 from keras import Sequential
-from keras.layers import Convolution2D, Dropout, MaxPooling2D, Flatten, Dense, regularizers
+from keras.layers import Convolution2D, Dropout, MaxPooling2D, Flatten, Dense, regularizers, GlobalAveragePooling2D
 from keras.optimizers import RMSprop
 
 import paths
@@ -38,7 +38,7 @@ class ConvolutionalNeuralNetwork(object):
         print("Serialization done")
 
     def create(self):
-        self.pid = NameGenerator().get_name() # str(uuid.uuid4())
+        self.pid = NameGenerator().get_name()
         self.history_location = paths.ROOT_DIR + '/history/' + self.pid + ".json"
         self.test = True
 
@@ -51,7 +51,8 @@ class ConvolutionalNeuralNetwork(object):
             "train_dir": paths.TRAIN_DIR,
             "test_dir": paths.TEST_DIR,
             "categories": categories,
-            "num_classes": num_classes
+            "num_classes": num_classes,
+            "description": ""
         }
 
         '''
@@ -74,17 +75,19 @@ class ConvolutionalNeuralNetwork(object):
         '''
         Classify (cnn3 transfer train + cnn7 fine tune)
         '''
+        img_width, img_height = 128, 128
         self.classification = {
-            "image_width": 250,
-            "image_height": 250
+            "image_width": img_width,
+            "image_height": img_height
         }
 
-        lr = 0.0001
+        lr = 0.00001
         model = Sequential()
-        model.add(Convolution2D(128, 3, 3, input_shape=(7, 7, 512), activation='relu'))
+        model.add(Convolution2D(128, 3, 3, input_shape=(4, 4, 512), activation='relu'))
         model.add(Dropout(0.5))
         model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Flatten(input_shape=(7, 7, 512)))
+
+        model.add(Flatten(input_shape=(4, 4, 512)))
         model.add(Dense(128, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
@@ -102,8 +105,8 @@ class ConvolutionalNeuralNetwork(object):
             "epochs": 50,
             "batch_size": 16,
             "augmentation": {
-                "shear_range": 0.1,
-                "zoom_range": 0.1,
+                "shear_range": 0.2,
+                "zoom_range": 0.2,
                 "horizontal_flip": True,
                 "rescale": 1. / 255
             },
@@ -162,11 +165,15 @@ class ConvolutionalNeuralNetwork(object):
         '''
         self.test = {
             "model": paths.ROOT_DIR + '/model/' + str(self.pid) + ".h5",
+            "image_width": img_width,
+            "image_height": img_height,
             "test_count_per_class": 1000,
+            "tracked_layer": 3,
             "run_time": 0,
             "accuracy": 0,
-            "category_results": [],
-            "data_source_dirs": data_source_dirs
+            "test_dir": paths.TEST_DIR,
+            "class_indices": self.cnn3_in['class_indices'],
+            "category_results": {}
         }
 
         print("New classifier created with id: %s" % (str(self.pid)))
@@ -184,7 +191,7 @@ class ConvolutionalNeuralNetwork(object):
         print("Transfer train started")
         start_time = time.time()
         cnn = Cnn3(self.pid, self.core, self.classification, self.cnn3_in, self.cnn3_out)
-        # cnn.save_bottlebeck_features()
+        cnn.save_bottlebeck_features()
         cnn.train_top_model()
         cnn.evaluate()
         self.cnn3_out = cnn.out_params
@@ -206,6 +213,7 @@ class ConvolutionalNeuralNetwork(object):
         start_time = time.time()
         cnn = TestCNN(self.pid, self.test)
         cnn.test()
+        self.test['category_results'] = cnn.category_results
         self.test['run_time'] = time.time() - start_time
         self.save()
 
@@ -213,6 +221,6 @@ test = ConvolutionalNeuralNetwork()
 test.create()
 test.save()
 # test.load(test.pid)
-test.preprocess()
+# test.preprocess()
 test.transfer_train()
 test.fine_tune_train()
