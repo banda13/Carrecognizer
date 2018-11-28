@@ -1,7 +1,10 @@
 import os
 import json
+import time
+
 import paths
 from flask import Flask, render_template
+from stat import S_ISREG, ST_CTIME, ST_MODE
 
 from utils.json_utils import decoder_hook
 
@@ -22,7 +25,18 @@ def iterate(dictionary):
 
 @app.route("/")
 def main_template():
-    return render_template("main_report.html", reports=os.listdir(history_location))
+    file_names = os.listdir(history_location)
+    data = (os.path.join(history_location, fn) for fn in file_names)
+    data = ((os.stat(path), path) for path in data)
+
+    data = ((stat[ST_CTIME], path)
+            for stat, path in data if S_ISREG(stat[ST_MODE]))
+
+    files = []
+    for cdate, path in sorted(data, reverse=True):
+        print(time.ctime(cdate), os.path.basename(path))
+        files.append({'file': os.path.basename(path), 'date': time.ctime(cdate)})
+    return render_template("main_report.html", reports=files)
 
 @app.route("/template/<name>")
 def get_template(name):

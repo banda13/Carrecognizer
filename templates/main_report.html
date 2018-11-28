@@ -15,7 +15,8 @@
                 <ul class="list-group">
                 {% for n in reports %}
                     <li class="list-group-item">
-                        <a href="template/{{n}}">{{n[:-5]}}</a>
+                        <h4 class="list-group-item-heading"><a href="template/{{n.file}}">{{n.file[:-5]}}</a></h4>
+                        <p class="list-group-item-text">{{n.date}}</p>
                     </li>
                 {% endfor %}
               </ul>
