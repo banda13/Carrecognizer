@@ -2,10 +2,13 @@ import os
 import csv
 from shutil import copy, move
 
+import paths
+
 
 class VggPreClassifier(object):
     # dirs = ["../data/hasznaltauto/", "../data/autotrader/", "../data/autotrader_details"]
-    dirs = ["../data/autotrader_details/"]
+    #  dirs = ["../data/autotrader_details/"]
+    dirs = [paths.SCOUT_DIR + '/']
 
     fieldnames = ["image", "label", "percentage"]
 
@@ -22,7 +25,10 @@ class VggPreClassifier(object):
                           "projector", "Windsor_tie", "slide_rule", "espresso_maker", "suit", "whistle", "hook", "iPod", "street_sign",
                           "paper_towel", "book_jacket", "cellular_telephone", "bookshop", "puck", "sunscreen",
                           "bathing_cap", "cash_machine", "plastic_bag", "bathtub", "Band_Aid", "switch", "tennis_ball",
-                          "digital_clock", ]
+                          "digital_clock",
+                          "binoculars", "ballpoint", "motor_scooter", "car_wheel", "tobacco_shop", "menu", "reel", "bobsled",
+                          "cinema", "crash_helmet", "window_screen", "television", "gas_pump", "hard_disc", "crane",
+                          "printer", "bathtub", "wallet", "sewing_machine", "wall_clock", "trolleybus"]
     percentage_limit = 0.05
 
     def __init__(self):
@@ -49,7 +55,7 @@ class VggPreClassifier(object):
         vgg_classes = set()
         for source in self.dirs:
             for make in os.listdir(source):
-                if not len(os.listdir(source + make)) > 0 and os.path.isdir(source + make + '/' + os.listdir(source + make)[0]):
+                if len(os.listdir(source + make)) > 0 and not os.path.isdir(source + make + '/' + os.listdir(source + make)[0]):
                     print("Classifying make: ", make)
                     with open(source + make + '/vgg_classifications.csv', 'w') as csvfile:
                         writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
