@@ -6,10 +6,7 @@ import paths
 
 
 class VggPreClassifier(object):
-    # dirs = ["../data/hasznaltauto/", "../data/autotrader/", "../data/autotrader_details"]
-    #  dirs = ["../data/autotrader_details/"]
-    dirs = [paths.SCOUT_DIR + '/']
-
+    dirs = [paths.HASZNALT_DIR, paths.TRADER_DIR, paths.SCOUT_DIR + '/']
     fieldnames = ["image", "label", "percentage"]
 
     """
@@ -28,7 +25,10 @@ class VggPreClassifier(object):
                           "digital_clock",
                           "binoculars", "ballpoint", "motor_scooter", "car_wheel", "tobacco_shop", "menu", "reel", "bobsled",
                           "cinema", "crash_helmet", "window_screen", "television", "gas_pump", "hard_disc", "crane",
-                          "printer", "bathtub", "wallet", "sewing_machine", "wall_clock", "trolleybus"]
+                          "printer", "bathtub", "wallet", "sewing_machine", "wall_clock", "trolleybus", "home_theater",
+                          "holster", "safe", "combination_lock", "packet", "viaduct", "radio_telescope", "manhole_cover",
+                          "loudspeaker", "beaker", "hand-held_computer", "screen", "mailbag", "mousetrap", "lab_coat",
+                          "file"]
     percentage_limit = 0.05
 
     def __init__(self):
@@ -102,17 +102,21 @@ class VggPreClassifier(object):
                 print("Cleaning category: ", category)
                 if not os.path.exists(source + "deleted"):
                     os.makedirs(source + "deleted")
-                with open(source + category + '/vgg_classifications.csv', 'r') as csvfile:
-                    reader = csv.DictReader(csvfile, fieldnames=self.fieldnames)
-                    for row in reader:
-                        image, cat, percentage = row[self.fieldnames[0]], row[self.fieldnames[1]], row[self.fieldnames[2]]
-                        if cat in self.bad_vgg_categories and float(percentage) > self.percentage_limit:
-                            # os.remove(source + category + "/" + image)
-                            try:
-                                move(source + category + '/' + image, source + "deleted/" + image)
-                                deleted_from_category += 1
-                            except Exception as e:
-                                print("Skipping file %s. Error: %s " % (image, str(e)))
+                try:
+                    with open(source + category + '/vgg_classifications.csv', 'r') as csvfile:
+                        reader = csv.DictReader(csvfile, fieldnames=self.fieldnames)
+                        for row in reader:
+                            image, cat, percentage = row[self.fieldnames[0]], row[self.fieldnames[1]], row[self.fieldnames[2]]
+                            if cat in self.bad_vgg_categories and float(percentage) > self.percentage_limit:
+                                # os.remove(source + category + "/" + image)
+                                try:
+                                    move(source + category + '/' + image, source + "deleted/" + image)
+                                    deleted_from_category += 1
+                                except Exception as e:
+                                    print("Skipping file %s. Error: %s " % (image, str(e)))
+                except Exception as e:
+                    print("Skipping category %s because it do not exists" % category)
                 print("%d images deleted from category %s " % (deleted_from_category, category))
                 all_deleted += deleted_from_category
+
 
