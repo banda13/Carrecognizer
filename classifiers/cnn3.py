@@ -1,6 +1,7 @@
 import time
 
 import numpy as np
+from keras.callbacks import EarlyStopping, RemoteMonitor, History, ModelCheckpoint
 from keras.engine.saving import load_model
 from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras.models import Sequential
@@ -50,17 +51,21 @@ class Cnn3(object):
 
         self.history = None
         self.out_params = out_params
+        self.checkpointer = None
         print("Cnn3 initialized")
 
     def save_bottlebeck_features(self):
         print("Saving bottleneck features started")
 
-        # build the VGG16 network
         model = applications.VGG16(include_top=False, weights='imagenet',
                                    input_shape=(self.img_width, self.img_height, 3))
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
-        datagen = ImageDataGenerator(self.augmentation)
+        datagen = ImageDataGenerator(
+            # shear_range=0.2,
+            # zoom_range=0.2,
+            # horizontal_flip=True,
+            rescale=1. / 255)
 
         generator = datagen.flow_from_directory(
             self.train_dir,
@@ -69,10 +74,19 @@ class Cnn3(object):
             class_mode=None,
             shuffle=False)
 
+        print(generator.class_indices)
+
         nb_train_samples = len(generator.filenames)
+        num_classes = len(generator.class_indices)
+
         predict_size_train = int(math.ceil(nb_train_samples / self.batch_size))
-        bottleneck_features_train = model.predict_generator(generator, predict_size_train)
-        np.save(self.bottleneck_train_features, bottleneck_features_train)
+
+        bottleneck_features_train = model.predict_generator(
+            generator, predict_size_train)
+
+        np.save(self.bottleneck_train_features,
+                bottleneck_features_train)
+
         print("Bottleneck train features saved as ", self.bottleneck_train_features)
 
         datagen = ImageDataGenerator(rescale=1. / 255)
@@ -84,9 +98,15 @@ class Cnn3(object):
             shuffle=False)
 
         nb_validation_samples = len(generator.filenames)
-        predict_size_validation = int(math.ceil(nb_validation_samples / self.batch_size))
-        bottleneck_features_validation = model.predict_generator(generator, predict_size_validation)
-        np.save(self.bottleneck_test_features, bottleneck_features_validation)
+
+        predict_size_validation = int(
+            math.ceil(nb_validation_samples / self.batch_size))
+
+        bottleneck_features_validation = model.predict_generator(
+            generator, predict_size_validation)
+
+        np.save(self.bottleneck_test_features,
+                bottleneck_features_validation)
         print("Bottleneck validation features saved as ", self.bottleneck_test_features)
 
         model.save(self.bottleneck_model)
@@ -127,11 +147,25 @@ class Cnn3(object):
             validation_labels, num_classes=num_classes)
 
         input_shape = train_data.shape[:1]
+        print("Input shape: %s" % str(input_shape))
 
-        self.history = self.top_model.fit(train_data, train_labels,
-                                          epochs=self.epochs,
-                                          batch_size=self.batch_size,
-                                          validation_data=(validation_data, validation_labels))
+        self.checkpointer = ModelCheckpoint(filepath=self.top_model_weights, verbose=1, save_best_only=True)
+        self.history = History()
+        callbacks = [EarlyStopping(monitor='val_loss',
+                                   min_delta=0,
+                                   patience=2,
+                                   verbose=0, mode='auto'),
+                     RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None,
+                                   send_as_json=False),
+                     self.history, self.checkpointer]
+        try:
+            self.top_model.fit(train_data, train_labels,
+                                              epochs=self.epochs,
+                                              batch_size=self.batch_size,
+                                              callbacks=callbacks,
+                                              validation_data=(validation_data, validation_labels))
+        except KeyboardInterrupt:
+            print("Training stopped")
 
         self.top_model.save_weights(self.top_model_weights)
         print("Top model trained, weights saved as ", self.top_model_weights)
@@ -146,7 +180,7 @@ class Cnn3(object):
         self.out_params['loss'] = eval_loss
 
     def evaluate(self):
-        plt.figure(1)
+        plt.figure(0)
         plt.subplot(211)
         plt.plot(self.history.history['acc'])
         plt.plot(self.history.history['val_acc'])
