@@ -23,6 +23,7 @@ def iterate(dictionary):
             value = value.replace(paths.STAT_DIR, "")
             print("New value: " + value)
 
+
 @app.route("/")
 def main_template():
     file_names = os.listdir(history_location)
@@ -38,12 +39,17 @@ def main_template():
         files.append({'file': os.path.basename(path), 'date': time.ctime(cdate)})
     return render_template("main_report.html", reports=files)
 
+
 @app.route("/template/<name>")
 def get_template(name):
     with open(history_location + name, 'r') as temp:
         template_params = json.load(temp, object_hook=decoder_hook)
-        template_params['cnn3_out']['plot'] = template_params['cnn3_out']['plot'].replace(paths.STAT_DIR, "")
+        if template_params['cnn3_out']['plot'] is not None:
+            template_params['cnn3_out']['plot'] = template_params['cnn3_out']['plot'].replace(paths.STAT_DIR, "")
+        if template_params['cnn7_out']['plot'] is not None:
+            template_params['cnn7_out']['plot'] = template_params['cnn7_out']['plot'].replace(paths.STAT_DIR + "/", "")
         return render_template("report.html", report=template_params)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
