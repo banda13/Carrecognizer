@@ -15,116 +15,173 @@
             <h1>{{report.pid}} {% if report.test %}- TEST{% endif %}</h1>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#core">Core params</a>
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#core">Core
+                        params</a>
                 </div>
                 <div id="core" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p><b>Start time:</b> {{report.history.creation_date.__isoformat__}}</p>
-                    <p><b>Image width/height:</b> {{report.classification.image_width}}/{{report.classification.image_height}}</p>
-                    <p><b>Accuracy:</b> {{report.history.accuracy}}</p>
-                    <p><b>Loss:</b> {{report.history.loss}}</p>
-                    <p><b>Train directory:</b> {{report.core.train_dir}}</p>
-                    <p><b>Validation directory:</b> {{report.core.test_dir}}</p>
-                    <p><b>Categories:</b> {{report.core.num_classes}}</p>
+                    <div class="panel-body">
+                        <p><b>Start time:</b> {{report.history.creation_date.__isoformat__}}</p>
+                        <p><b>Image width/height:</b>
+                            {{report.classification.image_width}}/{{report.classification.image_height}}</p>
+                        <p><b>Accuracy:</b> {{report.history.accuracy}}</p>
+                        <p><b>Loss:</b> {{report.history.loss}}</p>
+                        <p><b>Train directory:</b> {{report.core.train_dir}}</p>
+                        <p><b>Validation directory:</b> {{report.core.test_dir}}</p>
+                        <p><b>Categories:</b> {{report.core.num_classes}}</p>
 
-                    <button class="btn btn-info" data-toggle="collapse" data-target="#categories">Categories</button>
-                    <div id="categories" class="button collapse">
+                        <button class="btn btn-info" data-toggle="collapse" data-target="#categories">Categories
+                        </button>
+                        <div id="categories" class="button collapse">
+                            <ul class="list-group">
+                                {% for cat in report.core.categories %}
+                                {{cat}},
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#preproc">Pre-processing</a>
+                </div>
+                <div id="preproc" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><b>Pre classification categories:</b>
+                            {{report.preclassifier.pre_classifier_categories_count}}
+                        </p>
+                        <p><b>Filter:</b> {{report.preprocessor.pre_loader_filter}}</p>
+                        <p><b>Train percent:</b> {{report.preprocessor.p_train}}</p>
+                        <p><b>Validation percent:</b> {{report.preprocessor.p_test}}</p>
+                        <p><b>Count per classes:</b> {{report.preprocessor.limit}}</p>
+                        <p><b>Pre-processing runtime:</b> {{report.preprocessor.run_time}}</p>
+                        <p><b>Data sources:</b></p>
                         <ul class="list-group">
-                            {% for cat in report.core.categories %}
-                            {{cat}},
+                            {% for data_source in report.preprocessor.data_soruces %}
+                            <li class="list-group-item">
+                                <p><b>{{data_source[0]}}</b>: {{data_source[1]}}</p>
+                            </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
-                </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                     <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#preproc">Pre-processing</a>
-                </div>
-                <div id="preproc" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p><b>Pre classification categories:</b> {{report.preclassifier.pre_classifier_categories_count}}
-                    </p>
-                    <p><b>Filter:</b> {{report.preprocessor.pre_loader_filter}}</p>
-                    <p><b>Train percent:</b> {{report.preprocessor.p_train}}</p>
-                    <p><b>Validation percent:</b> {{report.preprocessor.p_test}}</p>
-                    <p><b>Count per classes:</b> {{report.preprocessor.limit}}</p>
-                    <p><b>Pre-processing runtime:</b> {{report.preprocessor.run_time}}</p>
-                    <p><b>Data sources:</b></p>
-                    <ul class="list-group">
-                        {% for data_source in report.preprocessor.data_soruces %}
-                        <li class="list-group-item">
-                            <p><b>{{data_source[0]}}</b>: {{data_source[1]}}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                </div>
-            </div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#transfer">Transfer train</a>
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#transfer">Transfer
+                        train</a>
                 </div>
                 <div id="transfer" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p><b>Train accuracy:</b> {{report.cnn3_out.accuracy}}</p>
-                            <p><b>Train loss:</b> {{report.cnn3_out.loss}}</p>
-                            <p><b>Run time:</b> {{report.history.transfer_train_time}}</p>
-                            <p><b>Params:</b></p>
-                            <li><b>Epochs:</b> {{report.cnn3_in.epochs}} </li>
-                            <li><b>Batch size:</b> {{report.cnn3_in.batch_size}} </li>
-                            <li><b>Augmentation:</b><ul>
-                                {% for aug in report.cnn3_in.augmentation %}
-                                <li>{{aug}}: {{report.cnn3_in.augmentation.get(aug)}}</li>
-                                {% endfor %}
-                            </li>
-                            </ul>
-                            <li><b>Learning rate:</b> {{report.cnn3_in.learning_rate}} </li>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p><b>Train accuracy:</b> {{report.cnn3_out.accuracy}}</p>
+                                <p><b>Train loss:</b> {{report.cnn3_out.loss}}</p>
+                                <p><b>Run time:</b> {{report.history.transfer_train_time}}</p>
+                                <p><b>Params:</b></p>
+                                <li><b>Epochs:</b> {{report.cnn3_in.epochs}}</li>
+                                <li><b>Batch size:</b> {{report.cnn3_in.batch_size}}</li>
+                                <li><b>Augmentation:</b>
+                                    <ul>
+                                        {% for aug in report.cnn3_in.augmentation %}
+                                        <li>{{aug}}: {{report.cnn3_in.augmentation.get(aug)}}</li>
+                                        {% endfor %}
+                                        </li>
+                                    </ul>
+                                <li><b>Learning rate:</b> {{report.cnn3_in.learning_rate}}</li>
 
-                        </div>
-                        <div class="col-sm-8">
-                            {% if report.cnn3_out.plot is not none%}
-                            <img src= "{{ url_for('static', filename = report.cnn3_out.plot)}}" width="400" height="300" align="right"/>
-                            {% endif %}
+                            </div>
+                            <div class="col-sm-8">
+                                {% if report.cnn3_out.plot is not none%}
+                                <a data-toggle="modal" href="#cnn_3_plot">
+                                    <img class="img-responsive"
+                                         src="{{ url_for('static', filename = report.cnn3_out.plot)}}" align="right"/>
+                                </a>
+                                <div class="modal fade" id="cnn_3_plot" tabindex="-1" role="dialog"
+                                     aria-labelledby="cnn_3_plotLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;
+                                                </button>
+                                                <h4 class="modal-title">Transfer train</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img class="img-responsive"
+                                                     src="{{ url_for('static', filename = report.cnn3_out.plot)}}"
+                                                     alt="image"/>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#finetune">Fine tune</a>
+                    <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#finetune">Fine
+                        tune</a>
                 </div>
                 <div id="finetune" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p><b>Train accuracy:</b> {{report.cnn7_out.accuracy}}</p>
-                            <p><b>Train loss:</b> {{report.cnn7_out.loss}}</p>
-                            <p><b>Run time:</b> {{report.history.transfer_train_time}}</p>
-                            <p><b>Params:</b></p>
-                            <li><b>Epochs:</b> {{report.cnn7_in.epochs}} </li>
-                            <li><b>Batch size:</b> {{report.cnn7_in.batch_size}} </li>
-                            <li><b>Frozen layers:</b> {{report.cnn7_in.frozen_layers}} </li>
-                            <li><b>Augmentation:</b><ul>
-                                {% for aug in report.cnn7_in.augmentation %}
-                                <li>{{aug}}: {{report.cnn7_in.augmentation.get(aug)}}</li>
-                                {% endfor %}
-                            </li>
-                            </ul>
-                            <li><b>Learning rate:</b> {{report.cnn7_in.learning_rate}} </li>
-                            <li><b>Momentum:</b> {{report.cnn7_in.momentum}} </li>
-                        </div>
-                        <div class="col-sm-8">
-                            {% if report.cnn7_out.plot is not none%}
-                                <img src= "{{ url_for('static', filename = report.cnn7_out.plot)}}" width="400" height="300" align="right"/>
-                            {% endif %}
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p><b>Train accuracy:</b> {{report.cnn7_out.accuracy}}</p>
+                                <p><b>Train loss:</b> {{report.cnn7_out.loss}}</p>
+                                <p><b>Run time:</b> {{report.history.transfer_train_time}}</p>
+                                <p><b>Params:</b></p>
+                                <li><b>Epochs:</b> {{report.cnn7_in.epochs}}</li>
+                                <li><b>Batch size:</b> {{report.cnn7_in.batch_size}}</li>
+                                <li><b>Frozen layers:</b> {{report.cnn7_in.frozen_layers}}</li>
+                                <li><b>Augmentation:</b>
+                                    <ul>
+                                        {% for aug in report.cnn7_in.augmentation %}
+                                        <li>{{aug}}: {{report.cnn7_in.augmentation.get(aug)}}</li>
+                                        {% endfor %}
+                                        </li>
+                                    </ul>
+                                <li><b>Learning rate:</b> {{report.cnn7_in.learning_rate}}</li>
+                                <li><b>Momentum:</b> {{report.cnn7_in.momentum}}</li>
+                            </div>
+                            <div class="col-sm-8">
+                                {% if report.cnn7_out.plot is not none%}
+                                <a data-toggle="modal" href="#cnn_7_plot">
+                                    <img class="img-responsive" src="{{ url_for('static', filename = report.cnn7_out.plot)}}"  align="right"/>
+                                </a>
+                                <div class="modal fade" id="cnn_7_plot" tabindex="-1" role="dialog"
+                                     aria-labelledby="cnn_3_plotLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;
+                                                </button>
+                                                <h4 class="modal-title">Transfer train</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img class="img-responsive" src="{{ url_for('static', filename = report.cnn7_out.plot)}}"  align="right"/>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
             <div class="panel panel-primary">
@@ -132,13 +189,13 @@
                     <a style="color:#FFFFFF" data-toggle="collapse" data-parent="#accordion" href="#test">Testing</a>
                 </div>
                 <div id="test" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p><b>Test's perc class:</b> {{report.test.test_count_per_class}}</p>
-                    <p><b>Run time:</b> {{report.test.run_time}}</p>
-                    <p><b>Accuracy:</b> {{report.test.accuracy}}</p>
-                    <p><b>Results per class:</b> {{report.preprocessor.p_test}}</p>
+                    <div class="panel-body">
+                        <p><b>Test's perc class:</b> {{report.test.test_count_per_class}}</p>
+                        <p><b>Run time:</b> {{report.test.run_time}}</p>
+                        <p><b>Accuracy:</b> {{report.test.accuracy}}</p>
+                        <p><b>Results per class:</b> {{report.preprocessor.p_test}}</p>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
