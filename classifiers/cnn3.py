@@ -57,7 +57,7 @@ class Cnn3(object):
     def save_bottlebeck_features(self):
         print("Saving bottleneck features started")
 
-        model = applications.VGG16(include_top=False, weights='imagenet',
+        model = applications.Xception(include_top=False, weights='imagenet',
                                    input_shape=(self.img_width, self.img_height, 3))
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True

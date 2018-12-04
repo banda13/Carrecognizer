@@ -4,7 +4,7 @@ import json
 import time
 import datetime
 
-from keras import Sequential
+from keras import Sequential, optimizers
 from keras.layers import Convolution2D, Dropout, MaxPooling2D, Flatten, Dense, regularizers, GlobalAveragePooling2D
 from keras.optimizers import RMSprop
 
@@ -14,7 +14,7 @@ from classifiers.cnn3 import Cnn3
 from classifiers.cnn7_fine_tune import Cnn7
 from classifiers.cnn_test import TestCNN
 from classifiers.lstm0 import NameGenerator
-from preprocess.clever_loader import LoaderFilter, CleverLoader
+from preprocess.clever_loader import LoaderFilter, CleverLoader, PreClassificationState
 from preprocess.pre_classification import VggPreClassifier
 from utils.json_utils import decoder_hook, Encoder
 
@@ -40,7 +40,7 @@ class ConvolutionalNeuralNetwork(object):
     def create(self):
         self.pid = NameGenerator().get_name()
         self.history_location = paths.ROOT_DIR + '/history/' + self.pid + ".json"
-        self.test = True
+        self.is_test = True
 
         categories = os.listdir(paths.TRAIN_DIR)
         num_classes = len(categories)
@@ -52,14 +52,15 @@ class ConvolutionalNeuralNetwork(object):
             "test_dir": paths.TEST_DIR,
             "categories": categories,
             "num_classes": num_classes,
-            "description": ""
+            "description": "trying to reproduce 30% acuracy"
         }
 
         '''
         Pre processing (pre classifier + pre processor)
         '''
         self.preclassifier = {
-            "pre_classifier_categories_count": len(VggPreClassifier.bad_vgg_categories)
+            "pre_classifier_categories_count": len(VggPreClassifier.bad_vgg_categories),
+            "pre_classification": PreClassificationState.NO
         }
 
         data_source_dirs = CleverLoader.data_soruce_dirs
@@ -75,13 +76,14 @@ class ConvolutionalNeuralNetwork(object):
         '''
         Classify (cnn3 transfer train + cnn7 fine tune)
         '''
-        img_width, img_height = 128, 128
+        img_width, img_height = 150, 150
         self.classification = {
             "image_width": img_width,
             "image_height": img_height
         }
 
         lr = 0.00001
+        lr2 = 0.0001
         model = Sequential()
         model.add(Convolution2D(128, 3, 3, input_shape=(4, 4, 512), activation='relu'))
         model.add(Dropout(0.5))
@@ -102,12 +104,12 @@ class ConvolutionalNeuralNetwork(object):
             "top_model_weights": paths.ROOT_DIR + '/model/bottleneck/bottleneck_' + str(self.pid) + ".h5",
             "class_indices": paths.ROOT_DIR + "/model/" + str(self.pid) + "_class_indices.npy",
             "top_model": model,
-            "epochs": 50,
+            "epochs": 10,
             "batch_size": 16,
             "augmentation": {
-                "shear_range": 0.2,
-                "zoom_range": 0.2,
-                "horizontal_flip": True,
+                # "shear_range": 0.2,
+                # "zoom_range": 0.2,
+                # "horizontal_flip": True,
                 "rescale": 1. / 255
             },
             "learning_rate": lr
@@ -119,18 +121,15 @@ class ConvolutionalNeuralNetwork(object):
             "histroy": None
         }
 
-        # recomiple model for cnn7
-        model.compile(optimizer=RMSprop(lr=lr, rho=0.8, epsilon=None, decay=0.0),
-                      loss='categorical_crossentropy', metrics=['accuracy'])
 
         # CNN7 - fine tune
         self.cnn7_in = {
             "epochs": 20,
             "batch_size": 16,
             "num_classes": num_classes,
-            "frozen_layers": 15,
-            "learning_rate": 1e-5,
-            "momentum": 0.6,
+            "frozen_layers": 25,
+            "learning_rate": lr2,
+            "momentum": 0.9,
             "augmentation": {
                 "rotation_range": 30,
                 "width_shift_range": 0.2,
@@ -147,6 +146,8 @@ class ConvolutionalNeuralNetwork(object):
         }
 
         self.cnn7_out = {
+            "accuracy": None,
+            "loss": None,
             "plot": None,
             "histroy": None
         }
@@ -167,10 +168,11 @@ class ConvolutionalNeuralNetwork(object):
             "model": paths.ROOT_DIR + '/model/' + str(self.pid) + ".h5",
             "image_width": img_width,
             "image_height": img_height,
-            "test_count_per_class": 1000,
+            "test_count_per_class": 10,
             "tracked_layer": 3,
             "run_time": 0,
             "accuracy": 0,
+            "results": None,
             "test_dir": paths.TEST_DIR,
             "class_indices": self.cnn3_in['class_indices'],
             "category_results": {}
@@ -182,7 +184,7 @@ class ConvolutionalNeuralNetwork(object):
         print("Preprocessing started")
         start_time = time.time()
         loader = CleverLoader(self.preprocessor['p_train'], self.preprocessor['p_test'], self.preprocessor['limit'],
-                              f=self.preprocessor['pre_loader_filter'])
+                              f=self.preprocessor['pre_loader_filter'], pre_filtering=self.preclassifier['pre_classification'])
         loader.load()
         self.preprocessor['run_time'] = time.time() - start_time
         self.save()
@@ -217,10 +219,13 @@ class ConvolutionalNeuralNetwork(object):
         self.test['run_time'] = time.time() - start_time
         self.save()
 
+
 test = ConvolutionalNeuralNetwork()
 test.create()
 test.save()
 # test.load(test.pid)
 # test.preprocess()
+# test.load('Fore')
 test.transfer_train()
-test.fine_tune_train()
+# test.fine_tune_train()
+# test.test_classifiers()
