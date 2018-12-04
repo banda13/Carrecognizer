@@ -52,7 +52,7 @@ class ConvolutionalNeuralNetwork(object):
             "test_dir": paths.TEST_DIR,
             "categories": categories,
             "num_classes": num_classes,
-            "description": "trying to reproduce 30% acuracy"
+            "description": "more conv. layer in top model"
         }
 
         '''
@@ -85,14 +85,14 @@ class ConvolutionalNeuralNetwork(object):
         lr = 0.00001
         lr2 = 0.0001
         model = Sequential()
-        model.add(Convolution2D(128, 3, 3, input_shape=(4, 4, 512), activation='relu'))
-        model.add(Dropout(0.5))
+        model.add(Convolution2D(256, 3, 3, input_shape=(4, 4, 512), activation='relu'))
+        model.add(Dropout(0.3))
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
         model.add(Flatten(input_shape=(4, 4, 512)))
-        model.add(Dense(128, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
+        model.add(Dense(256, activation='relu'))
+        model.add(Dropout(0.3))
+        model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.001)))
         model.compile(optimizer=RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0),
                       loss='categorical_crossentropy', metrics=['accuracy'])
 
@@ -193,7 +193,7 @@ class ConvolutionalNeuralNetwork(object):
         print("Transfer train started")
         start_time = time.time()
         cnn = Cnn3(self.pid, self.core, self.classification, self.cnn3_in, self.cnn3_out)
-        cnn.save_bottlebeck_features()
+        # cnn.save_bottlebeck_features()
         cnn.train_top_model()
         cnn.evaluate()
         self.cnn3_out = cnn.out_params
