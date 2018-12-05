@@ -52,7 +52,7 @@ class ConvolutionalNeuralNetwork(object):
             "test_dir": paths.TEST_DIR,
             "categories": categories,
             "num_classes": num_classes,
-            "description": "more conv. layer in top model"
+            "description": "trying to reach max accuracy on autoscout 3x category with transfer train"
         }
 
         '''
@@ -83,17 +83,19 @@ class ConvolutionalNeuralNetwork(object):
         }
 
         lr = 0.00001
-        lr2 = 0.0001
+        lr2 = 0.00001
         model = Sequential()
-        model.add(Convolution2D(256, 3, 3, input_shape=(4, 4, 512), activation='relu'))
-        model.add(Dropout(0.3))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+        # model.add(Convolution2D(512, 3, 3, input_shape=(4, 4, 512), activation='relu'))
+        # model.add(Dropout(0.1))
+        # model.add(MaxPooling2D(pool_size=(2, 2)))
 
         model.add(Flatten(input_shape=(4, 4, 512)))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dropout(0.1))
         model.add(Dense(256, activation='relu'))
-        model.add(Dropout(0.3))
+        model.add(Dropout(0.1))
         model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.001)))
-        model.compile(optimizer=RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0),
+        model.compile(optimizer=RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0), # RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0)
                       loss='categorical_crossentropy', metrics=['accuracy'])
 
         # CNN3 - transfer train (in and out params)
@@ -104,7 +106,7 @@ class ConvolutionalNeuralNetwork(object):
             "top_model_weights": paths.ROOT_DIR + '/model/bottleneck/bottleneck_' + str(self.pid) + ".h5",
             "class_indices": paths.ROOT_DIR + "/model/" + str(self.pid) + "_class_indices.npy",
             "top_model": model,
-            "epochs": 10,
+            "epochs": 500,
             "batch_size": 16,
             "augmentation": {
                 # "shear_range": 0.2,
@@ -124,10 +126,10 @@ class ConvolutionalNeuralNetwork(object):
 
         # CNN7 - fine tune
         self.cnn7_in = {
-            "epochs": 20,
+            "epochs": 10,
             "batch_size": 16,
             "num_classes": num_classes,
-            "frozen_layers": 25,
+            "frozen_layers": 19,
             "learning_rate": lr2,
             "momentum": 0.9,
             "augmentation": {
@@ -223,9 +225,8 @@ class ConvolutionalNeuralNetwork(object):
 test = ConvolutionalNeuralNetwork()
 test.create()
 test.save()
-# test.load(test.pid)
 # test.preprocess()
-# test.load('Fore')
+# test.load('Hmpegw')
 test.transfer_train()
 # test.fine_tune_train()
 # test.test_classifiers()
