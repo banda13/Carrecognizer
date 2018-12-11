@@ -52,7 +52,7 @@ class ConvolutionalNeuralNetwork(object):
             "test_dir": paths.TEST_DIR,
             "categories": categories,
             "num_classes": num_classes,
-            "description": "trying to reach max accuracy on autoscout 3x category with transfer train"
+            "description": "big model"
         }
 
         '''
@@ -83,7 +83,7 @@ class ConvolutionalNeuralNetwork(object):
         }
 
         lr = 0.00001
-        lr2 = 0.00001
+        lr2 = 1e-4
         model = Sequential()
         # model.add(Convolution2D(512, 3, 3, input_shape=(4, 4, 512), activation='relu'))
         # model.add(Dropout(0.1))
@@ -126,17 +126,17 @@ class ConvolutionalNeuralNetwork(object):
 
         # CNN7 - fine tune
         self.cnn7_in = {
-            "epochs": 10,
+            "epochs": 50,
             "batch_size": 16,
             "num_classes": num_classes,
-            "frozen_layers": 19,
+            "frozen_layers": -4,
             "learning_rate": lr2,
-            "momentum": 0.9,
+            # "momentum": 0.5,
             "augmentation": {
-                "rotation_range": 30,
-                "width_shift_range": 0.2,
-                "height_shift_range": 0.2,
-                "fill_mode": 'nearest',
+                # "rotation_range": 30,
+                # "width_shift_range": 0.2,
+                # "height_shift_range": 0.2,
+                # "fill_mode": 'nearest',
                 "shear_range": 0.2,
                 "zoom_range": 0.2,
                 "horizontal_flip": True,
@@ -170,10 +170,11 @@ class ConvolutionalNeuralNetwork(object):
             "model": paths.ROOT_DIR + '/model/' + str(self.pid) + ".h5",
             "image_width": img_width,
             "image_height": img_height,
-            "test_count_per_class": 10,
-            "tracked_layer": 3,
+            "test_count_per_class": 100,
             "run_time": 0,
             "accuracy": 0,
+            "top3_accuracy": 0,
+            "probability": 0,
             "results": None,
             "test_dir": paths.TEST_DIR,
             "class_indices": self.cnn3_in['class_indices'],
@@ -195,7 +196,7 @@ class ConvolutionalNeuralNetwork(object):
         print("Transfer train started")
         start_time = time.time()
         cnn = Cnn3(self.pid, self.core, self.classification, self.cnn3_in, self.cnn3_out)
-        # cnn.save_bottlebeck_features()
+        cnn.save_bottlebeck_features()
         cnn.train_top_model()
         cnn.evaluate()
         self.cnn3_out = cnn.out_params
@@ -219,14 +220,17 @@ class ConvolutionalNeuralNetwork(object):
         cnn.test()
         self.test['category_results'] = cnn.category_results
         self.test['run_time'] = time.time() - start_time
+        self.test['accuracy'] = cnn.accuracy
+        self.test['top3_accuracy'] = cnn.top3_accuracy
+        self.test['probability'] = cnn.avg_probability
         self.save()
 
 
 test = ConvolutionalNeuralNetwork()
-test.create()
-test.save()
+# test.create()
+# test.save()
 # test.preprocess()
-# test.load('Hmpegw')
-test.transfer_train()
+test.load('Alfifanon')
+# test.transfer_train()
 # test.fine_tune_train()
-# test.test_classifiers()
+test.test_classifiers()

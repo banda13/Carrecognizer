@@ -1,6 +1,8 @@
 import os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+# TRAIN_DIR = ROOT_DIR + "/data/train/"
+# # TEST_DIR = ROOT_DIR + "/data/test/"
 TRAIN_DIR = ROOT_DIR + "/data/train/"
 TEST_DIR = ROOT_DIR + "/data/test/"
 STAT_DIR = ROOT_DIR + "/statistics/"

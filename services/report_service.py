@@ -11,6 +11,7 @@ from utils.json_utils import decoder_hook
 template_folder = paths.ROOT_DIR + "/templates/"
 statistics_folder = paths.ROOT_DIR + '/statistics'
 history_location = paths.ROOT_DIR + "/history/"
+stat_sub_dir = paths.STAT_DIR + "subplots/"
 app = Flask(__name__, template_folder=template_folder, static_folder=statistics_folder)
 
 
@@ -48,6 +49,9 @@ def get_template(name):
             template_params['cnn3_out']['plot'] = template_params['cnn3_out']['plot'].replace(paths.STAT_DIR, "")
         if template_params['cnn7_out']['plot'] is not None:
             template_params['cnn7_out']['plot'] = template_params['cnn7_out']['plot'].replace(paths.STAT_DIR + "/", "")
+        if template_params['test']['category_results'] is not None:
+            for key, category in template_params['test']['category_results'].items():
+                template_params['test']['category_results'][key]['plot'] = template_params['test']['category_results'][key]['plot'].replace(stat_sub_dir, "subplots/")
         return render_template("report.html", report=template_params)
 
 

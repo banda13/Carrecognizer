@@ -26,7 +26,7 @@ class LoaderFilter(Enum):
 
 
 class CleverLoader(object):
-    data_soruce_dirs = [('autotrader', paths.TRADER_DIR), ('hasznaltauto', paths.HASZNALT_DIR)]
+    data_soruce_dirs = [('autoscout', paths.SCOUT_DIR), ('autotrader', paths.TRADER_DIR), ('hasznaltauto', paths.HASZNALT_DIR)] # ,
     train_dir = paths.TRAIN_DIR
     test_dir = paths.TEST_DIR
 
@@ -55,10 +55,12 @@ class CleverLoader(object):
                 continue
 
             img_counter = self.limit
+            summ_in_category = sum(c[category] for c in source_categories_summs)
+            p = self.limit / float(summ_in_category)
             i = 0
             for cat_source in source_categories_summs:
                 if category in cat_source:
-                    category_count = cat_source[category] if cat_source[category] < img_counter else img_counter
+                    category_count = round(cat_source[category] * p)
                     img_counter -= category_count
 
                     if category_count > 0:
@@ -177,6 +179,5 @@ class CleverLoader(object):
             print("%s category done in %s" % (category, source))
 
 
-# loader = CleverLoader(0.8, 0.2, 8000, f=LoaderFilter.LAPLACE_GRADIENT)
+# loader = CleverLoader(0.8, 0.2, 20000, f=LoaderFilter.NO)
 # loader.load()
-
