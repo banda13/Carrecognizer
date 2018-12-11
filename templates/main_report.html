@@ -5,6 +5,7 @@
     <title>Car recognizer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="container-fluid text-center">
@@ -15,8 +16,15 @@
                 <ul class="list-group">
                 {% for n in reports %}
                     <li class="list-group-item">
-                        <h4 class="list-group-item-heading"><a href="template/{{n.file}}">{{n.file[:-5]}}</a></h4>
-                        <p class="list-group-item-text">{{n.date}}</p>
+                        <div class="row">
+                        <div class="col-sm-4">
+                            <h4 class="list-group-item-heading"><a href="template/{{n.file}}">{{n.file[:-5]}}</a></h4>
+                            <p class="list-group-item-text">{{n.date}}</p>
+                        </div>
+                            <div class="col-sm-8" align="right">
+                                 <i style="font-size: 32px;" class="fa fa-trash"></i>
+                            </div>
+                        </div>
                     </li>
                 {% endfor %}
               </ul>

@@ -20,14 +20,15 @@
                 </div>
                 <div id="core" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <p><b>Start time:</b> {{report.history.creation_date.__isoformat__}}</p>
-                        <p><b>Image width/height:</b>
+                        <p><b>Start time: </b> {{report.history.creation_date.__isoformat__}}</p>
+                        <p><b>Image width/height: </b>
                             {{report.classification.image_width}}/{{report.classification.image_height}}</p>
-                        <p><b>Accuracy:</b> {{report.history.accuracy}}</p>
-                        <p><b>Loss:</b> {{report.history.loss}}</p>
-                        <p><b>Train directory:</b> {{report.core.train_dir}}</p>
-                        <p><b>Validation directory:</b> {{report.core.test_dir}}</p>
-                        <p><b>Categories:</b> {{report.core.num_classes}}</p>
+                        <p><b>Accuracy: </b> {{report.history.accuracy}}</p>
+                        <p><b>Loss: </b> {{report.history.loss}}</p>
+                        <Label>Description: </label><input type="text" class="form-control" value="{{report.core.description}}"/>
+                        <p><b>Train directory: </b> {{report.core.train_dir}}</p>
+                        <p><b>Validation directory: </b> {{report.core.test_dir}}</p>
+                        <p><b>Categories: </b> {{report.core.num_classes}}</p>
 
                         <button class="btn btn-info" data-toggle="collapse" data-target="#categories">Categories
                         </button>
@@ -193,7 +194,34 @@
                         <p><b>Test's perc class:</b> {{report.test.test_count_per_class}}</p>
                         <p><b>Run time:</b> {{report.test.run_time}}</p>
                         <p><b>Accuracy:</b> {{report.test.accuracy}}</p>
-                        <p><b>Results per class:</b> {{report.preprocessor.p_test}}</p>
+                        <p><b>Top3 accuracy:</b> {{report.test.top3_accuracy}}</p>
+                        <p><b>Average probability:</b> {{report.test.probability}}</p>
+                        {% if report.test.category_results is not none%}
+
+
+                        {% for key, cat in report.test.category_results.items() %}
+                            <div class="alert alert-info">
+                            <div class="row">
+                            <div class="col-sm-4">
+                                <p><h3>{{key}}</h3></p>
+                                <p><b>Accuracy:</b> {{cat.accuracy}}</p>
+                                <p><b>Top3 accuracy:</b> {{cat.top3_accuracy}}</p>
+                                <p><b>Average probability:</b> {{cat.avg_probabilities}}</p>
+                                <p><b>Max probability:</b> {{cat.max_probabilities}}</p>
+                                <p><b>Min probability:</b> {{cat.min_probabilities}}</p>
+                            </div>
+                            <div class="col-sm-8">
+                                {% if cat.plot is not none%}
+                                <a data-toggle="modal" href="#category_test_results">
+                                    <img class="img-responsive" src="{{ url_for('static', filename = cat.plot)}}"  align="right"/>
+                                </a>
+                                {% endif %}
+                            </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        {% endif %}
                     </div>
                 </div>
             </div>
