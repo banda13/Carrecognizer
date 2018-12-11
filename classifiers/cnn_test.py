@@ -20,9 +20,10 @@ class TestCNN(object):
         self.model_path = params['model']
         self.image_width, self.image_height = params['image_width'], params['image_height']
 
-        self.layer_tracked = params['tracked_layer']
         self.test_count_per_class = params['test_count_per_class']
         self.accuracy = params['accuracy']
+        self.top3_accuracy = params['top3_accuracy']
+        self.avg_probability = params['probability']
         self.category_results = params['category_results']
         self.validation_dir = params['test_dir']
         self.class_indices_dir = params['class_indices']
@@ -36,17 +37,23 @@ class TestCNN(object):
 
         model = load_model(self.model_path)
         class_dictionary = np.load(self.class_indices_dir).item()
+        inv_map = {v: k for k, v in class_dictionary.items()}
+        reverse_inv_map = dict(zip(inv_map.values(),inv_map.keys()))
         print("Model loaded")
 
         categories = os.listdir(self.validation_dir)
         num_categories = len(categories)
         category_results = []
+        probabilities = []
+        accucacies = []
+        top3_accuracies = []
         print("Testing %d category" % len(categories))
         for category in categories:
             print("Testing %s" % category)
 
             images = random.sample(os.listdir(self.validation_dir + "/" + category), self.test_count_per_class)
             match = 0
+            top3_match = 0
             predictions_list = []
             idx_prediction_list = []
             for img in images:
@@ -57,33 +64,56 @@ class TestCNN(object):
 
                 prediction = model.predict(image).reshape(num_categories)
                 idx_prediction = np.argsort(-prediction, axis=0)
-                inv_map = {v: k for k, v in class_dictionary.items()}
                 label = inv_map[idx_prediction[0]]
+                top3_label = [inv_map[idx_prediction[0]], inv_map[idx_prediction[1]], inv_map[idx_prediction[2]]]
 
                 if label == category:
                     match += 1
+                if category in top3_label:
+                    top3_match += 1
 
                 predictions_list.append(prediction)
                 idx_prediction_list.append(idx_prediction)
             category_results.append(predictions_list)
             self.idx_results.append(idx_prediction_list)
 
-            avg_prop = 0 # TODO
-            similar_categories = {} # TODO with propabilities, and weight it based on
+            means = []
+            prob_max = []
+            prob_min = []
+            for cat in np.array(category_results).T:
+                means.append(np.mean(cat))
+                prob_max.append(np.max(cat))
+                prob_min.append(np.min(cat))
+
+            idx = reverse_inv_map[category]
+            category_mean = means[idx]
+            category_max = prob_max[idx]
+            category_min = prob_min[idx]
             accuracy = match / len(images)
+            top3_accuracy = top3_match / len(images)
+
+            probabilities.append(category_mean)
+            accucacies.append(accuracy)
+            top3_accuracies.append(top3_accuracy)
 
             print("Testing ended for category %s, accuracy: %f" % (category, accuracy))
             self.category_results[category] = {
-                'match' : match,
-                'accuracy': accuracy,
-                'probabilities' : predictions_list,
-                'avg_probabilities' : avg_prop,
-                'similar_categories' : similar_categories
+                'match' : float(match),
+                'accuracy': float(accuracy),
+                'top3_accuracy': float(top3_accuracy),
+                # 'probabilities' : predictions_list,
+                'avg_probabilities' : float(category_mean),
+                'max_probabilities' : float(category_max),
+                'min_probabilities' : float(category_min)
             }
         self.results = category_results
+        self.accuracy = float(np.mean(np.array(accucacies)))
+        self.top3_accuracy = float(np.mean(np.array(top3_accuracies)))
+        self.avg_probability = float(np.mean(np.array(probabilities)))
         self.evaluate_tests()
 
     def evaluate_tests(self):
+        plt.close()
         class_dictionary = np.load(self.class_indices_dir).item()
         inv_map = {v: k for k, v in class_dictionary.items()}
         labels = class_dictionary.keys()
@@ -98,5 +128,8 @@ class TestCNN(object):
             plt.ylabel('Percentage')
             plt.bar(labels, np_means)
             plt.xticks(rotation=90)
-            plt.savefig(TestCNN.plot_dir + self.pid + '_' + category + ".jpg")
+            img_title = TestCNN.plot_dir + self.pid + '_' + category + ".jpg"
+            plt.savefig(img_title)
             plt.close()
+
+            self.category_results[category]['plot'] = img_title
