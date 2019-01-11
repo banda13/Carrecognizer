@@ -136,7 +136,7 @@ for car_id, car_type in make_mappings.items():
                 print("No new image found on page %s going to next category" % (str(page)))
                 end_of_category = True
 
-            if page > 100:
+            if page > 100: # -> fixme why??!
                 print("100th page reached, going to next category")
                 end_of_category = True
 
