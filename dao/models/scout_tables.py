@@ -1,35 +1,67 @@
 import datetime
 
-from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Enum, Float, Text, Time
+from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Enum, Float, Text, Time, ARRAY, ForeignKey
 
 from dao.base import Connection
+from dao.dao_utils import MColumn
 
 
 class ScoutCar(Connection.Base):
     __tablename__ = 'scout_car'
 
-    id = Column(Integer, primary_key=True)
-    model = Column(String, nullable=False)
-    make = Column(String, nullable=False)
-    country = Column(String(5), nullable=False)
-    scout_id = Column(String)
-    create_date = Column(DateTime, default=datetime.datetime.utcnow)
+    id = MColumn(Integer, "id", "id", primary_key=True)
+    model_id = Column(Integer, ForeignKey('model.model_id'))
+    make_id = Column(Integer, ForeignKey('make.make_id'))
+    model = MColumn(String, "Model", "Modell", nullable=False)
+    make = MColumn(String, "Make", "Márka", nullable=False)
+    country = MColumn(String(5), "Country", "Ország", nullable=False)
+    scout_id = MColumn(String, "Scout_id", "Scout_id")
+    create_date = MColumn(DateTime, "Create_date", "Létrehozás időpontja", nullable=False, default=datetime.datetime.utcnow)
 
-    # basic properties
-    full_name = Column(String)
-    body = Column(String) #karosszéria formája
-    color = Column(String)
-    doors = Column(Integer)
-    seats = Column(Integer)
+    # base properties
+    makemodel = MColumn(String, "MakeModel", "ModellMárka")
+    version = MColumn(String, "Version", "Verzió")
+    price = MColumn(Float, "Price", "Ár")
+    currency = MColumn(String, "Currency", "Pénznem")
+    km = MColumn(Integer, "Km", "Km")
+    first_registration = MColumn(String, "FirstRegistration", "Első forgalomba helyezés")
+    power_kw = MColumn(Integer, "Kilo Watt", "Kiló Watt")
+    power_hp = MColumn(Integer, "Horse Power", "Ló erő")
+    highlight_properties = MColumn(ARRAY(String), "Highlights", "Highlights")
 
-    # drive
-    gear_type = Column(String(20)) # váltó
-    gears = Column(Integer) # sebességfokozatok száma
-    #etc..
+    # main properties
+    type = MColumn(String, "Type", "Állapot")
+    body_color = MColumn(String, "Body Color", "Külső szín")
+    paint_type = MColumn(String, "Paint Type", "Fényezés")
+    body = MColumn(String, "Body", "A karosszéria formája")
+    doors = MColumn(Integer, "Nr. of Doors", "Ajtók száma")
+    seats = MColumn(Integer, "Nr. of Seats", "Ülőhelyek száma")
 
-    def __init__(self, scout_id):
+    gear_type = MColumn(String, "Gearing Type", "Váltó típusa")
+    gears = MColumn(Integer, "Gears", "Sebességfokozatok száma")
+    displacement = MColumn(Integer, "Displacement", "Hengerűrtartalom")
+    cylinders = MColumn(Integer, "Cylinders", "Hengerek száma")
+    weight = MColumn(Integer, "Weight", "Tömege üres állapotban")
+
+    fuel = MColumn(String(20), "Fuel", "Üzemanyag")
+    consumption_comb = MColumn(Integer, "Consumption Comb", "Üzemanyagfogyasztás kombinált")
+    consumption_city = MColumn(Integer, "Consumption City", "Üzemanyagfogyasztás városi")
+    consumption_country = MColumn(Integer, "Consumption Country", "Üzemanyagfogyasztás országúti")
+    emission = MColumn(String, "Emission Class", "Károsanyag-kibocsátási kategória")
+
+    # equipment
+    comfort_convenience = MColumn(ARRAY(String), "Comfort & Convenience", "Kényelem")
+    entertainment_media = MColumn(ARRAY(String), "Entertainment & Media", "Szórakozás / Média")
+    extras = MColumn(ARRAY(String), "Extras", "Extrák")
+    safety_security = MColumn(ARRAY(String), "Safety & Security", "Biztonság")
+
+    def __init__(self, scout_id, model, make, country):
         self.scout_id = scout_id
+        self.model = model
+        self.make = make
+        self.country = country
+
 
 def init():
     print('Scout tables initialized')
-    return ScoutCar('-')
+    return ScoutCar('-', '-', '-', '-')
