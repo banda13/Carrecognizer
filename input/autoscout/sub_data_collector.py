@@ -105,6 +105,11 @@ def load_cache_to_memory():
             make_models.append(row)
         return make_models
 
+def write_html_file(car_file_name, inner_body):
+    with open(car_file_name, "wb") as fp:
+        # fp.write(BeautifulSoup(inner_body, 'html.parser').encode("utf-8")) -> this is fcking slow.. useless
+        fp.write(inner_body.encode('utf8'))
+
 def data_sucker():
     print("Data sucking started..")
     make_models = load_cache_to_memory()
@@ -168,9 +173,10 @@ def data_sucker():
                                 car_image_counter = 0
                                 images_in_subpage = []
                                 car_id = model + "_" + make + '_' + str(id_counter)
-                                with open(meta_path + str(car_id) + ".txt", "wb") as fp:
-                                    # fp.write(BeautifulSoup(inner_body, 'html.parser').encode("utf-8")) -> this is fcking slow.. useless
-                                    fp.write(inner_body.encode('utf8'))
+                                car_file_name = meta_path + str(car_id) + ".txt"
+
+                                thread = threading.Thread(target=write_html_file, args=(car_file_name, inner_body))
+                                thread.start()
 
                                 car_counter_in_country += 1
                                 id_counter += 1
