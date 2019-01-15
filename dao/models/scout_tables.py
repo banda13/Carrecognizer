@@ -1,6 +1,8 @@
+import re
 import datetime
 
-from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Enum, Float, Text, Time, ARRAY, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Enum, Float, Text, Time, ARRAY, ForeignKey, JSON
+from sqlalchemy.orm import validates
 
 from dao.base import Connection
 from dao.dao_utils import MColumn
@@ -16,7 +18,8 @@ class ScoutCar(Connection.Base):
     make = MColumn(String, "Make", "Márka", nullable=False)
     country = MColumn(String(5), "Country", "Ország", nullable=False)
     scout_id = MColumn(String, "Scout_id", "Scout_id")
-    create_date = MColumn(DateTime, "Create_date", "Létrehozás időpontja", nullable=False, default=datetime.datetime.utcnow)
+    create_date = MColumn(DateTime, "Create_date", "Létrehozás időpontja", nullable=False,
+                               default=datetime.datetime.utcnow)
 
     # base properties
     makemodel = MColumn(String, "MakeModel", "ModellMárka")
@@ -55,13 +58,40 @@ class ScoutCar(Connection.Base):
     extras = MColumn(ARRAY(String), "Extras", "Extrák")
     safety_security = MColumn(ARRAY(String), "Safety & Security", "Biztonság")
 
-    def __init__(self, scout_id, model, make, country):
+    def __init__(self, mid, scout_id, model_id, make_id, model, make, country):
+        self.id = mid
         self.scout_id = scout_id
+        self.model_id = model_id
+        self.make_id = make_id
         self.model = model
         self.make = make
         self.country = country
 
+    def attribute_lookup(self, name):
+        for attr in dir(ScoutCar):
+            if not attr.startswith('__'):
+                try:
+                    field = getattr(ScoutCar, attr)
+                    if field.en_pattern == name or field.hu_pattern == name:
+                        return attr
+                except Exception as e:
+                    pass
+
+    # validators used as converters because i did not find any other solution to add setter and this way is clean
+    @validates('displacement')
+    def validate_displacement(self, title, displacement):
+        try:
+            return int(re.sub('[^0-9]','', displacement))
+        except Exception:
+            return 0
+
+    @validates('weight')
+    def validate_weight(self, title, weight):
+        try:
+            return int(re.sub('[^0-9]', '', weight))
+        except Exception:
+            return 0
 
 def init():
     print('Scout tables initialized')
-    return ScoutCar('-', '-', '-', '-')
+    return ScoutCar(0, '-', 0, 0, '-', '-', '-')
