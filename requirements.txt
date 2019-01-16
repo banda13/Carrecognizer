@@ -17,3 +17,5 @@ h5py==2.8.0
 urllib3==1.23
 gunicorn=19.9.0
 #tensorflow-gpu==1.10.0
+bs4==0.0.1
+sqlalchemy==1.2.15
