@@ -37,7 +37,7 @@ class Connection(metaclass=Singleton):
         print("DB created")
 
     def open_session(self):
-        print("Opening new session")
+        # print("Opening new session")
         return self.Session()
 
 

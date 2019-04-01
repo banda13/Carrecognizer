@@ -1,7 +1,8 @@
 import re
 import datetime
 
-from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Enum, Float, Text, Time, ARRAY, ForeignKey, JSON
+from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Enum, Float, Text, Time, ARRAY, ForeignKey, \
+    JSON
 from sqlalchemy.orm import validates
 
 from dao.base import Connection
@@ -12,17 +13,17 @@ class ScoutCar(Connection.Base):
     __tablename__ = 'scout_car'
 
     id = MColumn(Integer, "id", "id", primary_key=True)
-    model_id = Column(Integer, ForeignKey('model.model_id'))
     make_id = Column(Integer, ForeignKey('make.make_id'))
+    model_id = Column(Integer, ForeignKey('model.model_id'))
     model = MColumn(String, "Model", "Modell", nullable=False)
     make = MColumn(String, "Make", "Márka", nullable=False)
     language = MColumn(String(5), "Language", "Nyelv", nullable=False)
-    scout_id = MColumn(String, "Scout_id", "Scout_id") # TODO unique + some index
+    scout_id = MColumn(String, "Scout_id", "Scout_id")  # TODO unique + some index
     create_date = MColumn(DateTime, "Create_date", "Létrehozás időpontja", nullable=False,
-                               default=datetime.datetime.utcnow)
+                          default=datetime.datetime.utcnow)
 
     # base properties
-    makemodel = MColumn(String, "MakeModel", "ModellMárka")
+    makemodel = MColumn(String, "MakeModel", "Márka Modell")
     version = MColumn(String, "Version", "Verzió")
     price = MColumn(Float, "Price", "Ár")
     currency = MColumn(String, "Currency", "Pénznem")
@@ -49,7 +50,7 @@ class ScoutCar(Connection.Base):
     weight = MColumn(Integer, "Weight", "Tömege üres állapotban")
     drive_chain = MColumn(String, "Drive chain", "Meghajtás típusa")
 
-    fuel = MColumn(String(20), "Fuel", "Üzemanyag")
+    fuel = MColumn(String, "Fuel", "Üzemanyag")
     consumption = MColumn(String, "Consumption1", "Üzemanyagfogyasztás1")
     consumption_comb = MColumn(Float, "Consumption Comb", "Üzemanyagfogyasztás kombinált")
     consumption_city = MColumn(Float, "Consumption City", "Üzemanyagfogyasztás városi")
@@ -63,7 +64,7 @@ class ScoutCar(Connection.Base):
     extras = MColumn(ARRAY(String), "Extras", "Extrák")
     safety_security = MColumn(ARRAY(String), "Safety & Security", "Biztonság")
 
-    def __init__(self, mid, scout_id, model_id, make_id, model, make, country):
+    def __init__(self, mid, scout_id, make_id, model_id, make, model, country):
         self.id = mid
         self.scout_id = scout_id
         self.model_id = model_id
@@ -86,10 +87,9 @@ class ScoutCar(Connection.Base):
     @validates('displacement')
     def validate_displacement(self, title, displacement):
         try:
-            return int(re.sub('[^0-9]','', displacement))
+            return int(re.sub('[^0-9]', '', displacement))
         except Exception:
             return 0
-
 
     @validates('weight')
     def validate_weight(self, title, weight):
@@ -124,6 +124,7 @@ class ScoutCar(Connection.Base):
             return consumption
         except Exception:
             return 0
+
 
 def init():
     print('Scout tables initialized')
