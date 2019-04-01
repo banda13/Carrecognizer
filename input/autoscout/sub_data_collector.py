@@ -13,9 +13,8 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # consts
-language = 'HU' #just remember..
-cache_csv_name = 'autoscout_makemodel_cache.csv'
-stat_csv_name = 'autoscout_datasucker_stat.csv'
+language = 'EN' #just remember..
+
 cache_field_names = ['model_id', 'model', 'make_id', 'make']
 stat_field_names = ['model', 'make', 'country', 'start_date', 'run_time', 'cars', 'images', 'errors']
 debug = False
@@ -28,8 +27,33 @@ country_codes = [['A', 'AT'], ['B', 'BE'], ['D', 'DE'], ['E', 'ES'], ['F', 'FR']
 make_graphql_request_body = '{"query":"query ModelModelLineQuery($vehicleTypeId: String!, $makeId: Int!, $modelLineId: Int, $bg_BG: Boolean = false, $cs_CZ: Boolean = false, $de_AT: Boolean = false, $de_DE: Boolean = false, $en_GB: Boolean = false, $es_ES: Boolean = false, $fr_BE: Boolean = false, $fr_FR: Boolean = false, $fr_LU: Boolean = false, $hr_HR: Boolean = false, $hu_HU: Boolean = false, $it_IT: Boolean = false, $nl_BE: Boolean = false, $nl_NL: Boolean = false, $pl_PL: Boolean = false, $ro_RO: Boolean = false, $ru_RU: Boolean = false, $sv_SE: Boolean = false, $tr_TR: Boolean = false, $uk_UA: Boolean = false) {  filters {    model {      values(vehicleTypeId: $vehicleTypeId, makeId: $makeId, modelLineId: $modelLineId) {        id        name        modelLineId        label {          ...labelFields        }      }    }    modelLine {      values(vehicleTypeId: $vehicleTypeId, makeId: $makeId) {        id        name        label {          ...labelFields        }      }    }  }}fragment labelFields on LocalizedMessage {  bg_BG @include(if: $bg_BG)  cs_CZ @include(if: $cs_CZ)  de_AT @include(if: $de_AT)  de_DE @include(if: $de_DE)  en_GB @include(if: $en_GB)  es_ES @include(if: $es_ES)  fr_BE @include(if: $fr_BE)  fr_FR @include(if: $fr_FR)  fr_LU @include(if: $fr_LU)  hr_HR @include(if: $hr_HR)  hu_HU @include(if: $hu_HU)  it_IT @include(if: $it_IT) nl_BE @include(if: $nl_BE) nl_NL @include(if: $nl_NL)  pl_PL @include(if: $pl_PL)  ro_RO @include(if: $ro_RO)  ru_RU @include(if: $ru_RU)  sv_SE @include(if: $sv_SE)  tr_TR @include(if: $tr_TR)  uk_UA @include(if: $uk_UA)}","variables":{"vehicleTypeId":"C","makeId":%d,"hu_HU":true}}'
 make_request_graphql_url = "https://search-filters-provider.a.autoscout24.com/graphql"
 
-base_url = 'https://www.autoscout24.hu/'
-list_url = 'https://www.autoscout24.hu/lst/%s/%s?sort=price&desc=1&page=%d&cy=%s&sort=%s&desc=%d' # model-make-pagenum-country code-sort-desc?
+# TODO english url's and pattern's - to run webcrawers paralell..
+# this will cause multilanguage db + lot of other problems, but will double the download speed, so its worth...
+en_base_url = "https://www.autoscout24.com/"
+en_list_url = 'https://www.autoscout24.com/lst/%s/%s?sort=price&desc=1&page=%d&cy=%s&sort=%s&desc=%d'
+
+hu_base_url = 'https://www.autoscout24.hu/'
+hu_list_url = 'https://www.autoscout24.hu/lst/%s/%s?sort=price&desc=1&page=%d&cy=%s&sort=%s&desc=%d' # model-make-pagenum-country code-sort-desc?
+
+hu_cache_csv_name = 'autoscout_makemodel_cache_hu.csv'
+hu_stat_csv_name = 'autoscout_datasucker_stat_hu.csv'
+
+en_cache_csv_name = 'autoscout_makemodel_cache_en.csv'
+en_stat_csv_name = 'autoscout_datasucker_stat_en.csv'
+
+if language == 'HU':
+    base_url = hu_base_url
+    list_url = hu_list_url
+    cache_csv_name = hu_cache_csv_name
+    stat_csv_name = hu_stat_csv_name
+elif language == 'EN':
+    base_url = hu_base_url
+    list_url = hu_list_url
+    cache_csv_name = en_cache_csv_name
+    stat_csv_name = en_stat_csv_name
+else:
+    raise Exception('Language not specified!')
+
 sub_dir_pattern = 'href="/ajanlat/'
 image_pattern = 'data-fullscreen-src="https://prod.pictures.autoscout24.net/listing-images/'
 
@@ -117,7 +141,7 @@ def data_sucker():
     init_stats()
 
     # counter's
-    id_counter = 0 # summ of all car
+    id_counter = 200000 # summ of all car
     img_counter = 0  # images on country level
     err_counter = 0 # errors on country level in image download
     car_counter_in_country = 0 # cars in country level
@@ -133,10 +157,16 @@ def data_sucker():
         if not os.path.exists(meta_path):
             os.makedirs(meta_path)
             print("Meta directory created %s" % meta_path)
+        else:
+            print("Skipping category, because Mate path already exists: " + meta_path)
+            continue
 
         if not os.path.exists(image_path):
             os.makedirs(image_path)
             print("Image directory created %s" % image_path)
+        else:
+            print("Skipping category, because Image path already exists: " + meta_path)
+            continue
 
         for country in country_codes:
             start_time = time.time()
