@@ -1,13 +1,13 @@
 import time
 
 import numpy as np
-from keras.callbacks import EarlyStopping, RemoteMonitor, History, ModelCheckpoint
+from keras.callbacks import EarlyStopping, RemoteMonitor, History, ModelCheckpoint, TensorBoard
 from keras.engine.saving import load_model
 from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras.models import Sequential
 from keras.layers import Dropout, Flatten, Dense, Convolution2D, MaxPooling2D, GlobalAveragePooling2D
 from keras.optimizers import RMSprop, Adam, SGD
-from keras import applications, regularizers
+from keras import applications, regularizers, Model
 from keras.utils.np_utils import to_categorical
 import matplotlib.pyplot as plt
 import math
@@ -48,6 +48,7 @@ class Cnn3(object):
         self.batch_size = in_params['batch_size']
         self.augmentation = in_params['augmentation']
         self.top_model = in_params['top_model']
+        self.model_path = in_params['model_path']
 
         self.history = None
         self.out_params = out_params
@@ -62,8 +63,8 @@ class Cnn3(object):
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         datagen = ImageDataGenerator(
-            # shear_range=0.2,
-            # zoom_range=0.2,
+            shear_range=0.2,
+            zoom_range=0.2,
             # horizontal_flip=True,
             rescale=1. / 255)
 
@@ -71,7 +72,7 @@ class Cnn3(object):
             self.train_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode=None,
+            class_mode='categorical',
             shuffle=False)
 
         print(generator.class_indices)
@@ -94,7 +95,7 @@ class Cnn3(object):
             self.test_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode=None,
+            class_mode='categorical',
             shuffle=False)
 
         nb_validation_samples = len(generator.filenames)
@@ -122,8 +123,8 @@ class Cnn3(object):
             self.train_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode=None,
-            shuffle=False)
+            class_mode='categorical',
+            shuffle=True)
 
         num_classes = len(generator_top.class_indices)
         np.save(self.class_indices, generator_top.class_indices)
@@ -138,8 +139,8 @@ class Cnn3(object):
             self.test_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode=None,
-            shuffle=False)
+            class_mode='categorical',
+            shuffle=True)
 
         validation_data = np.load(self.bottleneck_test_features)
         validation_labels = generator_top.classes
@@ -153,10 +154,9 @@ class Cnn3(object):
         self.history = History()
         callbacks = [EarlyStopping(monitor='val_loss',
                                    min_delta=0,
-                                   patience=2,
+                                   patience=5,
                                    verbose=0, mode='auto'),
-                     RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None,
-                                   send_as_json=False),
+                     TensorBoard(log_dir="logs/{}".format(self.id)),
                      self.history, self.checkpointer]
         try:
             self.top_model.fit(train_data, train_labels,
@@ -168,6 +168,7 @@ class Cnn3(object):
             print("Training stopped")
 
         self.top_model.save_weights(self.top_model_weights)
+        self.top_model.save(self.model_path)
         print("Top model trained, weights saved as ", self.top_model_weights)
 
         (eval_loss, eval_accuracy) = self.top_model.evaluate(
@@ -178,6 +179,14 @@ class Cnn3(object):
 
         self.out_params['accuracy'] = eval_accuracy
         self.out_params['loss'] = eval_loss
+
+    def save(self):
+        self.top_model.load_weights(self.top_model_weights)
+        base_model = applications.VGG19(weights='imagenet', include_top=False,
+                                             input_shape=(self.img_width, self.img_height, 3))
+        model = Model(input=base_model.input, output=self.top_model(base_model.output))
+        model.save(self.model_path)
+        print("model saved")
 
     def evaluate(self):
         plt.figure(0)
