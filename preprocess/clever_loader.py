@@ -7,13 +7,17 @@ import random
 import numpy as np
 from enum import Enum
 import matplotlib.pyplot as plt
+
+from preprocess.clever_pre_classifier import MyPreClassifier
 from preprocess.pre_classification import VggPreClassifier
 
 
 class PreClassificationState(Enum):
     NO = 0
-    CLEANUP = 1
-    CLASSIFY = 2
+    VGG_CLEANUP = 1
+    VGG_CLASSIFY = 2
+    MY_CLEANUP = 4
+    MY_CLASSIFY = 5
 
 
 class LoaderFilter(Enum):
@@ -26,7 +30,9 @@ class LoaderFilter(Enum):
 
 
 class CleverLoader(object):
-    data_soruce_dirs = [('autoscout', paths.SCOUT_DIR), ('autotrader', paths.TRADER_DIR), ('hasznaltauto', paths.HASZNALT_DIR)] # ,
+    # data_soruce_dirs = [('autoscout', paths.SCOUT_DIR), ('autotrader', paths.TRADER_DIR), ('hasznaltauto', paths.HASZNALT_DIR)] # ,
+    #TODO testing categorizetion on the new categories
+    data_soruce_dirs = [('autoscout', paths.N_SCOUT_DIR)]
     train_dir = paths.TRAIN_DIR
     test_dir = paths.TEST_DIR
 
@@ -42,12 +48,19 @@ class CleverLoader(object):
 
     def load(self):
         print('Clever loading..')
-        if self.pre_filtering == PreClassificationState.CLEANUP or self.pre_filtering == PreClassificationState.CLASSIFY:
+        if self.pre_filtering == PreClassificationState.VGG_CLEANUP or self.pre_filtering == PreClassificationState.VGG_CLASSIFY:
             print("VGG pre classification activated")
             vgg = VggPreClassifier()
-            if self.pre_filtering == PreClassificationState.CLASSIFY:
+            if self.pre_filtering == PreClassificationState.VGG_CLASSIFY:
                 vgg.prepare()
             vgg.cleanup()
+
+        if self.pre_filtering == PreClassificationState.MY_CLASSIFY or self.pre_filtering == PreClassificationState.MY_CLEANUP:
+            print("My pre classifier activated")
+            pre_class = MyPreClassifier()
+            if self.pre_filtering == PreClassificationState.MY_CLASSIFY:
+                pre_class.prepare()
+            pre_class.cleanup()
 
         categorie_summs, source_categories_summs = self.summ_categoris()
         for category in categorie_summs.keys():

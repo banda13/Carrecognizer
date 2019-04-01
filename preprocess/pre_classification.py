@@ -6,7 +6,7 @@ import paths
 
 
 class VggPreClassifier(object):
-    dirs = [paths.SCOUT_2_DIR]
+    dirs = [paths.N_SCOUT_DIR]
     fieldnames = ["image", "label", "percentage"]
 
     """
