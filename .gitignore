@@ -9,3 +9,6 @@ classifiers/pre_train/
 services/uploads/
 uploads/
 classifiers/pre_train/
+history/
+logs/
+venv/
