@@ -1,10 +1,12 @@
 import re
+import os
 import datetime
 from pathlib import Path
 
 from sqlalchemy import select, String, Integer
 from sqlalchemy.sql.elements import and_
 
+import paths
 from dao.base import connection
 from dao.dao_utils import load_basic_tables
 from dao.models.scout_tables import ScoutCar
@@ -12,25 +14,20 @@ from dao.models.scout_tables import ScoutCar
 from bs4 import BeautifulSoup
 from dao.services.scout_service import makemodel_lookup_for_id
 
-connection.drop_and_create()
-load_basic_tables()
-session = connection.open_session()
 
-
-def read_file(file_name):
+def read_file(session, file_name):
     text_file = None
     with open(file_name, "rb") as fp:
         text_file = fp.read()
     if text_file is None:
         raise Exception('Could not read file %s ' % file_name)
 
-    print("Text file read, parsing started")
+    # print("Text file read, parsing started")
     parsed_html = BeautifulSoup(text_file, 'html.parser')#.encode("utf-8")
-    print("Html parsed, processing started")
+    # print("Html parsed, processing started")
 
-    model, make, id = Path(file_name).stem.split('_')
-    id=157
-    model_id, make_id = makemodel_lookup_for_id(model, make)
+    make, model, id = Path(file_name).stem.split('_')
+    make_id, model_id = makemodel_lookup_for_id(make, model)
     tags = parsed_html.find_all(lambda tag: tag.has_attr('data-classified-guid'))
     scout_id = tags[0].attrs.get("data-classified-guid")
     country = parsed_html.find("html").attrs.get("lang")
@@ -52,22 +49,22 @@ def read_file(file_name):
                 try:
                     car.km = int(re.sub('[^0-9]','', basic_datas[0].find('span', 'sc-font-l cldt-stage-primary-keyfact').get_text()))
                 except Exception as e:
-                    print('Failed to get basic data: %s' % e)
+                    print('Failed to get km data: %s' % e)
 
                 try:
                     car.first_registration = datetime.datetime.strptime(basic_datas[1].find('span', 'sc-font-l cldt-stage-primary-keyfact').get_text().strip(), "%m/%Y")
                 except Exception as e:
-                    print('Failed to get basic data: %s' % e)
+                    print('Failed to get registration data: %s' % e)
 
                 try:
                     car.power_kw = int(re.sub('[^0-9]','', basic_datas[2].find('span', 'sc-font-l cldt-stage-primary-keyfact').get_text()))
                 except Exception as e:
-                    print('Failed to get basic data: %s' % e)
+                    print('Failed to get power_km data: %s' % e)
 
                 try:
                     car.power_hp = int(re.sub('[^0-9]','', basic_datas[2].find('span', 'sc-font-m cldt-stage-primary-keyfact').get_text()))
                 except Exception as e:
-                    print('Failed to get basic data: %s' % e)
+                    print('Failed to get power_hp data: %s' % e)
     except Exception as e:
         print("Skipping basic data: %s" % e)
 
@@ -83,8 +80,8 @@ def read_file(file_name):
                         title = prop_title.get_text().strip()
                         value = prop_value.get_text().strip()
                         setattr(car, car.attribute_lookup(title), value)
-                    except Exception as e:
-                        print("Property %s not set: %s" % (prop_title.get_text(),e))
+                    except Exception as e: pass
+                        # print("Property %s not set: %s" % (prop_title.get_text(),e))
     except Exception as e:
         print("Skipping main properties: %s" % e)
 
@@ -106,9 +103,39 @@ def read_file(file_name):
     except Exception as e:
         print("Skipping equipment properties: %s" % e)
 
-    print('Html processing done')
+    # print('Html processing done')
     session.add(car)
     session.commit()
+    # print("Car saved in db")
+
+
+def process_all_metadata():
+    counter = 0
+    category_dir = paths.N_SCOUT_META_DIR
+
+    connection.drop_and_create()
+    load_basic_tables()
+    session = connection.open_session()
+
+    print('Lets get started..')
+    for category in os.listdir(category_dir):
+        model_dir = category_dir + category
+        for model in os.listdir(model_dir):
+            make_dir = model_dir + '/' + model
+            for car in os.listdir(make_dir):
+                file_name = make_dir + '/' + car
+                # if counter >= 2000:
+                #    break
+                try:
+                    read_file(session, file_name)
+                    counter += 1
+                except Exception as e:
+                    print("Car not processed %s" % e)
+                    session.rollback()
+                    session.close()
+                    print("Session closed")
+                    session = connection.open_session()
+
     session.close()
 
-read_file(r'C:\Users\Andy\Desktop\Audi_90_145.html')
+process_all_metadata()
