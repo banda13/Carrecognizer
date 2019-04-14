@@ -18,6 +18,7 @@ class PreClassificationState(Enum):
     VGG_CLASSIFY = 2
     MY_CLEANUP = 4
     MY_CLASSIFY = 5
+    JUST_COPY = 6
 
 
 class LoaderFilter(Enum):
@@ -48,19 +49,20 @@ class CleverLoader(object):
 
     def load(self):
         print('Clever loading..')
-        if self.pre_filtering == PreClassificationState.VGG_CLEANUP or self.pre_filtering == PreClassificationState.VGG_CLASSIFY:
-            print("VGG pre classification activated")
-            vgg = VggPreClassifier()
-            if self.pre_filtering == PreClassificationState.VGG_CLASSIFY:
-                vgg.prepare()
-            vgg.cleanup()
+        if not self.pre_filtering == PreClassificationState.JUST_COPY:
+            if self.pre_filtering == PreClassificationState.VGG_CLEANUP or self.pre_filtering == PreClassificationState.VGG_CLASSIFY:
+                print("VGG pre classification activated")
+                vgg = VggPreClassifier()
+                if self.pre_filtering == PreClassificationState.VGG_CLASSIFY:
+                    vgg.prepare()
+                vgg.cleanup()
 
-        if self.pre_filtering == PreClassificationState.MY_CLASSIFY or self.pre_filtering == PreClassificationState.MY_CLEANUP:
-            print("My pre classifier activated")
-            pre_class = MyPreClassifier()
-            if self.pre_filtering == PreClassificationState.MY_CLASSIFY:
-                pre_class.prepare()
-            pre_class.cleanup()
+            if self.pre_filtering == PreClassificationState.MY_CLASSIFY or self.pre_filtering == PreClassificationState.MY_CLEANUP:
+                print("My pre classifier activated")
+                pre_class = MyPreClassifier()
+                if self.pre_filtering == PreClassificationState.MY_CLASSIFY:
+                    pre_class.prepare()
+                pre_class.cleanup()
 
         categorie_summs, source_categories_summs = self.summ_categoris()
         for category in categorie_summs.keys():
