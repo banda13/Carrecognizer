@@ -63,8 +63,8 @@ class Cnn3(object):
 
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         datagen = ImageDataGenerator(
-            shear_range=0.2,
-            zoom_range=0.2,
+            # shear_range=0.2,
+            # zoom_range=0.2,
             # horizontal_flip=True,
             rescale=1. / 255)
 
@@ -72,7 +72,7 @@ class Cnn3(object):
             self.train_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode='categorical',
+            class_mode=None,
             shuffle=False)
 
         print(generator.class_indices)
@@ -95,7 +95,7 @@ class Cnn3(object):
             self.test_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode='categorical',
+            class_mode=None,
             shuffle=False)
 
         nb_validation_samples = len(generator.filenames)
@@ -123,8 +123,8 @@ class Cnn3(object):
             self.train_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode='categorical',
-            shuffle=True)
+            class_mode=None,
+            shuffle=False)
 
         num_classes = len(generator_top.class_indices)
         np.save(self.class_indices, generator_top.class_indices)
@@ -139,8 +139,8 @@ class Cnn3(object):
             self.test_dir,
             target_size=(self.img_width, self.img_height),
             batch_size=self.batch_size,
-            class_mode='categorical',
-            shuffle=True)
+            class_mode=None,
+            shuffle=False)
 
         validation_data = np.load(self.bottleneck_test_features)
         validation_labels = generator_top.classes
