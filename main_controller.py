@@ -1,0 +1,123 @@
+import json
+
+import paths
+from classifiers.cnn8 import Cnn8
+from classifiers.lstm0 import NameGenerator
+from utils.json_utils import decoder_hook, Encoder
+
+import tensorflow as tf
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True # dynamically grow the memory used on the GPU
+
+
+class CNN8Controller(object):
+
+    def __init__(self):
+        self.name = None
+        self.history_location = None
+        self.train_dir = paths.TRAIN_DIR
+        self.validation_dir = paths.VALIDATION_DIR
+        self.test_dir = paths.TEST_DIR
+        self.cnn = None
+
+        self.name = None
+        self.categories = None
+        self.num_classes = None
+        self.description = None
+
+        self.train_size_per_class = None
+        self.validation_size_per_class = None
+        self.test_size_per_class = None
+        self.img_width = 160
+        self.img_height = 160
+
+        self.lr = 0.01
+        self.batch_size = 16
+        self.epochs = 100
+        self.workers = 4
+        self.fine_tune_from = 100
+
+        self.transfer_train = {
+            'train_time': 0,
+            'accuracy': -1,
+            'loss': -1
+        }
+        self.fine_tune = {
+            'train_time': 0,
+            'accuracy': -1,
+            'loss': -1
+        }
+        self.test = {
+
+        }
+
+        self.acc = None
+        self.val_acc = None
+        self.loss = None
+        self.val_loss = None
+
+    def create(self, lr=None,b=None,e=None,w=None,f=None):
+        self.name = NameGenerator().get_name()
+        self.history_location = paths.ROOT_DIR + '/history/' + self.name + ".json"
+        if lr is not None:
+            self.lr = lr
+        if b is not None:
+            self.batch_size = b
+        if e is not None:
+            self.epochs = e
+        if w is not None:
+            self.workers = w
+        if f is not None:
+            self.fine_tune_from = f
+        self.cnn = self.create_cnn()
+
+    def create_cnn(self):
+        cnn = Cnn8(self.name, {
+            'image_width': self.img_width,
+            'image_height': self.img_height,
+            'train_dir': self.train_dir,
+            'validation_dir': self.validation_dir,
+            'test_dir': self.test_dir,
+            'batch_size': self.batch_size,
+            'learning_rate': self.lr,
+            'epochs': self.epochs,
+            'workers': self.workers,
+            'fine_tune_from': self.fine_tune_from,
+            'transfer_train_params': self.transfer_train,
+            'fine_tune_params': self.fine_tune,
+            'test_params': self.test
+        })
+        cnn.prepare()
+        return cnn
+
+    def load(self, pid):
+        self.name = pid
+        self.history_location = paths.ROOT_DIR + '/history/' + self.name + ".json"
+        with open(self.history_location, 'r') as params:
+            self.__dict__ = json.load(params, object_hook=decoder_hook)
+            print("Deserialization done")
+        self.cnn = self.create_cnn()
+
+    def save(self):
+        with open(self.history_location, 'w') as history_file:
+            json.dump(self.__dict__, history_file, indent=4, cls=Encoder)
+        print("Serialization done")
+
+    def make_transfer_train(self):
+        self.transfer_train = self.cnn.transfer_train()
+        self.save()
+
+    def make_fine_tune(self):
+        self.fine_tune = self.cnn.fine_tune()
+        self.save()
+
+    def make_test(self):
+        self.test = self.cnn.test()
+        self.save()
+
+
+controller = CNN8Controller()
+controller.create()
+controller.save()
+controller.make_transfer_train()
+controller.make_fine_tune()

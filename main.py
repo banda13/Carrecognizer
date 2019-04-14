@@ -64,7 +64,7 @@ class ConvolutionalNeuralNetwork(object):
         '''
         self.preclassifier = {
             "pre_classifier_categories_count": len(VggPreClassifier.super_duper_good_vgg_categories),
-            "pre_classification": PreClassificationState.MY_CLASSIFY
+            "pre_classification": PreClassificationState.JUST_COPY
         }
 
         data_source_dirs = CleverLoader.data_soruce_dirs
@@ -86,7 +86,7 @@ class ConvolutionalNeuralNetwork(object):
             "image_height": img_height
         }
 
-        lr = 0.00001
+        lr = 0.0001
         lr2 = 1e-4
         model = Sequential()
         # model.add(Convolution2D(512, 3, 3, input_shape=(4, 4, 512), activation='relu'))
@@ -94,11 +94,11 @@ class ConvolutionalNeuralNetwork(object):
         # model.add(MaxPooling2D(pool_size=(2, 2)))
 
         model.add(Flatten(input_shape=(4, 4, 512)))
-        model.add(Dense(32, activation='relu'))
-        model.add(Dropout(0.1))
-        model.add(Dense(64, activation='relu'))
+        model.add(Dense(256, activation='relu'))
         model.add(Dropout(0.5))
-        # model.add(Dense(64, activation='relu'))
+        # model.add(Dense(256, activation='relu'))
+        # model.add(Dropout(0.5))
+        # model.add(Dense(128, activation='relu'))
         # model.add(Dropout(0.5))
         model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
         model.compile(optimizer=RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0), # RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0)
@@ -237,7 +237,7 @@ class ConvolutionalNeuralNetwork(object):
 test = ConvolutionalNeuralNetwork()
 test.create()
 test.save()
-test.preprocess()
+# test.preprocess()
 # test.load('Dufegno')
 test.transfer_train()
 # test.fine_tune_train()
