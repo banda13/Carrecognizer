@@ -1,3 +1,4 @@
+import os
 import json
 
 import paths
@@ -21,17 +22,17 @@ class CNN8Controller(object):
         self.cnn = None
 
         self.name = None
-        self.categories = None
-        self.num_classes = None
+        self.categories = os.listdir(paths.TRAIN_DIR)
+        self.num_classes = len(self.categories)
         self.description = None
 
-        self.train_size_per_class = None
-        self.validation_size_per_class = None
-        self.test_size_per_class = None
+        self.train_size_per_class = len(os.listdir(self.train_dir.join(os.listdir(self.train_dir)[0])))
+        self.validation_size_per_class = len(os.listdir(self.validation_dir.join(os.listdir(self.validation_dir)[0])))
+        self.test_size_per_class = len(os.listdir(self.test_dir.join(os.listdir(self.test_dir)[0])))
         self.img_width = 160
         self.img_height = 160
 
-        self.lr = 0.01
+        self.lr = 0.0001
         self.batch_size = 16
         self.epochs = 100
         self.workers = 4
@@ -115,9 +116,22 @@ class CNN8Controller(object):
         self.test = self.cnn.test()
         self.save()
 
+    def finalize(self):
+        self.acc = self.cnn.acc
+        self.val_acc = self.cnn.val_acc
+        self.loss = self.cnn.loss
+        self.val_loss = self.cnn.val_loss
+        self.save()
+
+        with open(self.cnn.cnn_dir, 'w') as history_file:
+            json.dump(self.__dict__, history_file, indent=4, cls=Encoder)
+        print("Serialization into cnn folder done")
+
 
 controller = CNN8Controller()
 controller.create()
 controller.save()
 controller.make_transfer_train()
 controller.make_fine_tune()
+controller.make_test()
+controller.finalize()

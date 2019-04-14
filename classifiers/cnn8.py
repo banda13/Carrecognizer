@@ -26,7 +26,7 @@ class Cnn8(object):
         self.validation_dir = params['validation_dir']
         self.test_dir = params['test_dir']
 
-        self.cnn_dir = paths.ROOT_DIR + 'model/' + self.id + '/'
+        self.cnn_dir = paths.ROOT_DIR + '/model/' + self.id + '/'
 
         self.batch_size = params['batch_size']
         self.learning_rate = params['learning_rate']
@@ -154,6 +154,11 @@ class Cnn8(object):
         self.val_loss = self.history.history['val_loss']
         self.create_plot('transfer_train', self.acc, self.val_acc,
                          self.loss, self.val_loss)
+        return {
+            'train_time': self.transfer_train_time,
+            'accuracy': self.tt_acc,
+            'loss': self.tt_loss
+        }
 
     def create_plot(self, name, acc, val_acc, loss, val_loss):
         plt.figure(figsize=(8, 8))
@@ -210,6 +215,11 @@ class Cnn8(object):
         self.loss += history_fine.history['loss']
         self.val_loss += history_fine.history['val_loss']
         self.create_plot('fine_tune', self.acc, self.val_acc, self.loss, self.val_loss)
+        return {
+            'train_time': self.fine_tune_time,
+            'accuracy': self.ft_acc,
+            'loss': self.ft_loss
+        }
 
     def test(self):
         start_time = time.time()
