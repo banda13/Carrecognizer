@@ -1,5 +1,7 @@
 import os
 import random
+import time
+
 import numpy as np
 
 from keras import applications
@@ -21,19 +23,21 @@ class TestCNN(object):
         self.image_width, self.image_height = params['image_width'], params['image_height']
 
         self.test_count_per_class = params['test_count_per_class']
-        self.accuracy = params['accuracy']
-        self.top3_accuracy = params['top3_accuracy']
-        self.avg_probability = params['probability']
-        self.category_results = params['category_results']
+        self.accuracy = params.get('accuracy', 0)
+        self.top3_accuracy = params.get('top3_accuracy', 0)
+        self.avg_probability = params.get('probability', 0)
+        self.category_results = params.get('category_results', {})
         self.validation_dir = params['test_dir']
         self.class_indices_dir = params['class_indices']
-        self.results = params['results']
+        self.results = params.get('results', None)
         self.idx_results = []
+        self.test_time = params.get('test_time', None)
 
         print("TestCNN initialized")
 
     def test(self):
         print("Testing CNN started..")
+        start_time = time.time()
 
         model = load_model(self.model_path)
         class_dictionary = np.load(self.class_indices_dir).item()
@@ -110,7 +114,15 @@ class TestCNN(object):
         self.accuracy = float(np.mean(np.array(accucacies)))
         self.top3_accuracy = float(np.mean(np.array(top3_accuracies)))
         self.avg_probability = float(np.mean(np.array(probabilities)))
+        self.test_time = time.time() - start_time
         self.evaluate_tests()
+        return {
+            'accuracy': self.accuracy,
+            'top3_accuracy': self.top3_accuracy,
+            'avg_probability': self.avg_probability,
+            'run_time': self.test_time,
+            'category_results': self.category_results
+        }
 
     def evaluate_tests(self):
         plt.close()

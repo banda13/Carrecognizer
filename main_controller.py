@@ -3,6 +3,7 @@ import json
 
 import paths
 from classifiers.cnn8 import Cnn8
+from classifiers.cnn_test import TestCNN
 from classifiers.lstm0 import NameGenerator
 from utils.json_utils import decoder_hook, Encoder
 
@@ -26,15 +27,15 @@ class CNN8Controller(object):
         self.num_classes = len(self.categories)
         self.description = None
 
-        self.train_size_per_class = len(os.listdir(self.train_dir.join(os.listdir(self.train_dir)[0])))
-        self.validation_size_per_class = len(os.listdir(self.validation_dir.join(os.listdir(self.validation_dir)[0])))
-        self.test_size_per_class = len(os.listdir(self.test_dir.join(os.listdir(self.test_dir)[0])))
+        self.train_size_per_class = len(os.listdir(self.train_dir + '/' + os.listdir(self.train_dir)[0]))
+        self.validation_size_per_class = len(os.listdir(self.validation_dir + '/' + os.listdir(self.validation_dir)[0]))
+        self.test_size_per_class = len(os.listdir(self.test_dir + '/' + os.listdir(self.test_dir)[0]))
         self.img_width = 160
         self.img_height = 160
 
         self.lr = 0.0001
         self.batch_size = 16
-        self.epochs = 100
+        self.epochs = 3
         self.workers = 4
         self.fine_tune_from = 100
 
@@ -59,6 +60,7 @@ class CNN8Controller(object):
 
     def create(self, lr=None,b=None,e=None,w=None,f=None):
         self.name = NameGenerator().get_name()
+        self.history_dir = paths.ROOT_DIR + '/model/' + self.name + '/'
         self.history_location = paths.ROOT_DIR + '/history/' + self.name + ".json"
         if lr is not None:
             self.lr = lr
@@ -107,13 +109,23 @@ class CNN8Controller(object):
     def make_transfer_train(self):
         self.transfer_train = self.cnn.transfer_train()
         self.save()
+        self.finalize()
 
     def make_fine_tune(self):
         self.fine_tune = self.cnn.fine_tune()
         self.save()
+        self.finalize()
 
     def make_test(self):
-        self.test = self.cnn.test()
+        cnn = TestCNN(self.name, {
+            'model': self.cnn.cnn_dir + 'model.h5',
+            'image_width': self.img_width,
+            'image_height': self.img_height,
+            'test_count_per_class': self.test_size_per_class,
+            'test_dir': self.test_dir,
+            'class_indices': self.cnn.cnn_dir + "class_indices.npy"
+        })
+        self.test = cnn.test()
         self.save()
 
     def finalize(self):
@@ -123,15 +135,15 @@ class CNN8Controller(object):
         self.val_loss = self.cnn.val_loss
         self.save()
 
-        with open(self.cnn.cnn_dir, 'w') as history_file:
+        with open(self.cnn.cnn_dir + 'props.json', 'w') as history_file:
             json.dump(self.__dict__, history_file, indent=4, cls=Encoder)
         print("Serialization into cnn folder done")
 
 
 controller = CNN8Controller()
-controller.create()
-controller.save()
-controller.make_transfer_train()
-controller.make_fine_tune()
+# controller.create()
+# controller.save()
+controller.load('TrarTar')
+# controller.make_transfer_train()
+# controller.make_fine_tune()
 controller.make_test()
-controller.finalize()
