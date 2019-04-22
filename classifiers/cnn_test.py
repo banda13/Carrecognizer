@@ -145,3 +145,4 @@ class TestCNN(object):
             plt.close()
 
             self.category_results[category]['plot'] = img_title
+        return self.category_results

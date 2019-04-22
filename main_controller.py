@@ -1,5 +1,6 @@
 import os
 import json
+from shutil import copy2
 
 import paths
 from classifiers.cnn8 import Cnn8
@@ -29,13 +30,13 @@ class CNN8Controller(object):
 
         self.train_size_per_class = len(os.listdir(self.train_dir + '/' + os.listdir(self.train_dir)[0]))
         self.validation_size_per_class = len(os.listdir(self.validation_dir + '/' + os.listdir(self.validation_dir)[0]))
-        self.test_size_per_class = len(os.listdir(self.test_dir + '/' + os.listdir(self.test_dir)[0]))
+        self.test_size_per_class = len(os.listdir(self.test_dir + '/' + os.listdir(self.test_dir)[0])) - 10
         self.img_width = 160
         self.img_height = 160
 
         self.lr = 0.0001
         self.batch_size = 16
-        self.epochs = 3
+        self.epochs = 100
         self.workers = 4
         self.fine_tune_from = 100
 
@@ -126,6 +127,11 @@ class CNN8Controller(object):
             'class_indices': self.cnn.cnn_dir + "class_indices.npy"
         })
         self.test = cnn.test()
+        self.test['category_results'] = cnn.evaluate_tests()
+        if not os.path.exists(self.cnn.cnn_dir + 'plots'):
+            os.mkdir(self.cnn.cnn_dir + 'plots')
+            for key, p in self.test['category_results'].items():
+                copy2(p['plot'], self.cnn.cnn_dir + 'plots')
         self.save()
 
     def finalize(self):
@@ -143,7 +149,7 @@ class CNN8Controller(object):
 controller = CNN8Controller()
 # controller.create()
 # controller.save()
-controller.load('TrarTar')
+controller.load('Cabat')
 # controller.make_transfer_train()
 # controller.make_fine_tune()
 controller.make_test()
