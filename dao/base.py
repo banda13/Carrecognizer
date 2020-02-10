@@ -1,5 +1,6 @@
 import csv
 import datetime
+import fileinput
 
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -29,8 +30,12 @@ class Connection(metaclass=Singleton):
         self.create_db()
 
     def drop_db(self):
-        self.Base.metadata.drop_all(self.engine)
-        print("DB dropped")
+        print('Please type yes if you would like to drop the whole database')
+        if str(fileinput.input()).lower() == 'yes':
+            self.Base.metadata.drop_all(self.engine)
+            print("DB dropped")
+        else:
+            raise Exception('Db drop failed, canceling further steps')
 
     def create_db(self):
         self.Base.metadata.create_all(self.engine)
