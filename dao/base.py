@@ -30,8 +30,8 @@ class Connection(metaclass=Singleton):
         self.create_db()
 
     def drop_db(self):
-        print('Please type yes if you would like to drop the whole database')
-        if str(fileinput.input()).lower() == 'yes':
+        resp = input('Please type yes if you would like to drop the whole database')
+        if str(resp).lower() == 'yes':
             self.Base.metadata.drop_all(self.engine)
             print("DB dropped")
         else:
