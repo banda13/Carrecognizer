@@ -1,4 +1,5 @@
 data/
+data2/
 .idea/
 __pycache__/
 *.pyc
@@ -8,3 +9,6 @@ classifiers/pre_train/
 services/uploads/
 uploads/
 classifiers/pre_train/
+history/
+logs/
+venv/

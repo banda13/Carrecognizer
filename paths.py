@@ -12,7 +12,8 @@ TRADER_DIR = ROOT_DIR + "/data/autotrader/"
 TRADER_DETAIL_DIR = ROOT_DIR + "/data/autotrader_details/"
 VIT_DIR = ROOT_DIR + "/data/autovit/"
 SCOUT_DIR = ROOT_DIR + "/data/autoscout/"
+SCOUT_2_DIR = ROOT_DIR + "/data/autoscout2/"
 
-N_SCOUT_DIR = ROOT_DIR + "/data2/autoscout/"
+N_SCOUT_DIR = ROOT_DIR + "/data2/autoscout-data/"
 N_SCOUT_META_DIR = N_SCOUT_DIR + 'meta/'
 N_SCOUT_IMG_DIR = N_SCOUT_DIR + "images/"

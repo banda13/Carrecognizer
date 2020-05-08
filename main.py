@@ -4,6 +4,10 @@ import json
 import time
 import datetime
 
+import tensorflow as tf
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True # dynamically grow the memory used on the GPU
+
 from keras import Sequential, optimizers
 from keras.layers import Convolution2D, Dropout, MaxPooling2D, Flatten, Dense, regularizers, GlobalAveragePooling2D
 from keras.optimizers import RMSprop
@@ -52,15 +56,15 @@ class ConvolutionalNeuralNetwork(object):
             "test_dir": paths.TEST_DIR,
             "categories": categories,
             "num_classes": num_classes,
-            "description": "big model"
+            "description": "scout audi with pessimist pre-classifier"
         }
 
         '''
         Pre processing (pre classifier + pre processor)
         '''
         self.preclassifier = {
-            "pre_classifier_categories_count": len(VggPreClassifier.bad_vgg_categories),
-            "pre_classification": PreClassificationState.NO
+            "pre_classifier_categories_count": len(VggPreClassifier.super_duper_good_vgg_categories),
+            "pre_classification": PreClassificationState.JUST_COPY
         }
 
         data_source_dirs = CleverLoader.data_soruce_dirs
@@ -69,7 +73,7 @@ class ConvolutionalNeuralNetwork(object):
             "pre_loader_filter": LoaderFilter.NO,
             "p_train": 0.8,
             "p_test": 0.2,
-            "limit": 10000,
+            "limit": 2000,
             "run_time": None
         }
 
@@ -82,7 +86,7 @@ class ConvolutionalNeuralNetwork(object):
             "image_height": img_height
         }
 
-        lr = 0.00001
+        lr = 0.0001
         lr2 = 1e-4
         model = Sequential()
         # model.add(Convolution2D(512, 3, 3, input_shape=(4, 4, 512), activation='relu'))
@@ -90,11 +94,13 @@ class ConvolutionalNeuralNetwork(object):
         # model.add(MaxPooling2D(pool_size=(2, 2)))
 
         model.add(Flatten(input_shape=(4, 4, 512)))
-        model.add(Dense(512, activation='relu'))
-        model.add(Dropout(0.1))
         model.add(Dense(256, activation='relu'))
-        model.add(Dropout(0.1))
-        model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.001)))
+        model.add(Dropout(0.5))
+        # model.add(Dense(256, activation='relu'))
+        # model.add(Dropout(0.5))
+        # model.add(Dense(128, activation='relu'))
+        # model.add(Dropout(0.5))
+        model.add(Dense(num_classes, activation='softmax', kernel_regularizer=regularizers.l2(0.01)))
         model.compile(optimizer=RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0), # RMSprop(lr=lr, rho=0.9, epsilon=None, decay=0.0)
                       loss='categorical_crossentropy', metrics=['accuracy'])
 
@@ -114,7 +120,8 @@ class ConvolutionalNeuralNetwork(object):
                 # "horizontal_flip": True,
                 "rescale": 1. / 255
             },
-            "learning_rate": lr
+            "learning_rate": lr,
+            "model_path": paths.ROOT_DIR + '/model/' + str(self.pid) + ".h5"
         }
         self.cnn3_out = {
             "accuracy": None,
@@ -126,7 +133,7 @@ class ConvolutionalNeuralNetwork(object):
 
         # CNN7 - fine tune
         self.cnn7_in = {
-            "epochs": 50,
+            "epochs": 5,
             "batch_size": 16,
             "num_classes": num_classes,
             "frozen_layers": -4,
@@ -144,7 +151,7 @@ class ConvolutionalNeuralNetwork(object):
             },
             "top_model": model,
             "top_model_weights": paths.ROOT_DIR + '/model/bottleneck/bottleneck_' + str(self.pid) + ".h5",
-            "model": paths.ROOT_DIR + '/model/' + str(self.pid) + ".h5"
+            "model_path": paths.ROOT_DIR + '/model/' + str(self.pid) + ".h5"
         }
 
         self.cnn7_out = {
@@ -199,6 +206,7 @@ class ConvolutionalNeuralNetwork(object):
         cnn.save_bottlebeck_features()
         cnn.train_top_model()
         cnn.evaluate()
+        cnn.save()
         self.cnn3_out = cnn.out_params
         self.history['transfer_train_time'] = time.time() - start_time
         self.save()
@@ -227,10 +235,10 @@ class ConvolutionalNeuralNetwork(object):
 
 
 test = ConvolutionalNeuralNetwork()
-# test.create()
-# test.save()
+test.create()
+test.save()
 # test.preprocess()
-test.load('Alfifanon')
-# test.transfer_train()
+# test.load('Dufegno')
+test.transfer_train()
 # test.fine_tune_train()
 test.test_classifiers()
