@@ -33,6 +33,7 @@ def lookup_property_distinct_values(property_name):
 def query_for_property_value(property_name, property_value):
     s = connection.open_session()
     results = s.query(ScoutCar).filter(property_name + "= '" + str(property_value) + "'").all() # this can be very big
+    s.close()
     return results
 
 
@@ -42,6 +43,7 @@ def query_for_properties_values(property_dict):
     cond = and_(*[p['name'] + " " + p['operation'] + " {}".format(p['value']) for p in property_dict])
     q = q.filter(cond)
     results = q.all()
+    s.close()
     return results
 
 
