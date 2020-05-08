@@ -1,0 +1,33 @@
+
+item {
+    id: 1
+    name: 'alfa_romeo'
+}
+item {
+    id: 2
+    name: 'audi'
+}
+item {
+    id: 3
+    name: 'bmw'
+}
+item {
+    id: 4
+    name: 'ford'
+}
+item {
+    id: 5
+    name: 'mercedes'
+}
+item {
+    id: 6
+    name: 'opel'
+}
+item {
+    id: 7
+    name: 'renault'
+}
+item {
+    id: 8
+    name: 'volkswagen'
+}
