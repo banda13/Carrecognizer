@@ -28,13 +28,13 @@ class CNN8Controller(object):
         self.num_classes = len(self.categories)
         self.description = None
 
-        self.train_size_per_class = len(os.listdir(self.train_dir + '/' + os.listdir(self.train_dir)[0]))
-        self.validation_size_per_class = len(os.listdir(self.validation_dir + '/' + os.listdir(self.validation_dir)[0]))
-        self.test_size_per_class = len(os.listdir(self.test_dir + '/' + os.listdir(self.test_dir)[0])) - 10
+        self.train_size_per_class = min([len(self.train_dir + '/' + x) for x in os.listdir(self.train_dir)])
+        self.validation_size_per_class = min([len(self.validation_dir + '/' + x) for x in os.listdir(self.validation_dir)])
+        self.test_size_per_class = min([len(self.test_dir + '/' + x) for x in os.listdir(self.test_dir)])
         self.img_width = 160
         self.img_height = 160
 
-        self.lr = 0.0001
+        self.lr = 0.00008
         self.batch_size = 16
         self.epochs = 100
         self.workers = 4
@@ -104,7 +104,7 @@ class CNN8Controller(object):
 
     def save(self):
         with open(self.history_location, 'w') as history_file:
-            json.dump(self.__dict__, history_file, indent=4, cls=Encoder)
+            json.dump(str(self.__dict__), history_file, indent=4, cls=Encoder)
         print("Serialization done")
 
     def make_transfer_train(self):
@@ -122,8 +122,8 @@ class CNN8Controller(object):
             'model': self.cnn.cnn_dir + 'model.h5',
             'image_width': self.img_width,
             'image_height': self.img_height,
-            'test_count_per_class': self.test_size_per_class,
-            'test_dir': self.test_dir,
+            'validation_size_per_class': self.validation_size_per_class,
+            'validation_dir': self.validation_dir,
             'class_indices': self.cnn.cnn_dir + "class_indices.npy"
         })
         self.test = cnn.test()
@@ -147,9 +147,9 @@ class CNN8Controller(object):
 
 
 controller = CNN8Controller()
-# controller.create()
-# controller.save()
-controller.load('Cabat')
-# controller.make_transfer_train()
-# controller.make_fine_tune()
+controller.create()
+controller.save()
+# controller.load('Dorst')
+controller.make_transfer_train()
+controller.make_fine_tune()
 controller.make_test()
