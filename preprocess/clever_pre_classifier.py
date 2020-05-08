@@ -16,7 +16,7 @@ class MyPreClassifier(object):
     percentage_limit = 0.05
 
     def __init__(self):
-        self.model = load_model("model/preclassifier/v1-mymodel.h5")
+        self.model = load_model(paths.ROOT_DIR + "/model/preclassifier/v1-mymodel.h5")
         print("My pre classifier initialized")
 
     def classify(self, name, image):
