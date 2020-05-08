@@ -147,8 +147,8 @@ class Cnn8(object):
         print("Transfer train ended at: %d sec" % self.transfer_train_time)
 
         self.model.save(self.cnn_dir + 'model.h5')
-        self.acc = self.history.history['acc']
-        self.val_acc = self.history.history['val_acc']
+        self.acc = self.history.history['accuracy']
+        self.val_acc = self.history.history['val_accuracy']
 
         self.loss = self.history.history['loss']
         self.val_loss = self.history.history['val_loss']
@@ -188,11 +188,11 @@ class Cnn8(object):
         # Let's take a look to see how many layers are in the base model
         print("Unfreezing %d layer from %d: " % (self.fine_tune_from, len(self.base_model.layers)))
 
-        # Freeze all the layers before the `fine_tune_at` layer
+        # Freeze all the layers before the `fine_tune_from` layer
         for layer in self.base_model.layers[:self.fine_tune_from]:
             layer.trainable = False
 
-        # Recomiple model
+        # Recompile model
         self.model.compile(loss='categorical_crossentropy',
                            optimizer=RMSprop(lr=2e-5),
                            metrics=['accuracy'])
@@ -209,8 +209,8 @@ class Cnn8(object):
         self.fine_tune_time += time.time() - start_time
         print("Fine tuning model ended %d" % self.fine_tune_time)
 
-        self.acc += history_fine.history['acc']
-        self.val_acc += history_fine.history['val_acc']
+        self.acc += history_fine.history['accuracy']
+        self.val_acc += history_fine.history['val_accuracy']
 
         self.loss += history_fine.history['loss']
         self.val_loss += history_fine.history['val_loss']
