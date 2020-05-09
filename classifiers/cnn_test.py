@@ -22,12 +22,12 @@ class TestCNN(object):
         self.model_path = params['model']
         self.image_width, self.image_height = params['image_width'], params['image_height']
 
-        self.test_count_per_class = params['test_count_per_class']
+        self.validation_size_per_class = params['validation_size_per_class']
         self.accuracy = params.get('accuracy', 0)
         self.top3_accuracy = params.get('top3_accuracy', 0)
         self.avg_probability = params.get('probability', 0)
         self.category_results = params.get('category_results', {})
-        self.validation_dir = params['test_dir']
+        self.validation_dir = params['validation_dir']
         self.class_indices_dir = params['class_indices']
         self.results = params.get('results', None)
         self.idx_results = []
@@ -40,7 +40,7 @@ class TestCNN(object):
         start_time = time.time()
 
         model = load_model(self.model_path)
-        class_dictionary = np.load(self.class_indices_dir).item()
+        class_dictionary = np.load(self.class_indices_dir, allow_pickle=True).item()
         inv_map = {v: k for k, v in class_dictionary.items()}
         reverse_inv_map = dict(zip(inv_map.values(),inv_map.keys()))
         print("Model loaded")
@@ -55,7 +55,7 @@ class TestCNN(object):
         for category in categories:
             print("Testing %s" % category)
 
-            images = random.sample(os.listdir(self.validation_dir + "/" + category), self.test_count_per_class)
+            images = random.sample(os.listdir(self.validation_dir + "/" + category), self.validation_size_per_class)
             match = 0
             top3_match = 0
             predictions_list = []
@@ -126,7 +126,7 @@ class TestCNN(object):
 
     def evaluate_tests(self):
         plt.close()
-        class_dictionary = np.load(self.class_indices_dir).item()
+        class_dictionary = np.load(self.class_indices_dir, allow_pickle=True).item()
         inv_map = {v: k for k, v in class_dictionary.items()}
         labels = class_dictionary.keys()
         for i in range(len(self.results)):

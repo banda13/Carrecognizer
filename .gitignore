@@ -12,3 +12,14 @@ classifiers/pre_train/
 history/
 logs/
 venv/
+classifiers/pre_train/
+services/uploads/
+uploads/
+history/
+logs/
+venv/
+*.iml
+.idea/misc.xml
+.idea
+helpers/temp
+helpers/temp2

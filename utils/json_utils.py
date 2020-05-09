@@ -4,6 +4,7 @@ import dateutil.parser as dp
 from enum import Enum
 from keras import Sequential
 from keras.engine.saving import model_from_json
+from numpy import float32
 
 from classifiers.cnn8 import Cnn8
 from preprocess.clever_loader import LoaderFilter, PreClassificationState
@@ -21,6 +22,8 @@ class Encoder(json.JSONEncoder):
                 return
             if isinstance(obj, Enum):
                 return {"__enum__": str(obj)}
+            if isinstance(obj, float32):
+                return {"__float__": str(obj)}
             if isinstance(obj, Sequential):
                 return {"__sequential__": obj.to_json()}
             if isinstance(obj, datetime.datetime):

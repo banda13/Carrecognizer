@@ -1,0 +1,3896 @@
+﻿model_id;model;make_id;make
+13;BMW;18308;Z4
+13;BMW;18327;760
+13;BMW;18383;545
+13;BMW;18387;X3
+13;BMW;18400;645
+13;BMW;18480;116
+13;BMW;18481;118
+13;BMW;18482;120
+13;BMW;1639;316
+13;BMW;1640;318
+13;BMW;1641;320
+13;BMW;1642;323
+13;BMW;1643;324
+13;BMW;1644;325
+13;BMW;1645;328
+13;BMW;1646;M3
+13;BMW;1647;518
+13;BMW;1648;520
+13;BMW;1649;523
+13;BMW;1650;524
+13;BMW;1651;525
+13;BMW;1652;530
+13;BMW;1653;535
+13;BMW;1654;540
+13;BMW;1655;M5
+13;BMW;1656;635
+13;BMW;1657;725
+13;BMW;1658;728
+13;BMW;1659;730
+13;BMW;1660;735
+13;BMW;1661;740
+13;BMW;1662;750
+13;BMW;1663;840
+13;BMW;1664;850
+13;BMW;1665;Z3
+13;BMW;1666;Z1
+13;BMW;1667;M1
+13;BMW;2145;528
+13;BMW;2163;2002
+13;BMW;15779;330
+13;BMW;15780;628
+13;BMW;18588;130
+13;BMW;18577;M6
+13;BMW;18709;650
+13;BMW;18710;550
+13;BMW;18491;630
+13;BMW;18805;335
+13;BMW;19078;123
+13;BMW;19079;135
+13;BMW;19084;125
+13;BMW;19110;X6
+13;BMW;19242;X1
+13;BMW;19541;Active Hybrid 7
+13;BMW;19617;Z4 M
+13;BMW;21097;340
+13;BMW;19714;640
+13;BMW;19741;1er M Coupé
+13;BMW;20027;Active Hybrid 5
+13;BMW;20364;X4
+13;BMW;20481;228
+13;BMW;20149;114
+13;BMW;20174;X5 M
+13;BMW;20175;X6 M
+13;BMW;20187;Active Hybrid 3
+13;BMW;20287;428
+13;BMW;20288;435
+13;BMW;20289;420
+13;BMW;20319;i3
+13;BMW;20320;i8
+13;BMW;20393;M4
+13;BMW;20397;216
+13;BMW;20398;418
+13;BMW;20399;425
+13;BMW;75189;X7
+13;BMW;75190;X7 M
+13;BMW;20223;Z3 M
+13;BMW;20326;220
+13;BMW;20327;218
+13;BMW;20328;225
+13;BMW;20329;235
+13;BMW;20330;430
+13;BMW;20958;214
+13;BMW;21100;830
+13;BMW;75109;Active Hybrid X6
+13;BMW;21073;Others
+13;BMW;21157;M2
+13;BMW;74322;X4 M
+13;BMW;74769;X2
+13;BMW;74335;440
+13;BMW;74386;140
+13;BMW;74387;230
+13;BMW;74388;240
+13;BMW;74993;620
+29;Ford;16364;Express
+29;Ford;16396;Expedition
+29;Ford;16518;F 150
+29;Ford;16519;F 250
+29;Ford;16607;Excursion
+29;Ford;18274;Fusion
+29;Ford;18295;Econoline
+29;Ford;18315;Mercury
+29;Ford;18372;Streetka
+29;Ford;18389;F 350
+29;Ford;18390;Focus C-Max
+29;Ford;1756;Capri
+29;Ford;1757;Escort
+29;Ford;1758;Fiesta
+29;Ford;1759;Galaxy
+29;Ford;1760;Granada
+29;Ford;1761;Ka/Ka+
+29;Ford;1762;Maverick
+29;Ford;1763;Mondeo
+29;Ford;1764;Orion
+29;Ford;1765;Scorpio
+29;Ford;1766;Sierra
+29;Ford;1767;Aerostar
+29;Ford;1768;Bronco
+29;Ford;1769;Explorer
+29;Ford;1770;Probe
+29;Ford;1771;Taurus
+29;Ford;1772;Windstar
+29;Ford;2107;Tourneo
+29;Ford;2149;Mustang
+29;Ford;2159;Taunus
+29;Ford;2160;Transit
+29;Ford;2161;Thunderbird
+29;Ford;14803;Puma
+29;Ford;15537;Focus
+29;Ford;15647;Cougar
+29;Ford;15721;Courier
+29;Ford;15860;M
+29;Ford;15861;Crown
+29;Ford;15862;Ranger
+29;Ford;18837;Freestyle
+29;Ford;18633;Econovan
+29;Ford;18703;Freestar
+29;Ford;18761;S-Max
+29;Ford;18708;GT
+29;Ford;18913;Edge
+29;Ford;18589;Escape
+29;Ford;18993;Focus CC
+29;Ford;19072;Kuga
+29;Ford;19089;C-Max
+29;Ford;19260;Grand C-Max
+29;Ford;19262;Flex
+29;Ford;19721;B-Max
+29;Ford;20277;Sportka
+29;Ford;20318;Transit Connect
+29;Ford;20303;EcoSport
+29;Ford;20426;Connect Elekto
+29;Ford;20485;F 550
+29;Ford;20405;Tourneo Courier
+29;Ford;20482;F 1
+29;Ford;20224;Torino
+29;Ford;20225;Gran Torino
+29;Ford;20280;Tourneo Connect
+29;Ford;20483;F 100
+29;Ford;20484;F 360
+29;Ford;20486;F 450
+29;Ford;20487;F 650
+29;Ford;20488;F Super Duty
+29;Ford;75004;RS 200
+29;Ford;75100;Consul
+29;Ford;75102;Fairlane
+29;Ford;75103;Falcon
+29;Ford;21012;Others
+29;Ford;74248;Transit Custom
+29;Ford;74249;Transit Courier
+29;Ford;74250;Transit Bus
+29;Ford;74251;Tourneo Custom
+47;Mercedes-Benz;15942;Vito
+47;Mercedes-Benz;15943;Sprinter
+47;Mercedes-Benz;15944;LKW/TRUCKS
+47;Mercedes-Benz;15955;E 260
+47;Mercedes-Benz;15973;C 320
+47;Mercedes-Benz;15975;SLK 320
+47;Mercedes-Benz;16381;SLR
+47;Mercedes-Benz;16438;ML 55 AMG
+47;Mercedes-Benz;16446;SLK 230
+47;Mercedes-Benz;16481;SL 380
+47;Mercedes-Benz;16482;SL 420
+47;Mercedes-Benz;16483;SL 350
+47;Mercedes-Benz;16484;SL 450
+47;Mercedes-Benz;16485;SL 560
+47;Mercedes-Benz;16488;C 270
+47;Mercedes-Benz;16489;S 55 AMG
+47;Mercedes-Benz;16492;CE 200
+47;Mercedes-Benz;16506;CLK 55 AMG
+47;Mercedes-Benz;16509;SLK 32 AMG
+47;Mercedes-Benz;16555;ML 400
+47;Mercedes-Benz;16556;ML 500
+47;Mercedes-Benz;16575;MB 100
+47;Mercedes-Benz;16576;Vaneo
+47;Mercedes-Benz;16582;C 32 AMG
+47;Mercedes-Benz;18060;SL 55 AMG
+47;Mercedes-Benz;18272;Vario
+47;Mercedes-Benz;18273;A 210
+47;Mercedes-Benz;18288;416
+47;Mercedes-Benz;18292;Atego
+47;Mercedes-Benz;18293;Actros
+47;Mercedes-Benz;18319;ML 350
+47;Mercedes-Benz;18368;E 400
+47;Mercedes-Benz;18371;C 30 AMG
+47;Mercedes-Benz;18394;Viano
+47;Mercedes-Benz;18422;C 55 AMG
+47;Mercedes-Benz;18423;CL 55 AMG
+47;Mercedes-Benz;18424;SLK 55 AMG
+47;Mercedes-Benz;18425;G 55 AMG
+47;Mercedes-Benz;18476;E 60 AMG
+47;Mercedes-Benz;1846;190
+47;Mercedes-Benz;1847;200
+47;Mercedes-Benz;1848;230
+47;Mercedes-Benz;1849;240
+47;Mercedes-Benz;1850;250
+47;Mercedes-Benz;1851;260
+47;Mercedes-Benz;1852;280
+47;Mercedes-Benz;1853;300
+47;Mercedes-Benz;1854;320
+47;Mercedes-Benz;1855;380
+47;Mercedes-Benz;1856;400
+47;Mercedes-Benz;1857;500
+47;Mercedes-Benz;1858;600
+47;Mercedes-Benz;1859;C 180
+47;Mercedes-Benz;1860;C 200
+47;Mercedes-Benz;1861;C 230
+47;Mercedes-Benz;1862;E 200
+47;Mercedes-Benz;1863;E 220
+47;Mercedes-Benz;1864;E 280
+47;Mercedes-Benz;1865;E 290
+47;Mercedes-Benz;1866;E 420
+47;Mercedes-Benz;1867;SL 280
+47;Mercedes-Benz;1868;SL 320
+47;Mercedes-Benz;1869;SL 500
+47;Mercedes-Benz;1870;SL 600
+47;Mercedes-Benz;2099;C 280
+47;Mercedes-Benz;2117;E 320
+47;Mercedes-Benz;2126;420
+47;Mercedes-Benz;2127;560
+47;Mercedes-Benz;2147;C 220
+47;Mercedes-Benz;2162;E 500
+47;Mercedes-Benz;14807;C 36 AMG
+47;Mercedes-Benz;14865;450
+47;Mercedes-Benz;14869;A 160
+47;Mercedes-Benz;14926;CLK
+47;Mercedes-Benz;15029;E 230
+47;Mercedes-Benz;15103;S 280
+47;Mercedes-Benz;15105;S 320
+47;Mercedes-Benz;15107;S 420
+47;Mercedes-Benz;15108;S 500
+47;Mercedes-Benz;15109;S 600
+47;Mercedes-Benz;15199;V 230
+47;Mercedes-Benz;15200;V 280
+47;Mercedes-Benz;15201;ML 230
+47;Mercedes-Benz;15202;ML 320
+47;Mercedes-Benz;15383;350
+47;Mercedes-Benz;15384;C 250
+47;Mercedes-Benz;15517;E 240
+47;Mercedes-Benz;15543;E 300
+47;Mercedes-Benz;15549;E 50 AMG
+47;Mercedes-Benz;15632;C 43 AMG
+47;Mercedes-Benz;15690;220
+47;Mercedes-Benz;15691;SL 300
+47;Mercedes-Benz;15693;C 240
+47;Mercedes-Benz;15694;E 36 AMG
+47;Mercedes-Benz;15695;E 250
+47;Mercedes-Benz;15696;S 300
+47;Mercedes-Benz;15697;S 350
+47;Mercedes-Benz;15698;E 430
+47;Mercedes-Benz;15699;E 55 AMG
+47;Mercedes-Benz;15700;V 220
+47;Mercedes-Benz;15701;A 140
+47;Mercedes-Benz;15702;A 170
+47;Mercedes-Benz;15703;A 190
+47;Mercedes-Benz;15704;S 430
+47;Mercedes-Benz;15705;ML 430
+47;Mercedes-Benz;15715;CE 300
+47;Mercedes-Benz;15723;270
+47;Mercedes-Benz;15724;S 560
+47;Mercedes-Benz;15763;E 270
+47;Mercedes-Benz;15775;S 400
+47;Mercedes-Benz;15866;ML 270
+47;Mercedes-Benz;18505;CLS
+47;Mercedes-Benz;18511;CL 420
+47;Mercedes-Benz;1871;SLK
+47;Mercedes-Benz;15725;CL
+47;Mercedes-Benz;15776;G
+47;Mercedes-Benz;15945;V
+47;Mercedes-Benz;18613;C 160
+47;Mercedes-Benz;18604;R 350
+47;Mercedes-Benz;18636;CL 65 AMG
+47;Mercedes-Benz;18813;CLS 55 AMG
+47;Mercedes-Benz;18814;CLS 63 AMG
+47;Mercedes-Benz;18507;CL 180
+47;Mercedes-Benz;18510;CL 230
+47;Mercedes-Benz;18580;S 65 AMG
+47;Mercedes-Benz;18606;B 150
+47;Mercedes-Benz;18607;B 170
+47;Mercedes-Benz;18608;B 180
+47;Mercedes-Benz;18609;B 200
+47;Mercedes-Benz;18769;GL 320
+47;Mercedes-Benz;18770;GL 420
+47;Mercedes-Benz;18771;GL 450
+47;Mercedes-Benz;18772;GL 500
+47;Mercedes-Benz;18885;CLK 270
+47;Mercedes-Benz;18886;CLK 280
+47;Mercedes-Benz;18895;S 450
+47;Mercedes-Benz;18485;A 150
+47;Mercedes-Benz;18513;CL 600
+47;Mercedes-Benz;18560;SLK 200
+47;Mercedes-Benz;18603;R 320
+47;Mercedes-Benz;18605;R 500
+47;Mercedes-Benz;18801;R 280
+47;Mercedes-Benz;18802;R 63 AMG
+47;Mercedes-Benz;18803;ML 420
+47;Mercedes-Benz;18804;E 63 AMG
+47;Mercedes-Benz;18492;SL 65 AMG
+47;Mercedes-Benz;18509;CL 220
+47;Mercedes-Benz;18753;ML 63 AMG
+47;Mercedes-Benz;18787;S 550
+47;Mercedes-Benz;18879;CLK 200
+47;Mercedes-Benz;18889;CLK 350
+47;Mercedes-Benz;18891;CLK 430
+47;Mercedes-Benz;18546;E 350
+47;Mercedes-Benz;18561;SLK 350
+47;Mercedes-Benz;18562;V 200
+47;Mercedes-Benz;18614;C 350
+47;Mercedes-Benz;18615;ML 280
+47;Mercedes-Benz;18617;SLK 280
+47;Mercedes-Benz;18815;CLK 63 AMG
+47;Mercedes-Benz;18881;CLK 220
+47;Mercedes-Benz;18887;CLK 320
+47;Mercedes-Benz;18892;CLK 500
+47;Mercedes-Benz;18486;A 180
+47;Mercedes-Benz;18487;A 200
+47;Mercedes-Benz;18508;CL 200
+47;Mercedes-Benz;18512;CL 500
+47;Mercedes-Benz;18882;CLK 230
+47;Mercedes-Benz;18883;CLK 240
+47;Mercedes-Benz;18990;S 63 AMG
+47;Mercedes-Benz;18991;CL 63 AMG
+47;Mercedes-Benz;19107;C 63 AMG
+47;Mercedes-Benz;19112;CLS 320
+47;Mercedes-Benz;19113;CLS 350
+47;Mercedes-Benz;19118;CLS 500
+47;Mercedes-Benz;19144;CLC
+47;Mercedes-Benz;19151;SL 63 AMG
+47;Mercedes-Benz;19181;GLK 220
+47;Mercedes-Benz;19182;GLK 320
+47;Mercedes-Benz;19183;GLK 350
+47;Mercedes-Benz;19184;GLK 280
+47;Mercedes-Benz;19223;SLS
+47;Mercedes-Benz;19240;B 160
+47;Mercedes-Benz;19249;C 300
+47;Mercedes-Benz;19251;R 300
+47;Mercedes-Benz;19252;GL 350
+47;Mercedes-Benz;19253;GLK 250
+47;Mercedes-Benz;19254;GLK 300
+47;Mercedes-Benz;19255;ML 300
+47;Mercedes-Benz;19256;ML 450
+47;Mercedes-Benz;19257;SLK 300
+47;Mercedes-Benz;19546;SL 60 AMG
+47;Mercedes-Benz;19547;SL 70 AMG
+47;Mercedes-Benz;19548;SL 73 AMG
+47;Mercedes-Benz;19616;GLK 200
+47;Mercedes-Benz;21093;GLE 250
+47;Mercedes-Benz;21094;GLE 500
+47;Mercedes-Benz;19726;S 250
+47;Mercedes-Benz;19727;S 260
+47;Mercedes-Benz;19747;ML 250
+47;Mercedes-Benz;19748;SLK 250
+47;Mercedes-Benz;74964;CLS 450
+47;Mercedes-Benz;74965;E 53 AMG
+47;Mercedes-Benz;20185;B 220
+47;Mercedes-Benz;20215;G 350
+47;Mercedes-Benz;20216;G 500
+47;Mercedes-Benz;20217;SL 230
+47;Mercedes-Benz;20229;CLA 180
+47;Mercedes-Benz;20230;CLA 200
+47;Mercedes-Benz;20231;CLA 220
+47;Mercedes-Benz;20232;CLA 250
+47;Mercedes-Benz;20240;CE 220
+47;Mercedes-Benz;20241;CE 230
+47;Mercedes-Benz;20242;CE 280
+47;Mercedes-Benz;20243;CL 160
+47;Mercedes-Benz;20244;CLS 250
+47;Mercedes-Benz;20245;G 230
+47;Mercedes-Benz;20246;G 240
+47;Mercedes-Benz;20247;G 250
+47;Mercedes-Benz;20248;G 280
+47;Mercedes-Benz;20249;G 290
+47;Mercedes-Benz;20250;G 320
+47;Mercedes-Benz;20251;G 400
+47;Mercedes-Benz;20252;GL 55 AMG
+47;Mercedes-Benz;20253;GL 63 AMG
+47;Mercedes-Benz;20255;A 45 AMG
+47;Mercedes-Benz;20389;SL 400
+47;Mercedes-Benz;20400;170
+47;Mercedes-Benz;20443;T1
+47;Mercedes-Benz;20195;Citan
+47;Mercedes-Benz;20301;CLA 45 AMG
+47;Mercedes-Benz;20384;CLS 300
+47;Mercedes-Benz;20444;T2
+47;Mercedes-Benz;20165;A 250
+47;Mercedes-Benz;20166;B 250
+47;Mercedes-Benz;20167;G 63 AMG
+47;Mercedes-Benz;20168;G 65 AMG
+47;Mercedes-Benz;20169;G 300
+47;Mercedes-Benz;20176;E 550
+47;Mercedes-Benz;20388;GLA 45 AMG
+47;Mercedes-Benz;20401;180
+47;Mercedes-Benz;20492;GLA 180
+47;Mercedes-Benz;20601;CLS 220
+47;Mercedes-Benz;75191;E 450
+47;Mercedes-Benz;20218;A 220
+47;Mercedes-Benz;75192;CLS 53 AMG
+47;Mercedes-Benz;75193;X 350
+47;Mercedes-Benz;20325;G 270
+47;Mercedes-Benz;20343;GLA 200
+47;Mercedes-Benz;20344;GLA 220
+47;Mercedes-Benz;20345;GLA 250
+47;Mercedes-Benz;20383;CLS 280
+47;Mercedes-Benz;20391;SL 250
+47;Mercedes-Benz;20627;B Electric Drive
+47;Mercedes-Benz;20636;AMG GT
+47;Mercedes-Benz;20637;V 250
+47;Mercedes-Benz;20918;C 450
+47;Mercedes-Benz;20916;C 400
+47;Mercedes-Benz;20920;GLE 350
+47;Mercedes-Benz;20921;GLE 400
+47;Mercedes-Benz;20922;GLE 450
+47;Mercedes-Benz;20923;GLE 63 AMG
+47;Mercedes-Benz;74548;Marco Polo
+47;Mercedes-Benz;74629;GLC 63 AMG
+47;Mercedes-Benz;74630;S 650
+47;Mercedes-Benz;75110;SLC 280
+47;Mercedes-Benz;74389;GLC 43 AMG
+47;Mercedes-Benz;74390;GLC 350
+47;Mercedes-Benz;74391;GLE 43 AMG
+47;Mercedes-Benz;74254;GLS 350
+47;Mercedes-Benz;74255;GLS 400
+47;Mercedes-Benz;74256;GLS 500
+47;Mercedes-Benz;74257;GLS 63 AMG
+47;Mercedes-Benz;74258;SLC 180
+47;Mercedes-Benz;74259;SLC 200
+47;Mercedes-Benz;74260;SLC 250
+47;Mercedes-Benz;74261;SLC 300
+47;Mercedes-Benz;74262;SLC 43 AMG
+47;Mercedes-Benz;74551;GLC 300
+47;Mercedes-Benz;20924;GL 400
+47;Mercedes-Benz;20926;CLS 400
+47;Mercedes-Benz;20927;208
+47;Mercedes-Benz;20928;210/310
+47;Mercedes-Benz;20930;Others
+47;Mercedes-Benz;21086;GLC 220
+47;Mercedes-Benz;21087;GLC 250
+47;Mercedes-Benz;74334;308
+47;Mercedes-Benz;74457;E 43 AMG
+47;Mercedes-Benz;74574;G 650
+47;Mercedes-Benz;75201;A 35 AMG
+47;Mercedes-Benz;74743;X 220
+47;Mercedes-Benz;74744;X 250
+54;Opel;16417;Agila
+54;Opel;16447;Speedster
+54;Opel;16604;GT
+54;Opel;16612;Vivaro
+54;Opel;18080;Pick Up Sportscap
+54;Opel;18341;Meriva
+54;Opel;18345;Signum
+54;Opel;1915;Ascona
+54;Opel;1916;Astra
+54;Opel;1917;Calibra
+54;Opel;1918;Corsa
+54;Opel;1919;Frontera
+54;Opel;1920;Kadett
+54;Opel;1921;Manta
+54;Opel;1922;Monterey
+54;Opel;1923;Monza
+54;Opel;1924;Omega
+54;Opel;1926;Rekord
+54;Opel;1927;Senator
+54;Opel;1929;Sintra
+54;Opel;1930;Tigra
+54;Opel;1931;Vectra
+54;Opel;2158;Diplomat
+54;Opel;14825;Combo
+54;Opel;14854;Commodore
+54;Opel;15660;Zafira
+54;Opel;15740;Arena
+54;Opel;15852;Campo
+54;Opel;15870;Movano
+54;Opel;18827;Antara
+54;Opel;19101;Insignia
+54;Opel;19749;Ampera
+54;Opel;20191;Adam
+54;Opel;20381;Zafira Tourer
+54;Opel;20148;Mokka
+54;Opel;20221;Cascada
+54;Opel;20639;Karl
+54;Opel;20960;Others
+54;Opel;74627;Grandland X
+54;Opel;74532;Crossland X
+60;Renault;16505;Grand Espace
+60;Renault;16616;Avantime
+60;Renault;16617;Vel Satis
+60;Renault;18100;P 1400
+60;Renault;18277;Mascott
+60;Renault;18337;R 6
+60;Renault;1958;Alpine A310
+60;Renault;1959;Alpine A610
+60;Renault;1960;Alpine V6
+60;Renault;1961;Clio
+60;Renault;1962;Espace
+60;Renault;1963;Fuego
+60;Renault;1964;Laguna
+60;Renault;1965;Megane
+60;Renault;1966;R 11
+60;Renault;1967;R 14
+60;Renault;1968;R 18
+60;Renault;1969;R 19
+60;Renault;1970;R 20
+60;Renault;1971;R 21
+60;Renault;1972;R 25
+60;Renault;1973;R 30
+60;Renault;1974;R 4
+60;Renault;1975;R 5
+60;Renault;1976;R 9
+60;Renault;1977;Safrane
+60;Renault;1978;Super 5
+60;Renault;1979;Twingo
+60;Renault;2096;Trafic
+60;Renault;2133;Express
+60;Renault;14717;Master
+60;Renault;14786;Scenic
+60;Renault;14830;Coupe
+60;Renault;15317;Kangoo
+60;Renault;15706;Spider
+60;Renault;15737;Rapid
+60;Renault;18522;Modus
+60;Renault;18711;Grand Scenic
+60;Renault;19126;Koleos
+60;Renault;19169;Grand Modus
+60;Renault;19250;Fluence
+60;Renault;19340;Symbol
+60;Renault;19341;Logan
+60;Renault;19545;Latitude
+60;Renault;19552;Wind
+60;Renault;21095;Talisman
+60;Renault;19725;Others
+60;Renault;19755;Sandero
+60;Renault;20059;Kangoo Z.E.
+60;Renault;20060;Fluence Z.E.
+60;Renault;20053;Duster
+60;Renault;20054;Sandero Stepway
+60;Renault;20058;Twizy
+60;Renault;20408;Alpine A110
+60;Renault;20228;ZOE
+60;Renault;20235;Captur
+60;Renault;21077;Kadjar
+60;Renault;74771;Alaskan
+60;Renault;21182;Messenger
+74;Volkswagen;15981;Buggy
+74;Volkswagen;16520;Taro
+74;Volkswagen;16521;L80
+74;Volkswagen;16584;Iltis
+74;Volkswagen;16585;181
+74;Volkswagen;16623;Karmann Ghia
+74;Volkswagen;18190;T4 Allstar
+74;Volkswagen;18200;T3 Blue Star
+74;Volkswagen;18210;T5 Caravelle
+74;Volkswagen;18220;T5 Multivan
+74;Volkswagen;18230;Transporter
+74;Volkswagen;18240;T3 White Star
+74;Volkswagen;18276;Phaeton
+74;Volkswagen;18285;Touareg
+74;Volkswagen;18317;T3
+74;Volkswagen;18329;Touran
+74;Volkswagen;18370;T5
+74;Volkswagen;2083;Corrado
+74;Volkswagen;2084;Golf
+74;Volkswagen;2087;Jetta
+74;Volkswagen;2089;Passat
+74;Volkswagen;2090;Polo
+74;Volkswagen;2091;Santana
+74;Volkswagen;2092;Scirocco
+74;Volkswagen;2093;Sharan
+74;Volkswagen;2094;Vento
+74;Volkswagen;2106;Bus
+74;Volkswagen;2113;Anfibio
+74;Volkswagen;2114;Käfer
+74;Volkswagen;14792;T4
+74;Volkswagen;15363;T2
+74;Volkswagen;15381;New Beetle
+74;Volkswagen;15534;Lupo
+74;Volkswagen;15535;Bora
+74;Volkswagen;15734;Caddy
+74;Volkswagen;15767;LT
+74;Volkswagen;15864;Maggiolino
+74;Volkswagen;18575;T5 California
+74;Volkswagen;18599;Fox
+74;Volkswagen;18747;T5 Shuttle
+74;Volkswagen;18781;Crafter
+74;Volkswagen;18707;Eos
+74;Volkswagen;19063;Tiguan
+74;Volkswagen;19127;Routan
+74;Volkswagen;19261;Amarok
+74;Volkswagen;19344;Pointer
+74;Volkswagen;19618;T1
+74;Volkswagen;19659;Polo Sedan
+74;Volkswagen;21081;T6 Caravelle
+74;Volkswagen;21082;T6 Multivan
+74;Volkswagen;21083;T6 California
+74;Volkswagen;19724;Beetle
+74;Volkswagen;19750;up!
+74;Volkswagen;19780;CC
+74;Volkswagen;20026;Golf Plus
+74;Volkswagen;20841;Derby
+74;Volkswagen;20376;Golf Sportsvan
+74;Volkswagen;20170;Polo Cross
+74;Volkswagen;20380;XL1
+74;Volkswagen;21080;T6 Transporter
+74;Volkswagen;20315;Cross Golf
+74;Volkswagen;20316;Cross Touran
+74;Volkswagen;75194;T-Cross
+74;Volkswagen;20333;Polo Plus
+74;Volkswagen;20334;Polo Variant
+74;Volkswagen;20335;Polo GTI
+74;Volkswagen;20336;Polo R WRC
+74;Volkswagen;20337;Passat CC
+74;Volkswagen;20338;Passat Variant
+74;Volkswagen;20339;Passat Alltrack
+74;Volkswagen;20340;Golf Variant
+74;Volkswagen;20341;Golf Cabriolet
+74;Volkswagen;20342;Golf GTI
+74;Volkswagen;20352;T3 Multivan
+74;Volkswagen;20353;T4 Multivan
+74;Volkswagen;20354;T3 California
+74;Volkswagen;20355;T4 California
+74;Volkswagen;20356;T3 Caravelle
+74;Volkswagen;20357;T4 Caravelle
+74;Volkswagen;20358;T5 Kombi
+74;Volkswagen;20359;T4 Kombi
+74;Volkswagen;20360;T3 Kombi
+74;Volkswagen;21179;Coccinelle
+74;Volkswagen;21180;Escarabajo
+74;Volkswagen;74550;Arteon
+74;Volkswagen;21034;Others
+74;Volkswagen;74667;T-Roc
+74;Volkswagen;74938;Atlas
+74;Volkswagen;74939;Kever
+51539;9ff;20567;GTurbo
+51539;9ff;20284;Others
+51539;9ff;20570;Speed9
+51539;9ff;20571;F70 Etronic
+51539;9ff;20568;GTronic
+51539;9ff;20569;GT9
+51539;9ff;20977;F97 A-Max
+16396;Abarth;19688;500
+16396;Abarth;19689;500C
+16396;Abarth;19690;695
+16396;Abarth;19691;Grande Punto
+16396;Abarth;19692;Punto EVO
+16396;Abarth;20258;595 Turismo
+16396;Abarth;20387;595C
+16396;Abarth;20323;595 Competizione
+16396;Abarth;20386;695C
+16396;Abarth;20956;Punto Supersport
+16396;Abarth;20957;Others
+16396;Abarth;21170;595
+16396;Abarth;74336;124 Spider
+14979;AC;14984;Cobra
+14979;AC;19550;Ace
+14979;AC;21037;Others
+16429;ACM;21192;4 WD
+16429;ACM;21193;Biagini Passo
+16429;ACM;21194;Others
+16356;Acura;18446;RL
+16356;Acura;18447;TL
+16356;Acura;18448;TSX
+16356;Acura;18449;RSX
+16356;Acura;18450;NSX
+16356;Acura;18451;MDX
+16356;Acura;20042;RDX
+16356;Acura;20043;ZDX
+16356;Acura;21054;Others
+16356;Acura;74681;ILX
+16356;Acura;74682;TLX
+16356;Acura;74683;RLX
+16352;Aixam;18334;400
+16352;Aixam;18335;500
+16352;Aixam;18336;Mac
+16352;Aixam;18582;A.
+16352;Aixam;18649;Mega
+16352;Aixam;19164;City
+16352;Aixam;19165;Roadline
+16352;Aixam;19166;Crossline
+16352;Aixam;19167;Scouty R
+16352;Aixam;19736;Others
+16352;Aixam;20206;Coupe
+16352;Aixam;20207;GTI
+16352;Aixam;20208;GTO
+16352;Aixam;20209;Crossover
+16352;Aixam;75083;D-truck
+6;Alfa Romeo;16421;147
+6;Alfa Romeo;16628;RZ
+6;Alfa Romeo;18412;GT
+6;Alfa Romeo;1600;33
+6;Alfa Romeo;1601;145
+6;Alfa Romeo;1602;146
+6;Alfa Romeo;1603;155
+6;Alfa Romeo;1604;164
+6;Alfa Romeo;1606;75
+6;Alfa Romeo;1607;90
+6;Alfa Romeo;1608;Alfasud
+6;Alfa Romeo;1609;Alfetta
+6;Alfa Romeo;1611;Giulietta
+6;Alfa Romeo;1612;GTV
+6;Alfa Romeo;1614;Spider
+6;Alfa Romeo;15117;156
+6;Alfa Romeo;15636;166
+6;Alfa Romeo;18581;Brera
+6;Alfa Romeo;18907;Sportwagon
+6;Alfa Romeo;18631;Sprint
+6;Alfa Romeo;18553;Giulia
+6;Alfa Romeo;18681;159
+6;Alfa Romeo;19125;8C
+6;Alfa Romeo;19161;MiTo
+6;Alfa Romeo;19179;Crosswagon
+6;Alfa Romeo;20291;4C
+6;Alfa Romeo;20772;Alfa 6
+6;Alfa Romeo;20276;SZ
+6;Alfa Romeo;74543;Stelvio
+6;Alfa Romeo;75096;Montreal
+6;Alfa Romeo;74730;Quadrifoglio
+6;Alfa Romeo;20940;1750
+6;Alfa Romeo;20941;2000
+6;Alfa Romeo;20942;Others
+14;Alpina;16435;D10
+14;Alpina;18346;B7
+14;Alpina;15130;B3
+14;Alpina;15131;B10
+14;Alpina;15132;B12
+14;Alpina;15682;B6
+14;Alpina;15711;B8
+14;Alpina;18601;B5
+14;Alpina;18544;Roadster S
+14;Alpina;18717;D3
+14;Alpina;19160;B11
+14;Alpina;19786;Others
+14;Alpina;20129;D5
+14;Alpina;20490;D4
+14;Alpina;20510;B4
+14;Alpina;20517;B9
+14;Alpina;20528;Roadster Limited Edition
+14;Alpina;20529;Roadster V8
+14;Alpina;20489;XD3
+14;Alpina;75097;XD4
+14;Alpina;21172;C1
+14;Alpina;21173;C2
+51796;Alpine;74991;A110
+51796;Alpine;74992;Others
+51545;Amphicar;20480;770
+51545;Amphicar;20378;Others
+16419;Ariel Motor;21120;Atom
+16419;Ariel Motor;21121;Nomad
+16419;Ariel Motor;21122;Others
+16427;Artega;75047;Karo
+16427;Artega;21185;GT
+16427;Artega;21186;Scalo
+16427;Artega;21187;Others
+16431;Aspid;21200;GT-21
+16431;Aspid;21201;SS
+16431;Aspid;21202;Others
+8;Aston Martin;16382;DB
+8;Aston Martin;18261;Vanquish
+8;Aston Martin;18469;AR1
+8;Aston Martin;1615;DB7
+8;Aston Martin;1616;Lagonda
+8;Aston Martin;1617;Virage
+8;Aston Martin;15119;V8
+8;Aston Martin;15120;Vantage
+8;Aston Martin;15540;Volante
+8;Aston Martin;18517;DB9
+8;Aston Martin;19068;DBS
+8;Aston Martin;19531;Rapide
+8;Aston Martin;19735;Cygnet
+8;Aston Martin;74785;Valkyrie
+8;Aston Martin;21000;Others
+8;Aston Martin;74438;DB11
+15643;Austin;16383;MK
+15643;Austin;16453;Montego
+15643;Austin;15806;Maestro
+15643;Austin;15807;Metro
+15643;Austin;18618;Estate
+15643;Austin;20773;Mini
+15643;Austin;20774;Mini Moke
+15643;Austin;20132;Healey
+15643;Austin;21042;Others
+15644;Autobianchi;15798;Y10
+15644;Autobianchi;15799;A 112
+15644;Autobianchi;15831;A 1000
+15644;Autobianchi;21043;Others
+16437;Auverland;74263;A3
+16437;Auverland;74264;A4
+16437;Auverland;74265;Others
+51774;Baic;74485;Senova X25
+51774;Baic;74486;Senova X55
+51774;Baic;74487;Senova X65
+51774;Baic;74488;B40
+51774;Baic;74495;Others
+51774;Baic;74684;Senova X35
+51774;Baic;74685;D20
+51774;Baic;74686;BJ20
+51774;Baic;75200;BJ40
+16400;Bedford;20721;CF2
+16400;Bedford;20722;Rascal
+16400;Bedford;20723;HA
+16400;Bedford;20724;CA
+16400;Bedford;20726;Blitz
+16400;Bedford;20727;Dormobile
+16400;Bedford;20728;Chevanne
+16400;Bedford;20729;KB
+16400;Bedford;20730;Midi
+16400;Bedford;20731;Astravan
+16400;Bedford;20732;Astramax
+16400;Bedford;20733;Beagle
+16400;Bedford;20734;TJ
+16400;Bedford;20735;Brava
+16400;Bedford;20736;MW
+16400;Bedford;20737;Other
+16416;Bellier;21101;B8
+16416;Bellier;21102;Docker
+16416;Bellier;21103;Other
+16416;Bellier;21111;Divane
+16416;Bellier;21112;Jade
+16416;Bellier;21113;Opale
+16416;Bellier;21114;Sturdy
+16416;Bellier;21115;VX
+16416;Bellier;21158;Asso
+11;Bentley;15954;Eight
+11;Bentley;18402;Mulsanne
+11;Bentley;15125;Brooklands
+11;Bentley;15126;Turbo RT
+11;Bentley;15127;Continental
+11;Bentley;15128;Azure
+11;Bentley;15683;Turbo R
+11;Bentley;15684;Turbo S
+11;Bentley;15685;Arnage
+11;Bentley;20362;Flying Spur
+11;Bentley;21002;Others
+11;Bentley;74740;S1
+11;Bentley;74741;S2
+11;Bentley;74742;S3
+11;Bentley;21181;Bentayga
+16418;Bolloré;21118;Bluecar
+16418;Bolloré;21119;Others
+16418;Bolloré;21197;Bluesummer
+16418;Bolloré;21220;Blueutility
+16424;Borgward;21143;BX7
+16424;Borgward;21144;Hansa 400/500
+16424;Borgward;21145;Hansa 1100
+16424;Borgward;21146;Hansa 1700
+16424;Borgward;21147;Hansa 3500
+16424;Borgward;21148;Hansa 2000
+16424;Borgward;21149;Hansa 2300
+16424;Borgward;75048;BX5
+16424;Borgward;21150;Hansa 1500
+16424;Borgward;21151;Hansa 1800
+16424;Borgward;21152;Hansa 2400
+16424;Borgward;21153;Isabella
+16424;Borgward;21154;Arabella
+16424;Borgward;21155;P100
+16424;Borgward;21156;Others
+16367;Brilliance;18699;Jinbei
+16367;Brilliance;18700;Granse
+16367;Brilliance;18701;Zunchi
+16367;Brilliance;18702;Zhonghua
+16367;Brilliance;19080;BS2
+16367;Brilliance;19081;BS6
+16367;Brilliance;19186;BS4
+16367;Brilliance;19135;BC3
+16367;Brilliance;21057;Others
+15;Bugatti;15677;EB 110
+15;Bugatti;18843;Veyron
+15;Bugatti;20775;EB 112
+15;Bugatti;21003;Others
+15;Bugatti;74381;Chiron
+16;Buick;1668;Century
+16;Buick;1669;Electra
+16;Buick;1670;Park Avenue
+16;Buick;1671;Regal
+16;Buick;1672;Riviera
+16;Buick;1673;Skylark
+16;Buick;15771;Roadmaster
+16;Buick;18523;Le Sabre
+16;Buick;19058;Enclave
+16;Buick;20151;Special
+16;Buick;21004;Others
+16;Buick;74676;La Crosse
+16;Buick;74677;Verano
+16;Buick;74678;Encore
+16;Buick;74679;Envision
+16;Buick;74680;Cascada
+16379;BYD;19130;F1
+16379;BYD;19131;F3
+16379;BYD;19132;F3R
+16379;BYD;19133;F6
+16379;BYD;19134;F8
+16379;BYD;20776;e6
+16379;BYD;21060;Others
+17;Cadillac;16399;Escalade
+17;Cadillac;18405;CTS
+17;Cadillac;1674;Allante
+17;Cadillac;1675;Deville
+17;Cadillac;1676;Eldorado
+17;Cadillac;1677;Fleetwood
+17;Cadillac;1678;Seville
+17;Cadillac;15853;STS
+17;Cadillac;18543;XLR
+17;Cadillac;18602;BLS
+17;Cadillac;18495;SRX
+17;Cadillac;20370;Series 62
+17;Cadillac;20371;Series 6200
+17;Cadillac;20372;LaSalle
+17;Cadillac;20226;ATS
+17;Cadillac;20373;Brougham
+17;Cadillac;75098;XTS
+17;Cadillac;75099;XT4
+17;Cadillac;21005;Others
+17;Cadillac;74323;CT6
+17;Cadillac;74357;XT5
+17;Cadillac;74425;DTS
+15672;Caravans-Wohnm;15986;Adria
+15672;Caravans-Wohnm;16255;Alpha
+15672;Caravans-Wohnm;16256;Arca
+15672;Caravans-Wohnm;16257;Autoroller
+15672;Caravans-Wohnm;16258;Bimobil
+15672;Caravans-Wohnm;16259;Bürstner
+15672;Caravans-Wohnm;16260;Burow
+15672;Caravans-Wohnm;16261;Ca-Mo-Car
+15672;Caravans-Wohnm;16262;Caro
+15672;Caravans-Wohnm;16263;Carthago
+15672;Caravans-Wohnm;16264;Chausson
+15672;Caravans-Wohnm;16265;Chrysler
+15672;Caravans-Wohnm;16266;Ci International
+15672;Caravans-Wohnm;16267;Coachmen
+15672;Caravans-Wohnm;16268;Concorde
+15672;Caravans-Wohnm;16269;Cristall
+15672;Caravans-Wohnm;16270;Cs Reisemobile
+15672;Caravans-Wohnm;16271;Damon
+15672;Caravans-Wohnm;16272;Dethleffs
+15672;Caravans-Wohnm;16273;Elnagh
+15672;Caravans-Wohnm;16274;Eriba
+15672;Caravans-Wohnm;16275;Euramobil
+15672;Caravans-Wohnm;16276;Euro Liner
+15672;Caravans-Wohnm;16277;Fendt
+15672;Caravans-Wohnm;16278;Ffb / Tabbert
+15672;Caravans-Wohnm;16279;Fiat
+15672;Caravans-Wohnm;16281;Fleetwood
+15672;Caravans-Wohnm;16282;Ford
+15672;Caravans-Wohnm;16283;Ford / Reimo
+15672;Caravans-Wohnm;16284;Frankia
+15672;Caravans-Wohnm;16285;General Motors
+15672;Caravans-Wohnm;16286;Granduca
+15672;Caravans-Wohnm;16287;Hehn
+15672;Caravans-Wohnm;16288;Heku
+15672;Caravans-Wohnm;16289;Hobby
+15672;Caravans-Wohnm;16290;Holiday Rambler
+15672;Caravans-Wohnm;16291;Hymer
+15672;Caravans-Wohnm;16292;Karmann
+15672;Caravans-Wohnm;16293;Knaus
+15672;Caravans-Wohnm;16294;Laika
+15672;Caravans-Wohnm;16295;La Strada
+15672;Caravans-Wohnm;16296;LMC
+15672;Caravans-Wohnm;16297;M+M Mobile
+15672;Caravans-Wohnm;16298;Ma-Bu
+15672;Caravans-Wohnm;16299;Mazda
+15672;Caravans-Wohnm;16300;Mercedes-Benz
+15672;Caravans-Wohnm;16301;Mirage
+15672;Caravans-Wohnm;16302;Mitsubishi
+15672;Caravans-Wohnm;16303;Mobilvetta
+15672;Caravans-Wohnm;16304;Pilote
+15672;Caravans-Wohnm;16305;Rapido
+15672;Caravans-Wohnm;16306;Reimo
+15672;Caravans-Wohnm;16307;Reisemobile Beier
+15672;Caravans-Wohnm;16308;Renault
+15672;Caravans-Wohnm;16309;Rimor
+15672;Caravans-Wohnm;16310;Riva
+15672;Caravans-Wohnm;16311;Riviera
+15672;Caravans-Wohnm;16312;RMB
+15672;Caravans-Wohnm;16313;Roadtrek
+15672;Caravans-Wohnm;16314;Rockwood
+15672;Caravans-Wohnm;16315;Selbstbau
+15672;Caravans-Wohnm;16316;TEC
+15672;Caravans-Wohnm;16317;Tischer
+15672;Caravans-Wohnm;16318;Triple E
+15672;Caravans-Wohnm;16319;Vario
+15672;Caravans-Wohnm;16320;VW
+15672;Caravans-Wohnm;16321;Weinsberg
+15672;Caravans-Wohnm;16322;Westfalia
+15672;Caravans-Wohnm;16323;Wilk
+15672;Caravans-Wohnm;16324;Winnebago
+15672;Caravans-Wohnm;16325;Others
+15672;Caravans-Wohnm;16410;Nordstar
+15672;Caravans-Wohnm;16571;EVM
+15672;Caravans-Wohnm;16594;Eifelland
+15672;Caravans-Wohnm;16595;Burow-Mobil
+15672;Caravans-Wohnm;16615;McLouis
+15672;Caravans-Wohnm;16630;Ahorn
+15672;Caravans-Wohnm;16631;Due Erre
+15672;Caravans-Wohnm;16632;Miller
+15672;Caravans-Wohnm;18265;Dehler
+15672;Caravans-Wohnm;18351;Autostar
+15672;Caravans-Wohnm;18352;Bavaria
+15672;Caravans-Wohnm;18354;Peugeot
+15672;Caravans-Wohnm;18357;Ultra
+15672;Caravans-Wohnm;18369;Man
+15672;Caravans-Wohnm;18419;Weippert
+15672;Caravans-Wohnm;18466;Beisl
+15672;Caravans-Wohnm;18841;Tabbert
+15672;Caravans-Wohnm;18845;Airstream
+15672;Caravans-Wohnm;18846;Bawemo
+15672;Caravans-Wohnm;18847;Benimar
+15672;Caravans-Wohnm;18848;Caravelair
+15672;Caravans-Wohnm;18849;Challenger
+15672;Caravans-Wohnm;18850;Delta
+15672;Caravans-Wohnm;18851;Gigant
+15672;Caravans-Wohnm;18852;Giottiline
+15672;Caravans-Wohnm;18853;Globecar
+15672;Caravans-Wohnm;18854;Home-Car
+15672;Caravans-Wohnm;18855;ICF
+15672;Caravans-Wohnm;18856;Iveco
+15672;Caravans-Wohnm;18857;Linne-Liner
+15672;Caravans-Wohnm;18858;Maesss
+15672;Caravans-Wohnm;18859;Moncayo
+15672;Caravans-Wohnm;18860;Neotec
+15672;Caravans-Wohnm;18861;Niesmann+Bischoff
+15672;Caravans-Wohnm;18862;Niewiadow
+15672;Caravans-Wohnm;18863;Ormocar
+15672;Caravans-Wohnm;18864;Phoenix
+15672;Caravans-Wohnm;18865;ProCab
+15672;Caravans-Wohnm;18866;Robel-Mobil
+15672;Caravans-Wohnm;18867;Sterckeman
+15672;Caravans-Wohnm;18868;Swift
+15672;Caravans-Wohnm;18869;Trigano
+15672;Caravans-Wohnm;18729;Monaco
+15672;Caravans-Wohnm;19120;Florence
+15672;Caravans-Wohnm;19206;Kentucky
+15672;Caravans-Wohnm;19207;Dream
+15672;Caravans-Wohnm;19208;Mizar
+15672;Caravans-Wohnm;19210;Biod
+15672;Caravans-Wohnm;19211;Kip
+15672;Caravans-Wohnm;20197;Pössl
+15672;Caravans-Wohnm;20199;Carado
+15672;Caravans-Wohnm;20220;Morelo
+15672;Caravans-Wohnm;75196;MegaMobil
+15672;Caravans-Wohnm;75197;Sunlight
+16407;Casalini;20850;Kerry
+16407;Casalini;20851;M10
+16407;Casalini;20852;M110
+16407;Casalini;20853;M12
+16407;Casalini;20854;M14
+16407;Casalini;20855;Pick Up12
+16407;Casalini;20856;Sulky
+16407;Casalini;20857;Sulkycar
+16407;Casalini;20858;Sulkydea/Ydea
+16407;Casalini;20859;Other
+16407;Casalini;74836;M20
+16335;Caterham;20459;Classic 7
+16335;Caterham;20460;Classic S7
+16335;Caterham;20463;CSR 260
+16335;Caterham;20466;Roadsport Seven
+16335;Caterham;20458;21
+16335;Caterham;20462;CSR 175
+16335;Caterham;20465;R300 Superlight
+16335;Caterham;20470;Superlight
+16335;Caterham;20464;R 400
+16335;Caterham;20467;Seven 458
+16335;Caterham;20468;SP/300.R
+16335;Caterham;20469;Super 7
+16335;Caterham;20461;Cosworth CSR 200
+16335;Caterham;21047;Others
+16401;Changhe;20738;Freedom
+16401;Changhe;20739;Mini Truck
+16401;Changhe;20740;Ideal
+16401;Changhe;20741;CoolCar
+16401;Changhe;20742;X5
+16401;Changhe;20743;Other
+16401;Changhe;75052;A6
+16401;Changhe;75053;Q25
+16401;Changhe;75054;Q35
+16401;Changhe;75055;Q7
+16357;Chatenet;18460;Speedino
+16357;Chatenet;18461;Media
+16357;Chatenet;18462;Barooder
+16357;Chatenet;19705;CH 26
+16357;Chatenet;20777;Pick-Up
+16357;Chatenet;20778;Sporteevo
+16357;Chatenet;20779;Stella
+16357;Chatenet;20847;CH 28
+16357;Chatenet;20848;CH 30
+16357;Chatenet;20849;CH 32
+16357;Chatenet;21055;Others
+16357;Chatenet;74837;CH 40
+16384;Chery;19345;A18
+16384;Chery;19346;A21
+16384;Chery;19347;A3
+16384;Chery;19348;Amulet
+16384;Chery;19349;B13
+16384;Chery;19350;B14
+16384;Chery;19351;CrossEastar
+16384;Chery;19352;Crossover
+16384;Chery;19353;Eastar
+16384;Chery;19354;FengYun
+16384;Chery;19355;Fora
+16384;Chery;19356;Karry
+16384;Chery;19357;Kimo
+16384;Chery;19358;M14
+16384;Chery;19359;Mikado
+16384;Chery;19360;MPV
+16384;Chery;19361;QQ
+16384;Chery;19362;Sweet
+16384;Chery;19363;Tiggo
+16384;Chery;19364;WOW
+16384;Chery;19760;À13
+16384;Chery;19761;S18
+16384;Chery;19762;M11
+16384;Chery;20044;Very
+16384;Chery;21063;Others
+16384;Chery;75079;Arrizo 5
+16384;Chery;75080;eQ
+19;Chevrolet;15983;Silverado
+19;Chevrolet;16378;S-10
+19;Chevrolet;16379;2500
+19;Chevrolet;16400;Suburban
+19;Chevrolet;16455;Impala
+19;Chevrolet;16456;Lumina
+19;Chevrolet;16457;Monte Carlo
+19;Chevrolet;16599;Trailblazer
+19;Chevrolet;18287;El Camino
+19;Chevrolet;18367;Avalanche
+19;Chevrolet;18420;Chevy Van
+19;Chevrolet;1679;Astro
+19;Chevrolet;1680;Beretta
+19;Chevrolet;1681;Blazer
+19;Chevrolet;1683;Camaro
+19;Chevrolet;1684;Caprice
+19;Chevrolet;1685;Cavalier
+19;Chevrolet;1686;Citation
+19;Chevrolet;1687;Celebrity
+19;Chevrolet;1688;Corsica
+19;Chevrolet;1689;Corvette
+19;Chevrolet;1690;Malibu
+19;Chevrolet;15136;Tahoe
+19;Chevrolet;15137;Trans Sport
+19;Chevrolet;15648;Alero
+19;Chevrolet;15738;Crew cab
+19;Chevrolet;15739;G
+19;Chevrolet;15772;Dixie van
+19;Chevrolet;15801;K1500
+19;Chevrolet;15854;K30
+19;Chevrolet;18719;Niva
+19;Chevrolet;18789;Captiva
+19;Chevrolet;18790;Epica
+19;Chevrolet;18571;Kalos
+19;Chevrolet;18572;Evanda
+19;Chevrolet;18574;Nubira
+19;Chevrolet;18516;C1500
+19;Chevrolet;18673;Tacuma
+19;Chevrolet;18685;Aveo
+19;Chevrolet;18570;Rezzo
+19;Chevrolet;18573;Lacetti
+19;Chevrolet;18901;Uplander
+19;Chevrolet;18569;Matiz
+19;Chevrolet;18654;SSR
+19;Chevrolet;19100;HHR
+19;Chevrolet;19121;Colorado
+19;Chevrolet;19122;Equinox
+19;Chevrolet;19172;Cruze
+19;Chevrolet;19180;Volt
+19;Chevrolet;19203;Express
+19;Chevrolet;19221;Spark
+19;Chevrolet;19314;Tracker
+19;Chevrolet;19315;Viva
+19;Chevrolet;19316;Lanos
+19;Chevrolet;19604;Orlando
+19;Chevrolet;19615;Chevelle
+19;Chevrolet;20234;Trax
+19;Chevrolet;20286;Traverse
+19;Chevrolet;74631;Bolt
+19;Chevrolet;74784;Bel Air
+19;Chevrolet;21006;Others
+20;Chrysler;16420;PT Cruiser
+20;Chrysler;16587;Prowler
+20;Chrysler;18338;Pacifica
+20;Chrysler;18339;Crossfire
+20;Chrysler;1691;ES
+20;Chrysler;1692;GTS
+20;Chrysler;1693;GS
+20;Chrysler;1694;Daytona
+20;Chrysler;1695;Le Baron
+20;Chrysler;1696;Neon
+20;Chrysler;1697;New Yorker
+20;Chrysler;1698;Saratoga
+20;Chrysler;1699;Stratus
+20;Chrysler;1700;Viper
+20;Chrysler;1701;Vision
+20;Chrysler;1702;Voyager
+20;Chrysler;2150;Sebring
+20;Chrysler;14992;Valiant
+20;Chrysler;15139;300 M
+20;Chrysler;15140;Grand Voyager
+20;Chrysler;18497;300C
+20;Chrysler;19109;Aspen
+20;Chrysler;19763;Town & Country
+20;Chrysler;20138;Ram Van
+20;Chrysler;20498;Imperial
+20;Chrysler;21007;Others
+21;Citroen;15984;Xsara Picasso
+21;Citroen;16363;Jumpy
+21;Citroen;16458;C25
+21;Citroen;16525;C5
+21;Citroen;18264;C3
+21;Citroen;18281;C8
+21;Citroen;18373;C2
+21;Citroen;1703;2CV
+21;Citroen;1704;AX
+21;Citroen;1705;BX
+21;Citroen;1706;CX
+21;Citroen;1707;Evasion
+21;Citroen;1708;GSA
+21;Citroen;1709;LNA
+21;Citroen;1710;SAXO
+21;Citroen;1712;Xantia
+21;Citroen;1713;XM
+21;Citroen;1714;ZX
+21;Citroen;14710;Jumper
+21;Citroen;14810;Xsara
+21;Citroen;14811;C15
+21;Citroen;15142;Berlingo
+21;Citroen;15638;Visa
+21;Citroen;15716;DS
+21;Citroen;15717;SM
+21;Citroen;18629;Acadiane
+21;Citroen;18915;C4 Picasso
+21;Citroen;18545;C4
+21;Citroen;18651;C1
+21;Citroen;18585;C6
+21;Citroen;19027;Grand C4 Picasso
+21;Citroen;19054;C-Crosser
+21;Citroen;19062;C35
+21;Citroen;19117;Nemo
+21;Citroen;19170;C3 Picasso
+21;Citroen;19523;DS3
+21;Citroen;19606;DS4
+21;Citroen;19718;DS5
+21;Citroen;19734;C-Zero
+21;Citroen;75010;C5 Aircross
+21;Citroen;20162;C4 Aircross
+21;Citroen;20780;Axel
+21;Citroen;20781;Dyane
+21;Citroen;20406;C4 Cactus
+21;Citroen;20219;C-Elysée
+21;Citroen;20293;Méhari
+21;Citroen;74804;C3 Aircross
+21;Citroen;75006;C4 SpaceTourer
+21;Citroen;75007;Grand C4 SpaceTourer
+21;Citroen;75101;Traction
+21;Citroen;21008;Others
+21;Citroen;74576;E-Méhari
+21;Citroen;74441;Spacetourer
+16411;CityEL;20909;MiniEL
+16411;CityEL;20910;CityEL
+16411;CityEL;20911;CityEL Fact Four
+16411;CityEL;20912;Other
+16406;CMC;20769;Electric Mistry
+16406;CMC;20770;Gipsy 500
+16406;CMC;20771;Other
+16380;Corvette;19140;C6 Coupe
+16380;Corvette;19141;C6 Convertible
+16380;Corvette;19142;Z06
+16380;Corvette;19143;ZR1
+16380;Corvette;19709;C1
+16380;Corvette;19710;C2
+16380;Corvette;19711;C3
+16380;Corvette;19712;C4
+16380;Corvette;19713;C5
+16380;Corvette;20290;C7
+16380;Corvette;20782;CZ6
+16380;Corvette;21061;Others
+16380;Corvette;74838;Stingray
+51558;Courb;21075;C-Zen
+51558;Courb;21076;Others
+51802;Cupra;75205;Ateca
+51802;Cupra;75206;Others
+16360;Dacia;18502;Pick Up
+16360;Dacia;18498;Logan
+16360;Dacia;18501;Break
+16360;Dacia;18503;Double Cab
+16360;Dacia;18504;Drop Side
+16360;Dacia;18705;Nova
+16360;Dacia;18499;Solenza
+16360;Dacia;18500;Berlina
+16360;Dacia;19129;Sandero
+16360;Dacia;19233;Stepway
+16360;Dacia;19264;Duster
+16360;Dacia;20036;Lodgy
+16360;Dacia;20186;Dokker
+16360;Dacia;20938;1310
+16360;Dacia;20939;Others
+22;Daewoo;15952;Aranos
+22;Daewoo;16512;Tacuma
+22;Daewoo;18291;Kalos
+22;Daewoo;18348;Rezzo
+22;Daewoo;18349;Musso
+22;Daewoo;18350;Korando
+22;Daewoo;18360;Evanda
+22;Daewoo;18396;Truck Plus
+22;Daewoo;18436;Lacetti
+22;Daewoo;1715;Espero
+22;Daewoo;1716;Nexia
+22;Daewoo;14996;Lanos
+22;Daewoo;14997;Nubira
+22;Daewoo;14998;Leganza
+22;Daewoo;15644;Matiz
+22;Daewoo;20783;Lublin
+22;Daewoo;75106;Tico
+22;Daewoo;75107;Damas
+22;Daewoo;20931;Rexton
+22;Daewoo;20932;Others
+16333;DAF;16459;400
+16333;DAF;75008;428
+16333;DAF;75009;435
+16333;DAF;21046;Others
+23;Daihatsu;16460;Valera
+23;Daihatsu;16588;YRV
+23;Daihatsu;18426;Copen
+23;Daihatsu;18434;Domino
+23;Daihatsu;1717;Applause
+23;Daihatsu;1718;Charade
+23;Daihatsu;1719;Charmant
+23;Daihatsu;1720;Cuore
+23;Daihatsu;1721;Feroza
+23;Daihatsu;1722;Rocky
+23;Daihatsu;1723;Taft
+23;Daihatsu;2146;Hijet
+23;Daihatsu;15144;Move
+23;Daihatsu;15145;Gran Move
+23;Daihatsu;15146;Terios
+23;Daihatsu;15639;Sirion
+23;Daihatsu;15741;Freeclimber
+23;Daihatsu;18924;Materia
+23;Daihatsu;18811;Extol
+23;Daihatsu;18897;Trevis
+23;Daihatsu;20784;Pionier
+23;Daihatsu;20427;F Modelle
+23;Daihatsu;21009;Others
+16397;Daimler;20640;Super Eight
+16397;Daimler;20641;Super V8
+16397;Daimler;20642;Double Six
+16397;Daimler;20643;Six
+16397;Daimler;20644;Sovereign
+16397;Daimler;20645;Other
+16434;Dangel;75024;C15
+16434;Dangel;21207;505
+16434;Dangel;21208;504
+16434;Dangel;21209;Boxer
+16434;Dangel;21210;C25
+16434;Dangel;21211;J5
+16434;Dangel;21212;Jumpy
+16434;Dangel;21213;Jumper
+16434;Dangel;21214;Scudo
+16434;Dangel;21215;Partner
+16434;Dangel;21216;Ducato
+16434;Dangel;21217;Berlingo
+16434;Dangel;21218;Expert
+16434;Dangel;21219;Others
+16423;De la Chapelle;21137;Type 55 Roadster
+16423;De la Chapelle;21138;Type 55 Tourer
+16423;De la Chapelle;21139;Atalante 57S
+16423;De la Chapelle;21140;Grand-Prix
+16423;De la Chapelle;21141;Roadster
+16423;De la Chapelle;21142;Others
+51779;De Tomaso;74533;Vallelunga
+51779;De Tomaso;74534;Mangusta
+51779;De Tomaso;74535;Pantera
+51779;De Tomaso;74536;Deauville
+51779;De Tomaso;74537;Longchamp
+51779;De Tomaso;74538;GuarÃ 
+51779;De Tomaso;74539;Others
+16391;Derways;19662;Aurora
+16391;Derways;19663;Cowboy
+16391;Derways;19664;Land Crown
+16391;Derways;19665;Plutus
+16391;Derways;19666;Shuttle
+16391;Derways;21068;Others
+51773;DFSK;75011;Glory 580
+51773;DFSK;75012;K05
+51773;DFSK;75013;K07
+51773;DFSK;75014;V22
+51773;DFSK;75015;C31
+51773;DFSK;75016;C37
+51773;DFSK;74449;K01
+51773;DFSK;74450;K02
+51773;DFSK;74451;C32
+51773;DFSK;74452;C35
+51773;DFSK;74453;City Pickup
+51773;DFSK;74460;Others
+51773;DFSK;74489;V21
+51773;DFSK;74490;V25
+2152;Dodge;16401;Dakota
+2152;Dodge;16450;Viper
+2152;Dodge;2154;Stealth
+2152;Dodge;2155;Grand Caravan
+2152;Dodge;15321;RAM
+2152;Dodge;15802;Durango
+2152;Dodge;15855;Van
+2152;Dodge;18916;Nitro
+2152;Dodge;18693;Charger
+2152;Dodge;18566;Magnum
+2152;Dodge;18567;Neon
+2152;Dodge;18825;Caliber
+2152;Dodge;18568;Stratus
+2152;Dodge;19050;Avenger
+2152;Dodge;19074;Journey
+2152;Dodge;19102;Challenger
+2152;Dodge;19317;Intrepid
+2152;Dodge;19318;Caravan
+2152;Dodge;20499;Coronet
+2152;Dodge;20975;Dart
+2152;Dodge;20976;Others
+2152;Dodge;74736;Demon
+16339;Donkervoort;16605;D8
+16339;Donkervoort;16606;S8
+16339;Donkervoort;21048;Others
+16383;DR Motor;19228;DR1
+16383;DR Motor;19229;DR2
+16383;DR Motor;19230;DR3
+16383;DR Motor;19231;DR5
+16383;DR Motor;19232;KATAY
+16383;DR Motor;20309;City Cross
+16383;DR Motor;74731;DR4
+16383;DR Motor;74732;DR6
+16383;DR Motor;74733;DR EVO5
+16383;DR Motor;20967;DR Zero
+16383;DR Motor;20968;Others
+16415;DS Automobiles;74661;DS 7 Crossback
+16415;DS Automobiles;21088;DS 3
+16415;DS Automobiles;21090;DS 4
+16415;DS Automobiles;21091;DS 5
+16415;DS Automobiles;21092;Other
+51552;Dutton;20548;Rico
+51552;Dutton;20549;Rico Shuttle
+51552;Dutton;20530;Others
+51552;Dutton;20537;Phaeton Series 1
+51552;Dutton;20538;Phaeton Series 2
+51552;Dutton;20539;Phaeton Series 3
+51552;Dutton;20541;B Plus Series 2
+51552;Dutton;20544;Sierra Series 1
+51552;Dutton;20546;Sierra Series 3
+51552;Dutton;20547;Sierra Drop Head
+51552;Dutton;20531;P1
+51552;Dutton;20532;B Type
+51552;Dutton;20533;B Plus
+51552;Dutton;20534;Malaga
+51552;Dutton;20535;Malaga B+
+51552;Dutton;20536;Cantera
+51552;Dutton;20540;Phaeton Series 4
+51552;Dutton;20542;Melos
+51552;Dutton;20543;Legerra
+51552;Dutton;20545;Sierra Series 2
+51552;Dutton;20550;Beneto
+51794;e.GO;74981;Life 20
+51794;e.GO;74982;Life 40
+51794;e.GO;74983;Life 60
+51794;e.GO;74984;Mover
+51794;e.GO;74985;Others
+16436;Estrima;74316;Birò
+16436;Estrima;74317;Others
+27;Ferrari;16385;195
+27;Ferrari;16386;246
+27;Ferrari;16387;275
+27;Ferrari;16388;330
+27;Ferrari;16389;360
+27;Ferrari;16559;206
+27;Ferrari;18289;Dino GT4
+27;Ferrari;18309;Enzo Ferrari
+27;Ferrari;18347;575
+27;Ferrari;18468;612
+27;Ferrari;1725;328
+27;Ferrari;1726;348
+27;Ferrari;1727;412
+27;Ferrari;1728;456
+27;Ferrari;1729;512
+27;Ferrari;1730;550
+27;Ferrari;1731;F355
+27;Ferrari;1732;F40
+27;Ferrari;1733;Mondial
+27;Ferrari;1734;Testarossa
+27;Ferrari;2115;365
+27;Ferrari;2116;308
+27;Ferrari;2164;400
+27;Ferrari;15668;F50
+27;Ferrari;15671;F512
+27;Ferrari;15753;208
+27;Ferrari;15754;250
+27;Ferrari;15755;288
+27;Ferrari;15757;750
+27;Ferrari;15758;Daytona
+27;Ferrari;18791;599
+27;Ferrari;18632;Superamerica
+27;Ferrari;18547;F430
+27;Ferrari;19157;California
+27;Ferrari;19245;458
+27;Ferrari;19719;FF
+27;Ferrari;20785;Scuderia Spider 16M
+27;Ferrari;20331;LaFerrari
+27;Ferrari;20139;FXX
+27;Ferrari;20140;F12
+27;Ferrari;21010;Others
+27;Ferrari;21085;488
+27;Ferrari;74660;812
+27;Ferrari;74328;GTC4 Lusso
+27;Ferrari;74687;Portofino
+28;Fiat;15964;Campagnola
+28;Fiat;15989;Talento
+28;Fiat;16372;Strada
+28;Fiat;16407;Penny
+28;Fiat;16487;124 Coupè
+28;Fiat;16514;Stilo
+28;Fiat;16515;Doblo
+28;Fiat;18399;Idea
+28;Fiat;1735;126
+28;Fiat;1736;127
+28;Fiat;1737;131
+28;Fiat;1739;Barchetta
+28;Fiat;1740;Brava
+28;Fiat;1741;Bravo
+28;Fiat;1742;Cinquecento
+28;Fiat;1743;Coupe
+28;Fiat;1744;Croma
+28;Fiat;1745;Marea
+28;Fiat;1746;Panda
+28;Fiat;1747;Punto
+28;Fiat;1748;Regata
+28;Fiat;1749;Ritmo
+28;Fiat;1750;Spider Europa
+28;Fiat;1751;Tempra
+28;Fiat;1752;Tipo
+28;Fiat;1753;Ulysse
+28;Fiat;1754;Uno
+28;Fiat;1755;X 1/9
+28;Fiat;2130;130
+28;Fiat;2168;Dino
+28;Fiat;14783;Ducato
+28;Fiat;14827;Fiorino
+28;Fiat;14838;242
+28;Fiat;15160;500
+28;Fiat;15161;Palio
+28;Fiat;15247;Seicento
+28;Fiat;15248;Scudo
+28;Fiat;15351;124 Spider
+28;Fiat;15640;Multipla
+28;Fiat;15730;Duna
+28;Fiat;15768;Marengo
+28;Fiat;15769;Maxi
+28;Fiat;18731;Grande Punto
+28;Fiat;18779;Sedici
+28;Fiat;19056;Linea
+28;Fiat;19187;Qubo
+28;Fiat;19259;Punto Evo
+28;Fiat;19265;128
+28;Fiat;19319;Albea
+28;Fiat;19533;500C
+28;Fiat;19612;500 Abarth
+28;Fiat;19613;500C Abarth
+28;Fiat;19720;Freemont
+28;Fiat;20038;New Panda
+28;Fiat;20786;132
+28;Fiat;20787;133
+28;Fiat;20788;600
+28;Fiat;20789;850
+28;Fiat;20790;Argenta
+28;Fiat;20628;500X
+28;Fiat;20254;595 Abarth
+28;Fiat;20419;Pininfarina
+28;Fiat;20172;500L
+28;Fiat;74368;Fullback
+28;Fiat;21011;Others
+28;Fiat;20944;900
+51543;FISKER;20792;Latigo CS
+51543;FISKER;20322;Others
+51543;FISKER;20324;Karma
+51543;FISKER;75044;EMotion
+51543;FISKER;75045;Orbit
+51542;Gac Gonow;20799;Troy
+51542;Gac Gonow;20800;Victor
+51542;Gac Gonow;20801;Victory
+51542;Gac Gonow;20298;Others
+51542;Gac Gonow;20299;GA200
+51542;Gac Gonow;20300;WAY
+51542;Gac Gonow;74786;GA500
+51542;Gac Gonow;21191;GX6
+16337;Galloper;16562;GALLOPER
+16337;Galloper;20793;Santamo
+16337;Galloper;20961;Exceed
+16337;Galloper;20962;Super Exceed
+16337;Galloper;20963;Others
+16386;GAZ;19447;22171
+16386;GAZ;19448;22177
+16386;GAZ;19449;24
+16386;GAZ;19450;2401
+16386;GAZ;19451;2402
+16386;GAZ;19452;2404
+16386;GAZ;19453;2410
+16386;GAZ;19454;2411
+16386;GAZ;19455;2412
+16386;GAZ;19456;2434
+16386;GAZ;19457;31
+16386;GAZ;19458;3102
+16386;GAZ;19459;31022
+16386;GAZ;19460;310221
+16386;GAZ;19461;31026
+16386;GAZ;19462;31029
+16386;GAZ;19463;3105
+16386;GAZ;19464;3110
+16386;GAZ;19465;31105
+16386;GAZ;19466;3111
+16386;GAZ;19467;38407
+16386;GAZ;19468;38649
+16386;GAZ;19469;38710
+16386;GAZ;19470;Siber
+16386;GAZ;20842;Gazelle
+16386;GAZ;20843;Next
+16386;GAZ;20844;Sobol
+16386;GAZ;21065;Others
+16392;Geely;19667;MK
+16392;Geely;19668;Otaka
+16392;Geely;19669;Vision
+16392;Geely;21069;Others
+16392;Geely;75073;Emgrand
+16392;Geely;75074;GC 6
+16392;Geely;75075;X7
+16403;GEM;20753;Four
+16403;GEM;20754;Two
+16403;GEM;20755;e6
+16403;GEM;20756;Other
+16403;GEM;20749;e2
+16403;GEM;20750;e4
+16403;GEM;20751;eL
+16403;GEM;20752;eS
+16403;GEM;75050;eM
+51540;GEMBALLA;20285;Others
+51540;GEMBALLA;75030;Mistrale
+51540;GEMBALLA;75031;Tornado
+51540;GEMBALLA;75032;Avalanche
+51540;GEMBALLA;75033;Mirage
+51540;GEMBALLA;75034;MIG
+51540;GEMBALLA;75035;GT
+51540;GEMBALLA;75036;Aero
+51540;GEMBALLA;75037;GTP
+51792;Genesis;74960;G70
+51792;Genesis;74961;G80
+51792;Genesis;74962;G90
+51792;Genesis;74963;Others
+51791;Gillet;74957;Vertigo
+51791;Gillet;74958;Donkervoort
+51791;Gillet;74959;Others
+16421;Giotti Victoria;21126;Gladiator
+16421;Giotti Victoria;21127;Gyppo
+16421;Giotti Victoria;21128;Others
+2153;GMC;18296;Savana
+2153;GMC;18297;Vandura
+2153;GMC;18298;Sonoma
+2153;GMC;18299;Envoy
+2153;GMC;18300;Yukon
+2153;GMC;18301;Sierra
+2153;GMC;18302;Safari
+2153;GMC;18303;Others
+2153;GMC;2157;Typhoon
+2153;GMC;15087;Syclone
+2153;GMC;18908;Acadia
+2153;GMC;74773;Canyon
+2153;GMC;74774;Terrain
+16382;Great Wall;19193;Gwperi
+16382;Great Wall;19194;Cowry
+16382;Great Wall;19195;Hover
+16382;Great Wall;19196;Safe
+16382;Great Wall;19197;Pegasus
+16382;Great Wall;19198;Sing
+16382;Great Wall;19199;Wingle
+16382;Great Wall;19200;Deer
+16382;Great Wall;19201;Sailor
+16382;Great Wall;19202;Socool
+16382;Great Wall;19218;Steed
+16382;Great Wall;19756;Florid
+16382;Great Wall;19757;Hover H3
+16382;Great Wall;19758;Wingle 3
+16382;Great Wall;19759;Coolbear
+16382;Great Wall;20210;Voleex
+16382;Great Wall;20407;Hover 5
+16382;Great Wall;20500;H6
+16382;Great Wall;21062;Others
+16382;Great Wall;75081;H5E
+16382;Great Wall;75082;M4
+16409;Grecav;20875;Amica
+16409;Grecav;20876;EKE
+16409;Grecav;20877;Sonique
+16409;Grecav;20878;Other
+51512;Haima;19766;Others
+51512;Haima;19767;2
+51512;Haima;19768;3
+51512;Haima;19769;3 HB
+51512;Haima;19770;6
+51512;Haima;19771;Freema
+51512;Haima;19772;Family
+51512;Haima;75038;S7
+51512;Haima;75039;S5
+51512;Haima;75040;M5
+51512;Haima;75041;M3
+51512;Haima;75042;V70
+51512;Haima;75043;Fstar
+51534;Hamann;20256;Others
+31;Honda;16408;S 2000
+31;Honda;16490;Jazz
+31;Honda;16522;Insight
+31;Honda;16523;Odyssey
+31;Honda;16586;Stream
+31;Honda;18325;Element
+31;Honda;1773;Accord
+31;Honda;1775;Civic
+31;Honda;1776;Concerto
+31;Honda;1777;CR-V
+31;Honda;1778;CRX
+31;Honda;1781;Legend
+31;Honda;1782;NSX
+31;Honda;1783;Prelude
+31;Honda;1785;Shuttle
+31;Honda;14911;Integra
+31;Honda;15649;Logo
+31;Honda;15650;HR-V
+31;Honda;18559;FR-V
+31;Honda;18749;Beat
+31;Honda;19269;CR-Z
+31;Honda;19273;Avancier
+31;Honda;19274;Capa
+31;Honda;19275;Fit
+31;Honda;19276;Inspire
+31;Honda;19277;Mobilio
+31;Honda;19278;Partner
+31;Honda;19279;Pilot
+31;Honda;19280;Saber
+31;Honda;19281;Stepwgn
+31;Honda;19282;Torneo
+31;Honda;19620;Ascot
+31;Honda;19621;City
+31;Honda;19622;Life
+31;Honda;19623;Orthia
+31;Honda;19624;Sabre
+31;Honda;19625;Sm-x
+31;Honda;20045;Ridgeline
+31;Honda;20794;Quintet
+31;Honda;20133;Crosstour
+31;Honda;21106;Others
+15674;HUMMER;18765;H1
+15674;HUMMER;18766;H2
+15674;HUMMER;18767;H3
+15674;HUMMER;21044;Others
+15674;HUMMER;75084;HX
+51767;Hurtan;75027;Author
+51767;Hurtan;75028;Route 44
+51767;Hurtan;74369;Albaycín
+51767;Hurtan;74370;Grand Albaycín
+51767;Hurtan;74371;T2
+51767;Hurtan;74372;Other
+33;Hyundai;16157;Excel
+33;Hyundai;16370;XG 30
+33;Hyundai;16473;Trajet
+33;Hyundai;16474;H-1
+33;Hyundai;16475;S-Coupe
+33;Hyundai;16493;Elantra
+33;Hyundai;16524;H 200
+33;Hyundai;16526;Santa Fe
+33;Hyundai;16596;Matrix
+33;Hyundai;16597;Terracan
+33;Hyundai;18267;Getz
+33;Hyundai;18359;XG 350
+33;Hyundai;18395;Sonica
+33;Hyundai;18416;Satellite
+33;Hyundai;1786;Accent
+33;Hyundai;1787;Coupe
+33;Hyundai;1788;Lantra
+33;Hyundai;1789;Pony
+33;Hyundai;1791;Sonata
+33;Hyundai;15164;Galloper
+33;Hyundai;15165;H-1 Starex
+33;Hyundai;15166;Atos
+33;Hyundai;15787;H 100
+33;Hyundai;15811;Santamo
+33;Hyundai;18524;Highway
+33;Hyundai;18600;Grandeur
+33;Hyundai;18663;H 350
+33;Hyundai;18493;Tucson
+33;Hyundai;19065;i30
+33;Hyundai;19123;i10
+33;Hyundai;19163;Azera
+33;Hyundai;19188;i20
+33;Hyundai;19212;iX55
+33;Hyundai;19219;H-1 Travel
+33;Hyundai;19220;H-1 Cargo
+33;Hyundai;19247;H 300
+33;Hyundai;19258;iX35
+33;Hyundai;19320;NF
+33;Hyundai;19321;Starex
+33;Hyundai;19322;Verna
+33;Hyundai;19607;iX20
+33;Hyundai;19626;Genesis
+33;Hyundai;19627;Solaris
+33;Hyundai;19684;Genesis Coupe
+33;Hyundai;19687;Veloster
+33;Hyundai;19738;i40
+33;Hyundai;19753;Grand Starex H1
+33;Hyundai;19754;Avante
+33;Hyundai;20046;Equus
+33;Hyundai;74968;Nexo
+33;Hyundai;20795;Stellar
+33;Hyundai;20796;Tiburon
+33;Hyundai;20134;Porter
+33;Hyundai;20321;Grand Santa Fe
+33;Hyundai;20404;i800
+33;Hyundai;21013;Others
+33;Hyundai;74376;Grace
+33;Hyundai;74663;Kona
+33;Hyundai;74331;Ioniq
+33;Hyundai;74935;Creta
+33;Hyundai;74994;XG 250
+16355;Infiniti;18454;I35
+16355;Infiniti;18452;FX
+16355;Infiniti;18453;G35
+16355;Infiniti;18455;M45
+16355;Infiniti;18456;Q45
+16355;Infiniti;18457;QX56
+16355;Infiniti;19073;G37
+16355;Infiniti;19106;EX35
+16355;Infiniti;19191;EX37
+16355;Infiniti;19619;EX30
+16355;Infiniti;19707;M30
+16355;Infiniti;19708;M37
+16355;Infiniti;19790;M35
+16355;Infiniti;20039;G25
+16355;Infiniti;20040;EX25
+16355;Infiniti;20304;Q50
+16355;Infiniti;20305;Q60
+16355;Infiniti;20306;QX50
+16355;Infiniti;20307;QX70
+16355;Infiniti;20200;JX35
+16355;Infiniti;20403;Q70
+16355;Infiniti;74483;QX60
+16355;Infiniti;74484;QX80
+16355;Infiniti;21053;Others
+16355;Infiniti;74377;QX30
+16355;Infiniti;21174;Q30
+16355;Infiniti;74826;Q80
+15629;Innocenti;15744;Elba
+15629;Innocenti;15745;Small
+15629;Innocenti;15788;Clip
+15629;Innocenti;20797;Minitre
+15629;Innocenti;74546;Mini
+15629;Innocenti;20954;Mille
+15629;Innocenti;20955;Others
+16402;Iso Rivolta;20744;300
+16402;Iso Rivolta;20745;Grifo
+16402;Iso Rivolta;20746;Fidia
+16402;Iso Rivolta;20747;Lele
+16402;Iso Rivolta;20748;Other
+16402;Iso Rivolta;75051;Vision GT
+35;Isuzu;16513;DLX
+35;Isuzu;16536;Campo
+35;Isuzu;18010;PICK UP
+35;Isuzu;18275;NPR
+35;Isuzu;18386;Gemini
+35;Isuzu;1793;Trooper
+35;Isuzu;14988;Midi
+35;Isuzu;15812;WFR
+35;Isuzu;18619;NKR
+35;Isuzu;18987;D-Max
+35;Isuzu;19213;Rodeo
+35;Isuzu;19323;Bighorn
+35;Isuzu;19764;Axiom
+35;Isuzu;20196;NNR
+35;Isuzu;21014;Others
+14882;Iveco;15720;LKW/TRUCKS
+14882;Iveco;18670;Daily
+14882;Iveco;19215;Massif
+14882;Iveco;20798;Campagnola
+14882;Iveco;21035;Others
+16387;IZH;19471;2106
+16387;IZH;19472;2125
+16387;IZH;19473;21251
+16387;IZH;19474;2126
+16387;IZH;19475;21261
+16387;IZH;19476;2715
+16387;IZH;19477;27156
+16387;IZH;19478;2717
+16387;IZH;19479;27171
+16387;IZH;19480;412
+16387;IZH;19481;Nika
+16387;IZH;21066;Others
+37;Jaguar;16362;X-Type
+37;Jaguar;16390;D-Type
+37;Jaguar;1795;Daimler
+37;Jaguar;1796;XJS
+37;Jaguar;1797;XJ40
+37;Jaguar;1798;XJ12
+37;Jaguar;1799;XJ6
+37;Jaguar;1800;XJR
+37;Jaguar;1801;XK8
+37;Jaguar;2118;MK II
+37;Jaguar;2119;E-Type
+37;Jaguar;2129;Sovereign
+37;Jaguar;15168;XJ8
+37;Jaguar;15169;XJ
+37;Jaguar;15170;XKR
+37;Jaguar;15654;S-Type
+37;Jaguar;18488;X300
+37;Jaguar;18821;XK
+37;Jaguar;18627;XJSC
+37;Jaguar;18949;420
+37;Jaguar;19069;XF
+37;Jaguar;21078;XE
+37;Jaguar;21099;F-Pace
+37;Jaguar;19737;Others
+37;Jaguar;20194;F-Type
+37;Jaguar;74787;I-Pace
+37;Jaguar;74669;E-Pace
+38;Jeep;15965;Willys
+38;Jeep;1803;Cherokee
+38;Jeep;1804;CJ-7
+38;Jeep;1805;CJ-8
+38;Jeep;1806;Grand Cherokee
+38;Jeep;1807;Wrangler
+38;Jeep;15713;CJ-5
+38;Jeep;15832;Renegade
+38;Jeep;18565;Comanche
+38;Jeep;18785;Commander
+38;Jeep;18610;Wagoneer
+38;Jeep;18967;Compass
+38;Jeep;19051;Patriot
+38;Jeep;20041;Liberty
+38;Jeep;21015;Others
+16417;Karabag;21104;500e
+16417;Karabag;21105;Other
+39;Kia;15882;Carnival
+39;Kia;15893;Rocsta
+39;Kia;15968;Joice
+39;Kia;15969;Pregio
+39;Kia;15970;Retona
+39;Kia;16476;Rio
+39;Kia;16537;Roadster
+39;Kia;16538;Carens
+39;Kia;16583;Magentis
+39;Kia;18020;K2700
+39;Kia;18280;Sorento
+39;Kia;18361;Opirus
+39;Kia;18417;Picanto
+39;Kia;18418;Cerato
+39;Kia;1808;Clarus
+39;Kia;1810;Pride
+39;Kia;1811;Sephia
+39;Kia;1812;Sportage
+39;Kia;15678;Shuma
+39;Kia;15777;Elan
+39;Kia;15796;Besta
+39;Kia;15814;Leo
+39;Kia;18923;cee'd
+39;Kia;18528;Mentor
+39;Kia;18515;K2500
+39;Kia;19116;Mohave/Borrego
+39;Kia;19150;Pro_ceed
+39;Kia;19171;Soul
+39;Kia;19239;cee'd Sportswagon
+39;Kia;19248;Venga
+39;Kia;19324;Spectra
+39;Kia;19544;Optima
+39;Kia;19716;K2900
+39;Kia;74632;Stonic
+39;Kia;21016;Others
+39;Kia;74327;Niro
+39;Kia;74666;Stinger
+51781;Koenigsegg;75026;One:1
+51781;Koenigsegg;74638;Regera
+51781;Koenigsegg;74639;Agera
+51781;Koenigsegg;74640;CC
+51781;Koenigsegg;74641;Others
+50060;KTM;20879;X-Bow GT
+50060;KTM;20880;X-Bow R
+50060;KTM;20881;X-Bow RR
+50060;KTM;20882;Other
+50060;KTM;74547;X-Bow Street
+40;Lada;16535;Forma
+40;Lada;16548;111
+40;Lada;16549;112
+40;Lada;16551;Aleko
+40;Lada;1816;Niva
+40;Lada;1817;Samara
+40;Lada;15652;Nova
+40;Lada;15653;110
+40;Lada;18634;1200
+40;Lada;18911;Kalina
+40;Lada;19176;C-Cross
+40;Lada;19189;Priora
+40;Lada;20047;Granta
+40;Lada;20802;2106
+40;Lada;20803;Carlota
+40;Lada;20804;1300/1500/1600
+40;Lada;20805;Natacha
+40;Lada;20806;Sagona
+40;Lada;20807;Sprint
+40;Lada;20808;Universal
+40;Lada;20809;VAZ 215
+40;Lada;20135;Largus
+40;Lada;20479;Taiga
+40;Lada;21017;Others
+40;Lada;74378;Vesta
+40;Lada;74379;4x4
+40;Lada;74737;X-Ray
+41;Lamborghini;16391;Espada
+41;Lamborghini;16392;LM
+41;Lamborghini;16618;Murciélago
+41;Lamborghini;16635;Urraco P250
+41;Lamborghini;18356;Gallardo
+41;Lamborghini;15174;Diablo
+41;Lamborghini;15672;Jalpa
+41;Lamborghini;15673;Countach
+41;Lamborghini;15759;Miura
+41;Lamborghini;19527;Reventon
+41;Lamborghini;19722;Aventador
+41;Lamborghini;20361;Huracán
+41;Lamborghini;21018;Others
+41;Lamborghini;74671;Centenario
+41;Lamborghini;74672;Veneno
+41;Lamborghini;74673;Asterion
+41;Lamborghini;74674;Estoque
+41;Lamborghini;74675;Urus
+42;Lancia;15876;Stratos
+42;Lancia;15985;Lybra
+42;Lancia;16415;Flaminia
+42;Lancia;16437;K
+42;Lancia;16613;Thesis
+42;Lancia;18030;ZETA
+42;Lancia;18313;Phedra
+42;Lancia;18393;Ypsilon
+42;Lancia;1819;Beta
+42;Lancia;1820;Dedra
+42;Lancia;1822;Delta
+42;Lancia;1823;Gamma
+42;Lancia;1824;Kappa
+42;Lancia;1825;Prisma
+42;Lancia;1826;Thema
+42;Lancia;1828;Y
+42;Lancia;14773;Fulvia
+42;Lancia;15830;Z
+42;Lancia;18541;MUSA
+42;Lancia;19686;Flavia
+42;Lancia;19773;Voyager
+42;Lancia;20810;HPE
+42;Lancia;20811;Trevi
+42;Lancia;20428;A 112
+42;Lancia;21019;Others
+15641;Land Rover;15791;Discovery
+15641;Land Rover;15792;Freelander
+15641;Land Rover;15793;Range Rover
+15641;Land Rover;15794;Defender
+15641;Land Rover;18555;Range Rover Sport
+15641;Land Rover;19103;LRX
+15641;Land Rover;19537;Series
+15641;Land Rover;19600;Range Rover Evoque
+15641;Land Rover;20913;Discovery Sport
+15641;Land Rover;21041;Others
+15641;Land Rover;74552;Range Rover Velar
+16426;LDV;21196;Maxus
+16426;LDV;21183;Convoy
+16426;LDV;21184;Others
+43;Lexus;16404;RX 300
+43;Lexus;16445;LX 470
+43;Lexus;16494;LS 430
+43;Lexus;16568;GS 430
+43;Lexus;18040;IS 300
+43;Lexus;18050;SC 430
+43;Lexus;18414;GX 470
+43;Lexus;15708;LS 400
+43;Lexus;15709;GS 300
+43;Lexus;15710;IS 200
+43;Lexus;15714;SC 400
+43;Lexus;18763;RX 350
+43;Lexus;18817;GS 450h
+43;Lexus;18823;ES 350
+43;Lexus;18739;IS 250
+43;Lexus;18740;IS 220d
+43;Lexus;18623;RX 400
+43;Lexus;18496;RX 330
+43;Lexus;18989;LS 460
+43;Lexus;19076;LS 600
+43;Lexus;19159;IS F
+43;Lexus;19114;LX 570
+43;Lexus;19115;GS 460
+43;Lexus;19238;RX 450h
+43;Lexus;19529;GX 460
+43;Lexus;19717;CT 200h
+43;Lexus;74971;LC F
+43;Lexus;74972;UX 200
+43;Lexus;74973;UX 250h
+43;Lexus;20192;LFA
+43;Lexus;20193;GS 250
+43;Lexus;20812;NX 200t
+43;Lexus;20813;RC F
+43;Lexus;20491;NX 300h
+43;Lexus;74986;ES 300
+43;Lexus;74987;ES 330
+43;Lexus;74252;RX 200t
+43;Lexus;74544;GS 200t
+43;Lexus;75108;IS 350
+43;Lexus;21020;Others
+43;Lexus;21176;RC 300h
+43;Lexus;74662;LS 500
+43;Lexus;21175;RC 200t
+43;Lexus;21177;RC 350
+43;Lexus;74324;GS F
+43;Lexus;74329;LC 500
+16393;Lifan;19670;Breez (520)
+16393;Lifan;19671;Solano (620)
+16393;Lifan;20048;Smily
+16393;Lifan;75059;820
+16393;Lifan;75060;650
+16393;Lifan;75061;X80
+16393;Lifan;75062;X70
+16393;Lifan;75063;X50
+16393;Lifan;75064;X7
+16393;Lifan;75065;Seasion
+16393;Lifan;75066;Foison
+16393;Lifan;75067;1022
+16393;Lifan;75068;1025
+16393;Lifan;75069;330EV
+16393;Lifan;75070;650EV
+16393;Lifan;75071;C30E
+16393;Lifan;75072;M7
+16393;Lifan;21070;Others
+16353;Ligier;18376;Nova
+16353;Ligier;18377;Be-Up
+16353;Ligier;18378;Ambra
+16353;Ligier;18379;162
+16353;Ligier;18380;Prima
+16353;Ligier;18381;Optima
+16353;Ligier;18871;X-Too
+16353;Ligier;18872;X-Pro
+16353;Ligier;18873;Be-Two
+16353;Ligier;19700;Optimax
+16353;Ligier;19701;IXO
+16353;Ligier;19702;Due
+16353;Ligier;20279;JS
+16353;Ligier;21052;Others
+16353;Ligier;74738;Be-Sun
+14890;Lincoln;16397;Navigator
+14890;Lincoln;16593;LS
+14890;Lincoln;18326;Aviator
+14890;Lincoln;14894;Town Car
+14890;Lincoln;15863;Continental
+14890;Lincoln;18525;Mark
+14890;Lincoln;18713;Zephyr
+14890;Lincoln;20497;Cosmopolitan
+14890;Lincoln;21036;Others
+14890;Lincoln;74831;MKZ
+14890;Lincoln;74832;MKC
+14890;Lincoln;74833;MKX
+14890;Lincoln;74834;MKT
+14890;Lincoln;75085;Nautilus
+44;Lotus;16393;V8
+44;Lotus;16451;Exige
+44;Lotus;16557;340 R
+44;Lotus;16589;Excel
+44;Lotus;16590;Elite
+44;Lotus;16591;Omega
+44;Lotus;16592;Cortina
+44;Lotus;18294;Venturi
+44;Lotus;1832;Elan
+44;Lotus;1833;Elise
+44;Lotus;1834;Esprit
+44;Lotus;2111;Super Seven
+44;Lotus;15033;Europa
+44;Lotus;19224;Evora
+44;Lotus;19243;2-Eleven
+44;Lotus;74549;3-Eleven
+44;Lotus;21021;Others
+16359;Mahindra;18494;CJ
+16359;Mahindra;18530;Jeep
+16359;Mahindra;18833;Goa
+16359;Mahindra;18834;Bolero
+16359;Mahindra;21116;Genio
+16359;Mahindra;19784;Reva
+16359;Mahindra;20814;Thar
+16359;Mahindra;20212;XUV500
+16359;Mahindra;21056;Others
+16359;Mahindra;74325;Quanto
+16359;Mahindra;74937;KUV100
+51780;MAN;74636;TGE
+51780;MAN;74637;Others
+16435;Mansory;74267;Audi - R8
+16435;Mansory;74268;Bugatti - Veyron
+16435;Mansory;74269;McLaren - 12C
+16435;Mansory;74270;Land Rover - Range Rover
+16435;Mansory;74271;Tesla - Model S
+16435;Mansory;74272;Others
+16435;Mansory;74273;Aston Martin - DB9
+16435;Mansory;74274;Aston Martin - Vantage
+16435;Mansory;74275;Aston Martin - Vanquish
+16435;Mansory;74276;Aston Martin - Cyrus
+16435;Mansory;74277;Bentley - Continental GT
+16435;Mansory;74278;Bentley - Flying Spur
+16435;Mansory;74279;Bentley - Le Mansory
+16435;Mansory;74280;Bentley - Vitesse Rosé
+16435;Mansory;74281;BMW - 7
+16435;Mansory;74282;BMW - X5
+16435;Mansory;74283;BMW - X6
+16435;Mansory;74284;Ferrari - La Revoluzione
+16435;Mansory;74285;Ferrari - F12
+16435;Mansory;74286;Ferrari - Siracusa
+16435;Mansory;74287;Ferrari - 458
+16435;Mansory;74288;Ferrari - 599 GTB
+16435;Mansory;74289;Lotus - Elise
+16435;Mansory;74290;Lotus - Evora
+16435;Mansory;74291;Maserati - Gran Turismo
+16435;Mansory;74292;Maserati - Ghibli
+16435;Mansory;74293;Mercedes-Benz - G
+16435;Mansory;74294;Mercedes-Benz - GL
+16435;Mansory;74295;Mercedes-Benz - ML
+16435;Mansory;74296;Mercedes-Benz - S
+16435;Mansory;74297;Mercedes-Benz - CLS
+16435;Mansory;74298;Mercedes-Benz - C
+16435;Mansory;74299;Mercedes-Benz - SLS
+16435;Mansory;74300;Mercedes-Benz - SLK
+16435;Mansory;74301;Mercedes-Benz - SL
+16435;Mansory;74302;Mercedes-Benz - Viano
+16435;Mansory;74303;Mercedes-Benz - V
+16435;Mansory;74304;Mercedes-Benz - E
+16435;Mansory;74305;Mercedes-Benz - M
+16435;Mansory;74306;Mercedes-Benz - SLR
+16435;Mansory;74307;Porsche - Cayenne
+16435;Mansory;74308;Porsche - Macan
+16435;Mansory;74309;Porsche - Panamera
+16435;Mansory;74310;Porsche - 918
+16435;Mansory;74311;Porsche - 997
+16435;Mansory;74312;Porsche - 991
+16435;Mansory;74313;Rolls-Royce - Ghost
+16435;Mansory;74314;Rolls-Royce - Wraith
+16435;Mansory;74315;Rolls-Royce - Phantom
+16410;Martin Motors;20888;Bubble
+16410;Martin Motors;20889;CEO
+16410;Martin Motors;20890;CoolCar
+16410;Martin Motors;20891;MM520
+16410;Martin Motors;20892;MM620
+16410;Martin Motors;20893;Other
+45;Maserati;15963;Racing
+45;Maserati;15987;430
+45;Maserati;16620;Spyder
+45;Maserati;18263;Coupe
+45;Maserati;18362;222
+45;Maserati;18363;224
+45;Maserati;18364;228
+45;Maserati;18365;418
+45;Maserati;18366;420
+45;Maserati;18403;4200
+45;Maserati;1835;Biturbo
+45;Maserati;15189;Ghibli
+45;Maserati;15190;Quattroporte
+45;Maserati;15665;Karif
+45;Maserati;15666;Shamal
+45;Maserati;15667;3200
+45;Maserati;15742;Merak
+45;Maserati;15778;Indy
+45;Maserati;15833;422
+45;Maserati;15834;424
+45;Maserati;18661;MC12
+45;Maserati;18635;GranSport
+45;Maserati;19075;GranTurismo
+45;Maserati;19091;TC
+45;Maserati;19530;GranCabrio
+45;Maserati;21022;Others
+45;Maserati;74326;Levante
+51803;Maxus;75207;G10
+51803;Maxus;75208;EG10
+51803;Maxus;75209;T60
+51803;Maxus;75210;V80
+51803;Maxus;75211;EV80
+51803;Maxus;75212;RV80
+51803;Maxus;75213;Others
+16348;Maybach;18304;57
+16348;Maybach;18305;62
+16348;Maybach;21050;Others
+46;Mazda;16534;Tribute
+46;Mazda;18266;6
+46;Mazda;18342;2
+46;Mazda;18343;RX-8
+46;Mazda;18388;3
+46;Mazda;1836;121
+46;Mazda;1837;323
+46;Mazda;1838;626
+46;Mazda;1839;929
+46;Mazda;1840;MPV
+46;Mazda;1841;MX-3
+46;Mazda;1842;MX-5
+46;Mazda;1843;MX-6
+46;Mazda;1844;RX-7
+46;Mazda;1845;Xedos
+46;Mazda;14777;E Series
+46;Mazda;15565;Demio
+46;Mazda;15659;Premacy
+46;Mazda;15820;B 2500
+46;Mazda;18795;CX-7
+46;Mazda;18835;B 2600
+46;Mazda;18909;Pick Up
+46;Mazda;18624;5
+46;Mazda;19049;BT-50
+46;Mazda;19154;CX-9
+46;Mazda;19325;Bongo
+46;Mazda;19326;Protege
+46;Mazda;19327;Atenza
+46;Mazda;19329;Capella
+46;Mazda;19330;Familia
+46;Mazda;19628;Axela
+46;Mazda;19629;Millenia
+46;Mazda;21084;CX-3
+46;Mazda;19723;CX-5
+46;Mazda;21023;Others
+51519;McLaren;20028;Others
+51519;McLaren;20029;F1
+51519;McLaren;20030;MP4-12C
+51519;McLaren;20422;12 C
+51519;McLaren;20423;650S Coupe
+51519;McLaren;20424;650S Spider
+51519;McLaren;75023;600LT
+51519;McLaren;21166;540C
+51519;McLaren;21167;570S
+51519;McLaren;21168;675LT
+51519;McLaren;21169;P1
+51519;McLaren;74790;Senna
+51519;McLaren;74575;720S
+51519;McLaren;74440;570GT
+16399;Melex;20657;148
+16399;Melex;20658;341
+16399;Melex;20659;343
+16399;Melex;20660;345
+16399;Melex;20661;363
+16399;Melex;20662;364
+16399;Melex;20663;366
+16399;Melex;20664;378
+16399;Melex;20665;381
+16399;Melex;20666;385
+16399;Melex;20667;391
+16399;Melex;20668;392
+16399;Melex;20669;395
+16399;Melex;20670;627
+16399;Melex;20671;833
+16399;Melex;20672;835
+16399;Melex;20673;843
+16399;Melex;20674;845
+16399;Melex;20675;848
+16399;Melex;20676;860
+16399;Melex;20677;861
+16399;Melex;20678;864
+16399;Melex;20679;865
+16399;Melex;20680;943
+16399;Melex;20681;945
+16399;Melex;20682;947
+16399;Melex;20683;960
+16399;Melex;20684;961
+16399;Melex;20685;963
+16399;Melex;20686;966
+16399;Melex;20687;967
+16399;Melex;20688;969
+16399;Melex;20689;986
+16399;Melex;20701;563
+16399;Melex;20703;565
+16399;Melex;20714;962
+16399;Melex;20716;964
+16399;Melex;20717;965
+16399;Melex;20720;Others
+16399;Melex;74647;433
+16399;Melex;74648;443
+48;MG;16504;MGA
+48;MG;16577;ZR
+48;MG;16578;ZS
+48;MG;16579;ZT
+48;MG;18269;TF
+48;MG;1873;MGF
+48;MG;15204;MGB
+48;MG;18521;TD
+48;MG;19226;RV8
+48;MG;20130;Midget
+48;MG;20818;Metro
+48;MG;21024;Others
+48;MG;74491;MGC
+16361;Microcar;18520;Virgo
+16361;Microcar;18519;MC1
+16361;Microcar;19156;MC2
+16361;Microcar;19272;M.Go
+16361;Microcar;19703;Cargo
+16361;Microcar;19704;Due
+16361;Microcar;20061;M8
+16361;Microcar;75022;Sherpa
+16361;Microcar;20946;Flex
+16361;Microcar;20945;Ecology/Lyra
+16361;Microcar;20947;Others
+51766;Minauto;74366;Minauto
+51766;Minauto;74367;others
+16338;MINI;16574;Others
+16338;MINI;16600;1000
+16338;MINI;16601;1300
+16338;MINI;16602;One
+16338;MINI;16603;Cooper
+16338;MINI;19053;Cooper Clubman
+16338;MINI;19267;One Countryman
+16338;MINI;19706;John Cooper Works
+16338;MINI;19742;One Clubman
+16338;MINI;19743;Cooper S
+16338;MINI;19744;Cooper D
+16338;MINI;19745;Cooper SD
+16338;MINI;19746;One D
+16338;MINI;20000;Cooper Cabrio
+16338;MINI;20001;Cooper D Cabrio
+16338;MINI;20002;Cooper S Cabrio
+16338;MINI;20003;Cooper SD Cabrio
+16338;MINI;20004;Cooper D Clubman
+16338;MINI;20005;Cooper S Clubman
+16338;MINI;20006;Cooper SD Clubman
+16338;MINI;20007;Cooper Countryman
+16338;MINI;20008;Cooper D Countryman
+16338;MINI;20009;Cooper S Countryman
+16338;MINI;20010;Cooper SD Countryman
+16338;MINI;20011;Cooper Coupe
+16338;MINI;20012;Cooper D Coupe
+16338;MINI;20013;Cooper S Coupe
+16338;MINI;20014;Cooper SD Coupe
+16338;MINI;20015;John Cooper Works Cabrio
+16338;MINI;20016;John Cooper Works Clubman
+16338;MINI;20017;John Cooper Works Coupe
+16338;MINI;20018;One Cabrio
+16338;MINI;20023;One D Clubman
+16338;MINI;20024;One D Countryman
+16338;MINI;20163;Cooper Roadster
+16338;MINI;20278;Clubvan
+16338;MINI;20310;John Cooper Works Countryman
+16338;MINI;20292;Cooper D Paceman
+16338;MINI;20177;Cooper S Roadster
+16338;MINI;20178;Cooper SD Roadster
+16338;MINI;20179;John Cooper Works Roadster
+16338;MINI;20180;Cooper Paceman
+16338;MINI;20181;Cooper S Paceman
+16338;MINI;20182;Cooper SD Paceman
+16338;MINI;20183;John Cooper Works Paceman
+50;Mitsubishi;15877;Galloper
+50;Mitsubishi;16366;400
+50;Mitsubishi;16398;Cosmos
+50;Mitsubishi;16412;L400
+50;Mitsubishi;16439;Santamo
+50;Mitsubishi;16464;Sapporo
+50;Mitsubishi;18070;PICK UP
+50;Mitsubishi;18355;Outlander
+50;Mitsubishi;18391;Pajero Pinin
+50;Mitsubishi;18428;Grandis
+50;Mitsubishi;1875;3000 GT
+50;Mitsubishi;1876;Carisma
+50;Mitsubishi;1877;Colt
+50;Mitsubishi;1879;Eclipse
+50;Mitsubishi;1882;Galant
+50;Mitsubishi;1884;Lancer
+50;Mitsubishi;1885;Pajero
+50;Mitsubishi;1888;Sigma
+50;Mitsubishi;1890;Space Gear
+50;Mitsubishi;1891;Space Runner
+50;Mitsubishi;1892;Space Wagon
+50;Mitsubishi;1893;Starion
+50;Mitsubishi;2112;L200
+50;Mitsubishi;2171;L300
+50;Mitsubishi;14908;Canter
+50;Mitsubishi;15546;Space Star
+50;Mitsubishi;15731;Montero
+50;Mitsubishi;18529;Cordia
+50;Mitsubishi;18645;Tredia
+50;Mitsubishi;18839;Pajero Sport
+50;Mitsubishi;19268;ASX
+50;Mitsubishi;19331;Airtrek
+50;Mitsubishi;19332;Dion
+50;Mitsubishi;19333;Others
+50;Mitsubishi;19334;Legnum
+50;Mitsubishi;19335;Delica
+50;Mitsubishi;19336;Diamante
+50;Mitsubishi;19337;Chariot
+50;Mitsubishi;19338;Mirage
+50;Mitsubishi;19339;RVR
+50;Mitsubishi;19611;I-MiEV
+50;Mitsubishi;19630;DINGO
+50;Mitsubishi;19631;Libero
+50;Mitsubishi;74970;Shogun
+50;Mitsubishi;20198;FTO
+50;Mitsubishi;20625;Attrage
+50;Mitsubishi;74805;Eclipse Cross
+51782;Mitsuoka;75025;Like-T3
+51782;Mitsuoka;74642;Galue
+51782;Mitsuoka;74643;Ryugi
+51782;Mitsuoka;74644;Viewt
+51782;Mitsuoka;74645;Himiko
+51782;Mitsuoka;74646;Others
+51;Morgan;16440;Plus 4
+51;Morgan;16441;Plus 8
+51;Morgan;16609;Aero 8
+51;Morgan;18773;4-Apr
+51;Morgan;19173;Roadster
+51;Morgan;20434;Aero Coupe
+51;Morgan;20433;4-Sitzer
+51;Morgan;20435;Aero Max
+51;Morgan;20436;Aero Supersports
+51;Morgan;20439;Plus 8 Speedster
+51;Morgan;20441;Roadster Sport
+51;Morgan;20600;Others
+51;Morgan;20432;3-Wheeler
+51;Morgan;20438;Lifecar
+51;Morgan;20431;100-Years-Special
+51;Morgan;20437;EVA GT
+51;Morgan;20440;Plus E
+51;Morgan;20442;Supersport Pedal
+16388;Moskvich;19482;21215
+16388;Moskvich;19483;2137
+16388;Moskvich;19484;2138
+16388;Moskvich;19485;2140
+16388;Moskvich;19486;21406
+16388;Moskvich;19487;2141
+16388;Moskvich;19488;21412
+16388;Moskvich;19489;214145
+16388;Moskvich;19490;2142
+16388;Moskvich;19491;2335
+16388;Moskvich;19492;408
+16388;Moskvich;19493;412
+16388;Moskvich;19494;426
+16388;Moskvich;19495;427
+16388;Moskvich;19496;434
+16388;Moskvich;19497;Duet
+16388;Moskvich;19498;Ivan Kalita
+16388;Moskvich;19499;Knjaz Vladimir
+16388;Moskvich;19500;Svjatogor
+16388;Moskvich;19501;Jurij Dolgorukij
+16388;Moskvich;21067;Others
+16388;Moskvich;75078;2901
+51554;MP Lafer;20561;Lafer
+51554;MP Lafer;20560;Others
+51788;MPM Motors;74806;PS160
+51788;MPM Motors;74807;Others
+52;Nissan;15874;Trade
+52;Nissan;16403;Quest
+52;Nissan;16554;X-Trail
+52;Nissan;18283;Cabstar
+52;Nissan;18286;Interstar
+52;Nissan;18307;Navara
+52;Nissan;18316;Silvia
+52;Nissan;18318;Murano
+52;Nissan;18323;Frontier
+52;Nissan;18324;350Z
+52;Nissan;18358;Primastar
+52;Nissan;18392;Kubistar
+52;Nissan;18411;Almera Tino
+52;Nissan;18478;Laurel
+52;Nissan;1895;100 NX
+52;Nissan;1896;200 SX
+52;Nissan;1897;280 ZX
+52;Nissan;1898;300 ZX
+52;Nissan;1899;Almera
+52;Nissan;1900;Bluebird
+52;Nissan;1901;Cherry
+52;Nissan;1903;Maxima
+52;Nissan;1904;Micra
+52;Nissan;1905;Patrol
+52;Nissan;1906;Prairie
+52;Nissan;1907;Primera
+52;Nissan;1908;Serena
+52;Nissan;1911;Sunny
+52;Nissan;1912;Terrano
+52;Nissan;2134;Urvan
+52;Nissan;2169;Cargo
+52;Nissan;15207;Pathfinder
+52;Nissan;15782;Vanette
+52;Nissan;15850;King Cab
+52;Nissan;15851;Pick Up
+52;Nissan;18625;Titan
+52;Nissan;18695;Skyline
+52;Nissan;18921;Qashqai
+52;Nissan;18579;Armada
+52;Nissan;18682;Note
+52;Nissan;18751;Figaro
+52;Nissan;18750;Cube
+52;Nissan;19067;Tiida
+52;Nissan;19149;Rogue
+52;Nissan;19168;NP300
+52;Nissan;19175;Qashqai+2
+52;Nissan;19190;370Z
+52;Nissan;19222;Pixo
+52;Nissan;19234;GT-R
+52;Nissan;19266;NV200
+52;Nissan;19283;AD
+52;Nissan;19284;Avenir
+52;Nissan;19285;Cedric
+52;Nissan;19286;Cefiro
+52;Nissan;19287;Datsun
+52;Nissan;19288;Expert
+52;Nissan;19289;Gloria
+52;Nissan;19290;Liberty
+52;Nissan;19291;March
+52;Nissan;19292;Presage
+52;Nissan;19293;Pulsar
+52;Nissan;19294;R Nessa
+52;Nissan;19295;Safari
+52;Nissan;19296;Teana
+52;Nissan;19298;Wingroad
+52;Nissan;19542;Juke
+52;Nissan;19632;Bassara
+52;Nissan;19633;Elgrand
+52;Nissan;19634;Presea
+52;Nissan;19733;Leaf
+52;Nissan;19781;NV400
+52;Nissan;20638;Stagea
+52;Nissan;20819;Stanza
+52;Nissan;20213;Evalia
+52;Nissan;20239;Altima
+52;Nissan;21025;Others
+52;Nissan;74436;E-NV200
+52;Nissan;74461;NV300
+53;Oldsmobile;15967;Bravada
+53;Oldsmobile;18401;Silhouette
+53;Oldsmobile;1914;Cutlass
+53;Oldsmobile;2131;Delta 88
+53;Oldsmobile;2132;Toronado
+53;Oldsmobile;18536;Supreme
+53;Oldsmobile;18535;Custom Cruiser
+53;Oldsmobile;19785;Others
+53;Oldsmobile;19787;Dynamic 88
+15670;Oldtimer;15976;Nash
+15670;Oldtimer;15978;Facel Vega
+15670;Oldtimer;15982;Karmann Ghia
+15670;Oldtimer;15991;Abarth
+15670;Oldtimer;15992;AMC
+15670;Oldtimer;15993;ASC
+15670;Oldtimer;15994;AC
+15670;Oldtimer;15995;Adler
+15670;Oldtimer;15996;Alfa Romeo
+15670;Oldtimer;15997;Alvis
+15670;Oldtimer;15998;American
+15670;Oldtimer;15999;Amphicar
+15670;Oldtimer;16000;Aston Martin
+15670;Oldtimer;16001;Auburn
+15670;Oldtimer;16002;Audi
+15670;Oldtimer;16003;Aurora
+15670;Oldtimer;16004;Austin
+15670;Oldtimer;16005;Austin-Healey
+15670;Oldtimer;16006;Autobianchi
+15670;Oldtimer;16007;Avanti
+15670;Oldtimer;16008;BMW
+15670;Oldtimer;16009;Beast
+15670;Oldtimer;16010;Bentley
+15670;Oldtimer;16011;Borgward
+15670;Oldtimer;16012;Bitter
+15670;Oldtimer;16013;Bricklin
+15670;Oldtimer;16014;Buick
+15670;Oldtimer;16015;CJ Rayburn
+15670;Oldtimer;16016;Cadillac
+15670;Oldtimer;16017;Checker
+15670;Oldtimer;16018;Chevrolet
+15670;Oldtimer;16019;Chrysler
+15670;Oldtimer;16020;Citroen
+15670;Oldtimer;16021;Clenet
+15670;Oldtimer;16022;Continental
+15670;Oldtimer;16023;Cord
+15670;Oldtimer;16024;Daf
+15670;Oldtimer;16025;Daimler
+15670;Oldtimer;16026;Dante
+15670;Oldtimer;16027;Datsun
+15670;Oldtimer;16028;Deutz
+15670;Oldtimer;16029;De Tomaso
+15670;Oldtimer;16030;De Soto
+15670;Oldtimer;16031;De Lorean
+15670;Oldtimer;16032;Dodge
+15670;Oldtimer;16033;Dort
+15670;Oldtimer;16034;Dutton
+15670;Oldtimer;16035;Durant
+15670;Oldtimer;16036;Edsel
+15670;Oldtimer;16037;EMW
+15670;Oldtimer;16038;England
+15670;Oldtimer;16039;Essex
+15670;Oldtimer;16040;Excalibur
+15670;Oldtimer;16042;Fenton-Riley
+15670;Oldtimer;16043;Ferrari
+15670;Oldtimer;16044;Fiat
+15670;Oldtimer;16045;Fire Vehicle
+15670;Oldtimer;16046;Ford
+15670;Oldtimer;16047;Formula-Car
+15670;Oldtimer;16048;Franklin
+15670;Oldtimer;16049;GMC
+15670;Oldtimer;16050;Goggomobil
+15670;Oldtimer;16051;Goliath
+15670;Oldtimer;16052;Graham-Paige
+15670;Oldtimer;16053;Hanomag
+15670;Oldtimer;16054;Harley Davidson
+15670;Oldtimer;16055;Heritage
+15670;Oldtimer;16056;Hillman
+15670;Oldtimer;16057;Hispano-Suiza
+15670;Oldtimer;16058;Honda
+15670;Oldtimer;16059;Hudson
+15670;Oldtimer;16060;Hupmobile
+15670;Oldtimer;16061;IHC
+15670;Oldtimer;16062;International
+15670;Oldtimer;16063;Isuzu
+15670;Oldtimer;16064;Jaguar
+15670;Oldtimer;16065;Jeep
+15670;Oldtimer;16066;Jensen
+15670;Oldtimer;16067;Kaiser
+15670;Oldtimer;16068;Kelly
+15670;Oldtimer;16069;Lanz
+15670;Oldtimer;16070;LaSalle
+15670;Oldtimer;16071;Lamborghini
+15670;Oldtimer;16072;Land Rover
+15670;Oldtimer;16073;Lea Francis
+15670;Oldtimer;16074;Lincoln
+15670;Oldtimer;16075;LKW-Trucks
+15670;Oldtimer;16076;Lotus
+15670;Oldtimer;16077;MG
+15670;Oldtimer;16078;Mack
+15670;Oldtimer;16079;Magirus
+15670;Oldtimer;16080;MAN
+15670;Oldtimer;16081;Marcos
+15670;Oldtimer;16082;Marmon
+15670;Oldtimer;16083;Maserati
+15670;Oldtimer;16084;Matra
+15670;Oldtimer;16085;Maybach
+15670;Oldtimer;16086;Mazda
+15670;Oldtimer;16087;Mercedes Benz
+15670;Oldtimer;16088;Mercury
+15670;Oldtimer;16089;Messerschmitt
+15670;Oldtimer;16091;Military Vehicle
+15670;Oldtimer;16092;Morgan
+15670;Oldtimer;16093;Morris Minor
+15670;Oldtimer;16094;Moskvitch
+15670;Oldtimer;16096;Nissan
+15670;Oldtimer;16097;NSU
+15670;Oldtimer;16098;Oldsmobile
+15670;Oldtimer;16099;Opel
+15670;Oldtimer;16100;Packard
+15670;Oldtimer;16101;Panhard
+15670;Oldtimer;16102;Peerless
+15670;Oldtimer;16103;Peugeot
+15670;Oldtimer;16104;Pierce Arrow
+15670;Oldtimer;16106;Pontiac
+15670;Oldtimer;16107;Porsche
+15670;Oldtimer;16108;Rambler
+15670;Oldtimer;16109;Reliant
+15670;Oldtimer;16110;Renault
+15670;Oldtimer;16111;Republic
+15670;Oldtimer;16112;Riley
+15670;Oldtimer;16113;Rolls Royce
+15670;Oldtimer;16114;Rotus
+15670;Oldtimer;16115;Roush
+15670;Oldtimer;16116;Rover
+15670;Oldtimer;16117;Saab
+15670;Oldtimer;16118;Saurer
+15670;Oldtimer;16119;Sebring
+15670;Oldtimer;16120;Setra
+15670;Oldtimer;16121;Simca
+15670;Oldtimer;16122;Shelby
+15670;Oldtimer;16123;Shores
+15670;Oldtimer;16124;Skoda
+15670;Oldtimer;16125;Spartan
+15670;Oldtimer;16126;Spitzer
+15670;Oldtimer;16127;Studebaker
+15670;Oldtimer;16128;Stutz
+15670;Oldtimer;16129;Subaru
+15670;Oldtimer;16130;Sunbeam
+15670;Oldtimer;16132;Tempo
+15670;Oldtimer;16133;Toyota
+15670;Oldtimer;16134;Tractor
+15670;Oldtimer;16135;Triumph
+15670;Oldtimer;16136;TVR
+15670;Oldtimer;16137;Unimog
+15670;Oldtimer;16138;Vanden Plas
+15670;Oldtimer;16139;Volkswagen
+15670;Oldtimer;16140;Volvo
+15670;Oldtimer;16141;Wanderer
+15670;Oldtimer;16142;Wartburg
+15670;Oldtimer;16143;Westfalia
+15670;Oldtimer;16144;Westfield
+15670;Oldtimer;16145;Wetsch
+15670;Oldtimer;16146;Willys
+15670;Oldtimer;16147;Zimmer
+15670;Oldtimer;16148;DKW
+15670;Oldtimer;16149;Fordson
+15670;Oldtimer;16150;Horch
+15670;Oldtimer;16151;IFA
+15670;Oldtimer;16152;Heinkel
+15670;Oldtimer;16153;Holden
+15670;Oldtimer;16154;Karmann
+15670;Oldtimer;16155;Panther
+15670;Oldtimer;16156;Puma
+15670;Oldtimer;16158;Allard
+15670;Oldtimer;16160;Armstrong Siddeley
+15670;Oldtimer;16161;Ariel
+15670;Oldtimer;16162;Aries
+15670;Oldtimer;16163;Arnolt
+15670;Oldtimer;16164;ASA
+15670;Oldtimer;16165;Auto Union
+15670;Oldtimer;16166;Benjamin
+15670;Oldtimer;16167;Berkeley
+15670;Oldtimer;16168;Bizzarrini
+15670;Oldtimer;16170;Bugatti
+15670;Oldtimer;16171;Chaika
+15670;Oldtimer;16172;Champion
+15670;Oldtimer;16173;Charron
+15670;Oldtimer;16174;Chenard & Walker
+15670;Oldtimer;16175;Cisitalia
+15670;Oldtimer;16176;Clan
+15670;Oldtimer;16177;Commer
+15670;Oldtimer;16178;Cunningham
+15670;Oldtimer;16179;Delage
+15670;Oldtimer;16180;Delahaye
+15670;Oldtimer;16181;Denzel
+15670;Oldtimer;16182;DeSoto
+15670;Oldtimer;16183;D.F.P
+15670;Oldtimer;16184;De Dion Bouton
+15670;Oldtimer;16185;Duesenberg
+15670;Oldtimer;16186;Elva
+15670;Oldtimer;16187;Enzmann
+15670;Oldtimer;16188;Fairthorpe
+15670;Oldtimer;16189;Falcon
+15670;Oldtimer;16190;FN
+15670;Oldtimer;16191;Frazer Nash
+15670;Oldtimer;16192;Fuldamobil
+15670;Oldtimer;16193;Ghia
+15670;Oldtimer;16194;Gilbern
+15670;Oldtimer;16195;Ginatta
+15670;Oldtimer;16196;Glas
+15670;Oldtimer;16198;Gordon Keeble
+15670;Oldtimer;16199;GSM
+15670;Oldtimer;16200;Gutbrod
+15670;Oldtimer;16201;Healey
+15670;Oldtimer;16202;Hino
+15670;Oldtimer;16203;Hotchkiss
+15670;Oldtimer;16204;HRG
+15670;Oldtimer;16206;Humber
+15670;Oldtimer;16207;Iso Rivolta
+15670;Oldtimer;16208;Kaiser - Frazer
+15670;Oldtimer;16209;Kleinschnittger
+15670;Oldtimer;16210;Lagonda
+15670;Oldtimer;16211;Lanchester
+15670;Oldtimer;16212;La Licorne
+15670;Oldtimer;16214;Ligier
+15670;Oldtimer;16215;Lorraine Dietrich
+15670;Oldtimer;16216;Lloyd
+15670;Oldtimer;16217;LMX
+15670;Oldtimer;16218;Lombardi
+15670;Oldtimer;16219;Marauder
+15670;Oldtimer;16220;Mathis
+15670;Oldtimer;16221;Monica
+15670;Oldtimer;16222;Monteverdi
+15670;Oldtimer;16223;Moretti
+15670;Oldtimer;16224;Morgan Darmont
+15670;Oldtimer;16225;Morris Leon Bolle
+15670;Oldtimer;16227;Munga
+15670;Oldtimer;16228;Muntz
+15670;Oldtimer;16229;Ogle
+15670;Oldtimer;16230;Osca
+15670;Oldtimer;16231;Pegaso
+15670;Oldtimer;16232;RenT Bonnet
+15670;Oldtimer;16233;Rosengart
+15670;Oldtimer;16234;Rovin
+15670;Oldtimer;16235;Salmson
+15670;Oldtimer;16236;Siata
+15670;Oldtimer;16237;Stephens
+15670;Oldtimer;16239;Trident
+15670;Oldtimer;16240;Tucker
+15670;Oldtimer;16241;Turner
+15670;Oldtimer;16242;Unic
+15670;Oldtimer;16243;Veritas
+15670;Oldtimer;16244;Vignale
+15670;Oldtimer;16245;Voisin
+15670;Oldtimer;16246;Wolseley
+15670;Oldtimer;16247;Zündapp
+15670;Oldtimer;16248;Others
+15670;Oldtimer;16249;Merlin
+15670;Oldtimer;16251;Uaz
+15670;Oldtimer;16252;Yugo
+15670;Oldtimer;16373;Lancia
+15670;Oldtimer;16374;Innocenti
+15670;Oldtimer;16375;Motorräder-Bike
+15670;Oldtimer;16376;Seat
+15670;Oldtimer;16380;Trabant
+15670;Oldtimer;16480;Ginetta
+15670;Oldtimer;16491;Tatra
+15670;Oldtimer;18374;Minerva
+15670;Oldtimer;18375;Belsize
+15670;Oldtimer;18415;Barkas
+15670;Oldtimer;18458;Gaz
+15670;Oldtimer;18532;Steyr
+15670;Oldtimer;18533;Vixen
+15670;Oldtimer;18723;Talbot
+15670;Oldtimer;18534;Fleur de Lys
+15670;Oldtimer;18783;Overland
+15670;Oldtimer;18784;Paterson
+15670;Oldtimer;18819;Brennabor
+15670;Oldtimer;18531;March
+15670;Oldtimer;19174;Corvette
+15670;Oldtimer;19241;Bedford
+15670;Oldtimer;20147;Puch
+15670;Oldtimer;20313;Mitsubishi
+15670;Oldtimer;20145;Standard
+15670;Oldtimer;74454;OM
+15670;Oldtimer;74728;Marendaz
+15670;Oldtimer;74729;Metz
+15670;Oldtimer;74448;Day Elder
+16341;Pagani;16614;Zonda
+16341;Pagani;20141;Huayra
+16341;Pagani;21049;Others
+51553;Panther Westwinds;20564; Lazer
+51553;Panther Westwinds;20566;Kallista
+51553;Panther Westwinds;20563;De Ville
+51553;Panther Westwinds;20565;Rio
+51553;Panther Westwinds;20551;Others
+51553;Panther Westwinds;20552;Lima
+51553;Panther Westwinds;75029;Solo
+55;Peugeot;16365;J5
+55;Peugeot;16495;607
+55;Peugeot;16553;307
+55;Peugeot;16573;504
+55;Peugeot;18282;807
+55;Peugeot;18421;407
+55;Peugeot;1932;104
+55;Peugeot;1933;106
+55;Peugeot;1934;205
+55;Peugeot;1935;305
+55;Peugeot;1936;306
+55;Peugeot;1937;309
+55;Peugeot;1938;405
+55;Peugeot;1939;406
+55;Peugeot;1940;505
+55;Peugeot;1942;605
+55;Peugeot;1943;806
+55;Peugeot;14821;Boxer
+55;Peugeot;14822;Partner
+55;Peugeot;14845;Camper
+55;Peugeot;14851;Expert
+55;Peugeot;15401;206
+55;Peugeot;15718;404
+55;Peugeot;15764;204
+55;Peugeot;15867;304
+55;Peugeot;18647;107
+55;Peugeot;18637;604
+55;Peugeot;18797;207
+55;Peugeot;18621;1007
+55;Peugeot;19055;308
+55;Peugeot;19066;4007
+55;Peugeot;19145;Bipper
+55;Peugeot;19217;3008
+55;Peugeot;19235;5008
+55;Peugeot;19246;RCZ
+55;Peugeot;19553;508
+55;Peugeot;19685;Ranch
+55;Peugeot;20037;iOn
+55;Peugeot;20057;208
+55;Peugeot;20820;J9
+55;Peugeot;20237;2008
+55;Peugeot;20211;301
+55;Peugeot;20153;4008
+55;Peugeot;20374;108
+55;Peugeot;21107;Others
+55;Peugeot;74332;Traveller
+55;Peugeot;74995;Rifter
+50083;PGO;20883;Cévennes
+50083;PGO;20884;Cobra
+50083;PGO;20885;Hemera
+50083;PGO;20886;Speedster
+50083;PGO;20887;Speedster II
+50083;PGO;20616;Others
+16350;Piaggio;18330;Porter
+16350;Piaggio;18799;Quargo
+16350;Piaggio;19088;PK500
+16350;Piaggio;19087;M500
+16350;Piaggio;19086;Ape
+16350;Piaggio;21108;Others
+16350;Piaggio;21195;AL500
+51770;Plymouth;74394;Other
+51770;Plymouth;74395;Acclaim
+51770;Plymouth;74396;Arrow
+51770;Plymouth;74397;Barracuda
+51770;Plymouth;74398;Belvedere
+51770;Plymouth;74399;Breeze
+51770;Plymouth;74400;Caravelle
+51770;Plymouth;74401;Colt
+51770;Plymouth;74402;Conquest
+51770;Plymouth;74403;Cricket
+51770;Plymouth;74404;Duster
+51770;Plymouth;74405;Fury
+51770;Plymouth;74406;Gran Fury
+51770;Plymouth;74407;GTX
+51770;Plymouth;74408;Horizon
+51770;Plymouth;74409;Laser
+51770;Plymouth;74410;Neon
+51770;Plymouth;74411;Prowler
+51770;Plymouth;74412;Reliant
+51770;Plymouth;74413;Road Runner
+51770;Plymouth;74414;Sapporo
+51770;Plymouth;74415;Satellite
+51770;Plymouth;74416;Savoy
+51770;Plymouth;74417;Scamp
+51770;Plymouth;74418;Sundance
+51770;Plymouth;74419;Trailduster
+51770;Plymouth;74420;Turismo
+51770;Plymouth;74421;Valiant
+51770;Plymouth;74422;Volaré
+51770;Plymouth;74423;Voyager
+56;Pontiac;18410;Sunbird
+56;Pontiac;18470;G6
+56;Pontiac;18471;GTO
+56;Pontiac;18472;Vibe
+56;Pontiac;18473;Sunfire
+56;Pontiac;18474;Montana
+56;Pontiac;18475;Aztek
+56;Pontiac;1944;6000
+56;Pontiac;1945;Bonneville
+56;Pontiac;1946;Firebird
+56;Pontiac;1947;Grand-Am
+56;Pontiac;1948;Grand-Prix
+56;Pontiac;1949;Trans Sport
+56;Pontiac;14867;Trans Am
+56;Pontiac;15629;Targa
+56;Pontiac;15732;Fiero
+56;Pontiac;18611;Solstice
+56;Pontiac;20495;Catalina Safari
+56;Pontiac;21026;Others
+57;Porsche;15880;996
+57;Porsche;15881;993
+57;Porsche;15957;356
+57;Porsche;15977;964
+57;Porsche;15980;914
+57;Porsche;18278;962
+57;Porsche;18284;Cayenne
+57;Porsche;1950;911
+57;Porsche;1951;924
+57;Porsche;1952;928
+57;Porsche;1953;944
+57;Porsche;1954;968
+57;Porsche;1955;Boxster
+57;Porsche;15359;Carrera GT
+57;Porsche;15743;959
+57;Porsche;18548;997
+57;Porsche;18527;912
+57;Porsche;18684;Cayman
+57;Porsche;19085;Targa
+57;Porsche;19136;Panamera
+57;Porsche;20025;991
+57;Porsche;20845;930
+57;Porsche;20311;Macan
+57;Porsche;20156;918
+57;Porsche;21027;Others
+57;Porsche;74380;550
+15636;Proton;16539;313
+15636;Proton;16540;315
+15636;Proton;16541;316
+15636;Proton;16542;318
+15636;Proton;16543;413
+15636;Proton;16544;415
+15636;Proton;16545;416
+15636;Proton;16546;418
+15636;Proton;16547;420
+15636;Proton;20821;Gen2
+15636;Proton;20822;Persona
+15636;Proton;75104;Satria
+15636;Proton;21040;Others
+51768;Puch;74792;Pinzgauer
+51768;Puch;74383;G
+51768;Puch;74384;Haflinger
+51768;Puch;74385;Other
+16412;Qoros;75049;Qoros 5
+16412;Qoros;20914;Qoros 3
+16412;Qoros;20915;Other
+16425;Qvale;21164;Mangusta
+16425;Qvale;74940;Others
+51793;RAM;74975;1500
+51793;RAM;74976;2500
+51793;RAM;74977;3500
+51793;RAM;74978;Chassis Cab
+51793;RAM;74979;Promaster
+51793;RAM;74980;Others
+16398;Reliant;20646;Ant
+16398;Reliant;20647;Fox
+16398;Reliant;20648;Kitten
+16398;Reliant;20649;Rebel
+16398;Reliant;20650;Regal
+16398;Reliant;20651;Regent
+16398;Reliant;20652;Rialto
+16398;Reliant;20653;Robin
+16398;Reliant;20654;Sabre Four
+16398;Reliant;20655;Scimitar
+16398;Reliant;20656;Other
+61;Rolls-Royce;2165;Cloud
+61;Rolls-Royce;2166;Silver Shadow
+61;Rolls-Royce;2167;Corniche
+61;Rolls-Royce;15215;Silver Dawn
+61;Rolls-Royce;15218;Touring
+61;Rolls-Royce;15219;Silver Seraph
+61;Rolls-Royce;15674;Silver Spirit
+61;Rolls-Royce;15675;Silver Spur
+61;Rolls-Royce;15676;Flying Spur
+61;Rolls-Royce;15821;Phantom
+61;Rolls-Royce;19057;Phantom Drophead
+61;Rolls-Royce;19263;Ghost
+61;Rolls-Royce;20410;Arnage Red Label
+61;Rolls-Royce;20411;Azure
+61;Rolls-Royce;20414;Continental R
+61;Rolls-Royce;20415;Continental SC
+61;Rolls-Royce;20418;T
+61;Rolls-Royce;20294;Wraith
+61;Rolls-Royce;20409;Arnage Green Label
+61;Rolls-Royce;20412;Azure Mulliner
+61;Rolls-Royce;20413;Continental  R Mulliner
+61;Rolls-Royce;20416;Le Mains Series
+61;Rolls-Royce;20417;Park Ward
+61;Rolls-Royce;20236;Silver Wraith
+61;Rolls-Royce;74424;Dawn
+61;Rolls-Royce;74545;Camargue
+61;Rolls-Royce;74788;Cullinan
+61;Rolls-Royce;21028;Others
+62;Rover;15871;25
+62;Rover;15872;45
+62;Rover;15949;418
+62;Rover;15959;100
+62;Rover;15960;400
+62;Rover;15961;600
+62;Rover;15962;Estate
+62;Rover;16368;SD
+62;Rover;16517;Tourer
+62;Rover;16532;Metro
+62;Rover;18110;213
+62;Rover;18413;Streetwise
+62;Rover;1980;114
+62;Rover;1981;200
+62;Rover;1982;214
+62;Rover;1983;216
+62;Rover;1984;220
+62;Rover;1987;416
+62;Rover;1988;420
+62;Rover;1989;620
+62;Rover;1990;623
+62;Rover;1991;800
+62;Rover;1992;820
+62;Rover;1993;825
+62;Rover;1994;827
+62;Rover;15726;111
+62;Rover;15728;75
+62;Rover;15761;618
+62;Rover;15781;414
+62;Rover;15823;Montego
+62;Rover;18639;Rover
+62;Rover;19209;218
+62;Rover;20823;City Rover
+62;Rover;20824;MINI
+62;Rover;21029;Others
+62;Rover;75195;115
+51536;Ruf;20259;Others
+51536;Ruf;20260;CTR
+51536;Ruf;20261;CTR2
+51536;Ruf;20262;CTR3
+51536;Ruf;20263;RGT
+51536;Ruf;20264;BTR
+51536;Ruf;20265;Turbo R
+51536;Ruf;20266;R Kompressor
+51536;Ruf;20267;R Turbo
+51536;Ruf;20268;RT 12
+51536;Ruf;20269;RT 12S
+51536;Ruf;20270;RT 12R
+51536;Ruf;20271;3400S
+51536;Ruf;20272;3600S
+51536;Ruf;20273;RK Coupe/Spyder
+51536;Ruf;20274;RGT-8
+51536;Ruf;20275;Dakara
+51536;Ruf;75046;SCR
+51536;Ruf;74835;Turbo Florio
+63;Saab;16511;96
+63;Saab;1999;90
+63;Saab;2000;900
+63;Saab;2001;9000
+63;Saab;2002;99
+63;Saab;15057;3-Sep
+63;Saab;15058;5-Sep
+63;Saab;18597;9-7X
+63;Saab;20453;GT 750
+63;Saab;20450;9-2X
+63;Saab;20452;96/95
+63;Saab;20445;92
+63;Saab;20446;93
+63;Saab;20451;9-4X
+63;Saab;20457;Sport / GT 850
+63;Saab;75105;Sonett
+63;Saab;21030;Others
+16369;Santana;18715;PS-10
+16369;Santana;19093;300
+16369;Santana;19094;350
+16369;Santana;19095;410
+16369;Santana;19526;Anibal
+16369;Santana;20825;2500
+16369;Santana;20826;S300
+16369;Santana;20827;S350
+16369;Santana;20828;Samurai
+16369;Santana;20829;Vitara
+16369;Santana;20830;Vitara Cabriolet
+16369;Santana;21058;Others
+16405;Savel;20766;Agora
+16405;Savel;20767;Spacia
+16405;Savel;20768;Other
+51771;SDG;74442;Auto Elettrica
+51771;SDG;74443;Other
+64;SEAT;16510;Panda
+64;SEAT;18427;Altea
+64;SEAT;2003;Alhambra
+64;SEAT;2004;Cordoba
+64;SEAT;2006;Ibiza
+64;SEAT;2007;Malaga
+64;SEAT;2008;Marbella
+64;SEAT;2010;Toledo
+64;SEAT;14762;Inca
+64;SEAT;14763;Arosa
+64;SEAT;15770;Terra
+64;SEAT;15869;Leon
+64;SEAT;18640;Fura
+64;SEAT;18641;Ronda
+64;SEAT;19162;Exeo
+64;SEAT;19185;Altea XL
+64;SEAT;19788;Mii
+64;SEAT;21031;Others
+64;SEAT;74664;Arona
+64;SEAT;74330;Ateca
+64;SEAT;75199;Tarraco
+51800;Shuanghuan;75187;Ceo
+51800;Shuanghuan;75188;Others
+65;Skoda;15878;Fabia
+65;Skoda;16621;Superb
+65;Skoda;18120;120
+65;Skoda;18130;135
+65;Skoda;18140;Pick-up
+65;Skoda;2014;Favorit
+65;Skoda;2015;Felicia
+65;Skoda;2016;Forman
+65;Skoda;15222;Octavia
+65;Skoda;18642;105
+65;Skoda;18643;130
+65;Skoda;18877;Roomster
+65;Skoda;19064;Praktik
+65;Skoda;19236;Yeti
+65;Skoda;19779;Citigo
+65;Skoda;20184;Rapid/Spaceback
+65;Skoda;74628;Karoq
+65;Skoda;21032;Others
+65;Skoda;74375;Kodiaq
+65;Skoda;21178;Snowman
+15525;smart;18439;forTwo
+15525;smart;18438;forFour
+15525;smart;18440;roadster
+15525;smart;18442;crossblade
+15525;smart;15748;city-coupé/city-cabrio
+15525;smart;20831;brabus
+15525;smart;21038;Others
+51538;SpeedArt;20283;Others
+16377;Spyker;19007;C8
+16377;Spyker;19008;C12
+16377;Spyker;19009;D12
+16377;Spyker;21059;Others
+66;SsangYong;18262;REXTON
+66;SsangYong;18306;Family
+66;SsangYong;2017;MUSSO
+66;SsangYong;15228;Korando
+66;SsangYong;18587;Rodius
+66;SsangYong;18679;Kyron
+66;SsangYong;18988;Actyon
+66;SsangYong;20832;Kallista
+66;SsangYong;20952;Tivoli
+66;SsangYong;20953;Others
+66;SsangYong;74333;XLV
+51795;StreetScooter;74988;Work
+51795;StreetScooter;74989;Work L
+51795;StreetScooter;74990;Others
+67;Subaru;16367;Libero
+67;Subaru;16465;Mini
+67;Subaru;16466;Vivio
+67;Subaru;18150;1200
+67;Subaru;18160;OUTBACK
+67;Subaru;2019;1800
+67;Subaru;2021;E10
+67;Subaru;2023;Impreza
+67;Subaru;2024;Justy
+67;Subaru;2025;Legacy
+67;Subaru;2026;SVX
+67;Subaru;2028;XT
+67;Subaru;15224;Forester
+67;Subaru;18657;Baja
+67;Subaru;18671;Tribeca
+67;Subaru;19693;Trezia
+67;Subaru;21096;Levorg
+67;Subaru;19774;XV
+67;Subaru;74966;Crosstrek
+67;Subaru;74967;Ascent
+67;Subaru;20834;Vanille
+67;Subaru;20302;E12
+67;Subaru;20131;BRZ
+67;Subaru;20363;WRX
+67;Subaru;20948;M60
+67;Subaru;20949;M70
+67;Subaru;20950;M80
+67;Subaru;20936;Leone
+67;Subaru;20937;Others
+68;Suzuki;15875;Maruti
+68;Suzuki;15947;Santana
+68;Suzuki;16530;Ignis
+68;Suzuki;16572;Liana
+68;Suzuki;18170;Grand Vitara
+68;Suzuki;18180;SJ Samurai
+68;Suzuki;2029;Alto
+68;Suzuki;2030;Baleno
+68;Suzuki;2031;LJ 80
+68;Suzuki;2032;SA 310
+68;Suzuki;2033;Samurai
+68;Suzuki;2034;SJ 410
+68;Suzuki;2035;SJ 413
+68;Suzuki;2036;Swift
+68;Suzuki;2037;Vitara
+68;Suzuki;2038;X-90
+68;Suzuki;2148;Super-Carry
+68;Suzuki;15226;Wagon R+
+68;Suzuki;15662;Jimny
+68;Suzuki;15733;Carry
+68;Suzuki;15868;Cappuccino
+68;Suzuki;18768;SX4
+68;Suzuki;19052;Splash
+68;Suzuki;19342;XL-7
+68;Suzuki;19343;Escudo
+68;Suzuki;19609;Kizashi
+68;Suzuki;20626;Celerio
+68;Suzuki;20312;SX4 S-Cross
+68;Suzuki;21109;Others
+68;Suzuki;74739;Ik-2
+16395;TagAZ;19677;Estina
+16395;TagAZ;19678;Road Partner
+16395;TagAZ;19679;Tager
+16395;TagAZ;19680;Tiggo
+16395;TagAZ;19681;Vega
+16395;TagAZ;19682;Accent
+16395;TagAZ;20052;C10
+16395;TagAZ;20136;C190
+16395;TagAZ;20137;Hardy
+16395;TagAZ;75056;Aquila
+16395;TagAZ;21072;Others
+51551;Talbot;20474;Solar Ralley
+51551;Talbot;20835;Simca 1100
+51551;Talbot;20836;Simca 1510
+51551;Talbot;20837;Horizon
+51551;Talbot;20838;Samba
+51551;Talbot;20839;Solara
+51551;Talbot;20840;Tagora
+51551;Talbot;20471;Others
+51551;Talbot;20472;Solar GL
+51551;Talbot;20473;Solar LS
+51551;Talbot;21159;Matra Murena
+51551;Talbot;21160;Matra Rancho
+51551;Talbot;21161;Alpine
+51551;Talbot;21162;Sunbeam
+16404;Tasso;20757;Bingo
+16404;Tasso;20758;C1DB
+16404;Tasso;20759;C1DM
+16404;Tasso;20760;Hola
+16404;Tasso;20761;King
+16404;Tasso;20762;T2
+16404;Tasso;20763;T3
+16404;Tasso;20764;TD
+16404;Tasso;20765;Other
+16404;Tasso;20919;Domino
+16327;Tata;16371;Telcosport
+16327;Tata;16468;Telcoline
+16327;Tata;16527;Estate
+16327;Tata;16528;Sumo
+16327;Tata;16529;Safari
+16327;Tata;18899;Pick-Up
+16327;Tata;19111;Nano
+16327;Tata;19137;Xenon
+16327;Tata;19204;Indica
+16327;Tata;19205;Indigo
+16327;Tata;19789;Aria
+16327;Tata;21045;Others
+16327;Tata;74996;Tiago
+16327;Tata;74997;Bolt
+16327;Tata;74998;Tigor
+16327;Tata;74999;Zest
+16327;Tata;75000;Hexa
+16327;Tata;75001;Sport
+51557;Tazzari EV;20631;Zero Evo
+51557;Tazzari EV;20634;EM1 Citysport
+51557;Tazzari EV;20635;EM1 Anniversary
+51557;Tazzari EV;20632;Zero Special Edition
+51557;Tazzari EV;20630;Zero Classic
+51557;Tazzari EV;20629;Others
+51557;Tazzari EV;20633;Zero Speedster
+51557;Tazzari EV;75017;Zero SE
+51557;Tazzari EV;75018;Zero EM1
+51557;Tazzari EV;75019;Zero EM2
+51557;Tazzari EV;75020;Zero City
+51557;Tazzari EV;75021;Zero Junior
+51535;TECHART;20257;Others
+51520;Tesla;20031;Others
+51520;Tesla;20032;Model S
+51520;Tesla;20033;Model X
+51520;Tesla;20034;Roadster
+51520;Tesla;74665;Model 3
+16420;Town Life;21124;Helektra
+16420;Town Life;21123;Ginevra
+16420;Town Life;21125;Others
+70;Toyota;16442;Dyna
+70;Toyota;16443;Solara
+70;Toyota;16444;Tundra
+70;Toyota;16469;F
+70;Toyota;16516;Prius
+70;Toyota;18314;Sienna
+70;Toyota;2045;4-Runner
+70;Toyota;2046;Camry
+70;Toyota;2047;Carina
+70;Toyota;2050;Celica
+70;Toyota;2052;Corolla
+70;Toyota;2053;Cressida
+70;Toyota;2055;Fun Cruiser
+70;Toyota;2056;Land Cruiser
+70;Toyota;2058;MR 2
+70;Toyota;2059;Paseo
+70;Toyota;2060;Picnic
+70;Toyota;2061;Previa
+70;Toyota;2062;Starlet
+70;Toyota;2063;Supra
+70;Toyota;2064;Tercel
+70;Toyota;2142;Lite-Ace
+70;Toyota;2143;RAV 4
+70;Toyota;14711;Hiace
+70;Toyota;14789;Hilux
+70;Toyota;15230;Avensis
+70;Toyota;15663;Yaris
+70;Toyota;15849;Pick up
+70;Toyota;15857;KJ
+70;Toyota;15858;HDJ
+70;Toyota;18655;Aygo
+70;Toyota;18583;Sequoia
+70;Toyota;18659;Crown
+70;Toyota;18698;Avalon
+70;Toyota;18737;Fortuner
+70;Toyota;18807;FJ Cruiser
+70;Toyota;18992;Auris
+70;Toyota;19138;iQ
+70;Toyota;19139;Urban Cruiser
+70;Toyota;19225;Verso
+70;Toyota;19299;Caldina
+70;Toyota;19300;Chaser
+70;Toyota;19301;Corona
+70;Toyota;19302;Cresta
+70;Toyota;19303;Funcargo
+70;Toyota;19304;Harrier
+70;Toyota;19305;Highlander
+70;Toyota;19306;Ipsum
+70;Toyota;19307;Ist
+70;Toyota;19308;Land Cruiser Prado
+70;Toyota;19309;Mark II
+70;Toyota;19310;Premio
+70;Toyota;19311;Sprinter
+70;Toyota;19312;Vista
+70;Toyota;19313;Vitz
+70;Toyota;19528;Venza
+70;Toyota;19605;Verso-S
+70;Toyota;19635;Allion
+70;Toyota;19636;Altezza
+70;Toyota;19637;Aristo
+70;Toyota;19638;BB
+70;Toyota;19639;Belta
+70;Toyota;19640;Cami
+70;Toyota;19641;Corsa
+70;Toyota;19642;Duet
+70;Toyota;19643;Estima
+70;Toyota;19644;Gaia
+70;Toyota;19645;Noah
+70;Toyota;19646;Nadia
+70;Toyota;19647;Opa
+70;Toyota;19648;Passo
+70;Toyota;19649;Platz
+70;Toyota;19650;Ractis
+70;Toyota;19651;Raum
+70;Toyota;19652;Town Ace
+70;Toyota;19653;Verossa
+70;Toyota;19655;Voxy
+70;Toyota;19656;Windom
+70;Toyota;19657;Wish
+70;Toyota;19658;Will
+70;Toyota;21098;Mirai
+70;Toyota;19778;Avensis Verso
+70;Toyota;20150;GT86
+70;Toyota;20214;Pro Ace
+70;Toyota;20233;Coaster
+70;Toyota;20282;Tacoma
+70;Toyota;20152;Prius+
+70;Toyota;20154;FJ40
+70;Toyota;20222;Corolla Verso
+70;Toyota;21033;Others
+70;Toyota;74374;C-HR
+70;Toyota;21171;Alphard
+70;Toyota;74358;Matrix
+15633;Trabant;15749;Trabant
+15633;Trabant;20620;1.1
+15633;Trabant;20623;P601
+15633;Trabant;20621;P50
+15633;Trabant;20624;Rallye
+15633;Trabant;20622;P60
+15633;Trabant;21039;Others
+16326;Trailer-Anhänger;16326;Others
+2120;Triumph;16479;Moss
+2120;Triumph;16507;TR7
+2120;Triumph;16508;TR8
+2120;Triumph;16622;TR3
+2120;Triumph;18344;TR4
+2120;Triumph;2121;TR5
+2120;Triumph;2122;TR6
+2120;Triumph;15002;Dolomite
+2120;Triumph;15633;Spitfire
+2120;Triumph;20143;GT6
+2120;Triumph;20553;Herald
+2120;Triumph;20951;Stag
+2120;Triumph;20959;Others
+2120;Triumph;74455;TR1
+2120;Triumph;74456;TR2
+16253;Trucks-Lkw;16327;Atlas
+16253;Trucks-Lkw;16328;Cat
+16253;Trucks-Lkw;16329;Citroen
+16253;Trucks-Lkw;16330;Daewoo
+16253;Trucks-Lkw;16331;DAF
+16253;Trucks-Lkw;16332;Deutz-Fahr
+16253;Trucks-Lkw;16333;Fiat
+16253;Trucks-Lkw;16334;Ford
+16253;Trucks-Lkw;16335;Fuchs
+16253;Trucks-Lkw;16336;Hanomag
+16253;Trucks-Lkw;16337;Hitachi
+16253;Trucks-Lkw;16338;Iveco
+16253;Trucks-Lkw;16339;Iveco-Fiat
+16253;Trucks-Lkw;16340;Iveco Magirus
+16253;Trucks-Lkw;16341;Jungheinrich
+16253;Trucks-Lkw;16342;Koegel
+16253;Trucks-Lkw;16343;Komatsu
+16253;Trucks-Lkw;16344;Liebherr
+16253;Trucks-Lkw;16345;Linde
+16253;Trucks-Lkw;16346;MAN
+16253;Trucks-Lkw;16347;Mercedes-Benz
+16253;Trucks-Lkw;16348;Mitsubishi
+16253;Trucks-Lkw;16349;Neoplan
+16253;Trucks-Lkw;16350;O & K
+16253;Trucks-Lkw;16351;Peugeot
+16253;Trucks-Lkw;16352;Renault
+16253;Trucks-Lkw;16353;Scania
+16253;Trucks-Lkw;16354;Schaeff
+16253;Trucks-Lkw;16355;Setra
+16253;Trucks-Lkw;16356;Volvo
+16253;Trucks-Lkw;16357;VW
+16253;Trucks-Lkw;16358;Zeppelin
+16253;Trucks-Lkw;16359;Zettelmeyer
+16253;Trucks-Lkw;16360;Others
+16253;Trucks-Lkw;16409;Multicar
+16253;Trucks-Lkw;18620;LDV
+16253;Trucks-Lkw;19119;Nissan
+71;TVR;16610;S 2
+71;TVR;18385;Tuscan
+71;TVR;15232;Chimaera
+71;TVR;15233;Griffith
+71;TVR;15234;Cerbera
+71;TVR;15680;S4
+71;TVR;15681;V8S
+71;TVR;18690;Sagaris
+71;TVR;18689;T350
+71;TVR;20933;S2
+71;TVR;20934;S3
+71;TVR;20935;Others
+71;TVR;74626;Grantura
+71;TVR;20943;Tamora
+16389;UAZ;20894;Other
+16389;UAZ;19502;2206
+16389;UAZ;19503;2315
+16389;UAZ;19504;23632
+16389;UAZ;19505;3151
+16389;UAZ;19506;31512
+16389;UAZ;19507;31514
+16389;UAZ;19508;31519
+16389;UAZ;19509;315195
+16389;UAZ;19510;3153
+16389;UAZ;19511;3159
+16389;UAZ;19512;3160
+16389;UAZ;19513;31601
+16389;UAZ;19514;31602
+16389;UAZ;19515;3162
+16389;UAZ;19516;3163
+16389;UAZ;19517;3303
+16389;UAZ;19518;3692
+16389;UAZ;19519;3909
+16389;UAZ;19520;3962
+16389;UAZ;19521;469
+16389;UAZ;19522;Hunter
+16389;UAZ;20917;Tigr
+16389;UAZ;21117;Dakar
+16389;UAZ;75076;Patriot
+16389;UAZ;75077;Pickup
+16385;VAZ;19365;1111
+16385;VAZ;19366;11113
+16385;VAZ;19367;11118
+16385;VAZ;19368;1113
+16385;VAZ;19369;1117
+16385;VAZ;19370;1118
+16385;VAZ;19371;1119
+16385;VAZ;19372;1706
+16385;VAZ;19373;1922
+16385;VAZ;19374;2016
+16385;VAZ;19375;2101
+16385;VAZ;19376;21011
+16385;VAZ;19377;21013
+16385;VAZ;19378;2102
+16385;VAZ;19379;2103
+16385;VAZ;19380;21033
+16385;VAZ;19381;2104
+16385;VAZ;19382;21043
+16385;VAZ;19383;21045
+16385;VAZ;19384;21046
+16385;VAZ;19385;21047
+16385;VAZ;19386;2105
+16385;VAZ;19387;21051
+16385;VAZ;19388;21053
+16385;VAZ;19389;2106
+16385;VAZ;19390;21060
+16385;VAZ;19391;21061
+16385;VAZ;19392;21063
+16385;VAZ;19393;21065
+16385;VAZ;19394;2107
+16385;VAZ;19395;21073
+16385;VAZ;19396;21074
+16385;VAZ;19397;2108
+16385;VAZ;19398;21081
+16385;VAZ;19399;21083
+16385;VAZ;19400;21086
+16385;VAZ;19401;2109
+16385;VAZ;19402;21091
+16385;VAZ;19403;21093
+16385;VAZ;19404;21096
+16385;VAZ;19405;21099
+16385;VAZ;19406;2110
+16385;VAZ;19407;21101
+16385;VAZ;19408;21102
+16385;VAZ;19409;21103
+16385;VAZ;19410;21104
+16385;VAZ;19411;21106
+16385;VAZ;19412;21108
+16385;VAZ;19413;2111
+16385;VAZ;19414;21111
+16385;VAZ;19415;21112
+16385;VAZ;19416;21113
+16385;VAZ;19417;21114
+16385;VAZ;19418;2112
+16385;VAZ;19419;21120
+16385;VAZ;19420;21121
+16385;VAZ;19421;21122
+16385;VAZ;19422;21123
+16385;VAZ;19423;21124
+16385;VAZ;19424;2113
+16385;VAZ;19425;21130
+16385;VAZ;19426;2114
+16385;VAZ;19427;21140
+16385;VAZ;19428;2115
+16385;VAZ;19429;21150
+16385;VAZ;19430;21150i
+16385;VAZ;19431;2120
+16385;VAZ;19432;2121
+16385;VAZ;19433;21213
+16385;VAZ;19434;21214
+16385;VAZ;19435;21218
+16385;VAZ;19436;212180
+16385;VAZ;19437;2123
+16385;VAZ;19438;2129
+16385;VAZ;19439;2131
+16385;VAZ;19440;21312
+16385;VAZ;19441;2170
+16385;VAZ;19442;2199
+16385;VAZ;19443;2328
+16385;VAZ;19444;2329
+16385;VAZ;19445;2364
+16385;VAZ;19446;Roadster
+16385;VAZ;21064;Others
+16422;VEM;21129;Cargo
+16422;VEM;21130;People
+16422;VEM;21131;Cover
+16422;VEM;21132;Ribaltabile
+16422;VEM;21133;Open
+16422;VEM;21134;Double
+16422;VEM;21135;Multi
+16422;VEM;21136;Others
+73;Volvo;16405;745
+73;Volvo;16486;S60
+73;Volvo;16580;264
+73;Volvo;18268;XC90
+73;Volvo;18328;XC70
+73;Volvo;18404;V50
+73;Volvo;2065;240
+73;Volvo;2066;340
+73;Volvo;2067;360
+73;Volvo;2068;440
+73;Volvo;2069;460
+73;Volvo;2070;480
+73;Volvo;2071;740
+73;Volvo;2072;760
+73;Volvo;2073;780
+73;Volvo;2074;850
+73;Volvo;2075;940
+73;Volvo;2076;960
+73;Volvo;2077;S40
+73;Volvo;2078;S70
+73;Volvo;2079;V70
+73;Volvo;2080;S90
+73;Volvo;2081;V90
+73;Volvo;2082;V40
+73;Volvo;2123;965
+73;Volvo;2136;744
+73;Volvo;2137;944
+73;Volvo;2138;244
+73;Volvo;2139;945
+73;Volvo;2140;764
+73;Volvo;2141;855
+73;Volvo;2144;245
+73;Volvo;15236;C70
+73;Volvo;15237;Polar
+73;Volvo;15664;S80
+73;Volvo;18489;262
+73;Volvo;18912;C30
+73;Volvo;19124;XC60
+73;Volvo;19610;V60
+73;Volvo;21110;265
+73;Volvo;20144;Others
+73;Volvo;20296;V40 Cross Country
+73;Volvo;75095;P1800
+73;Volvo;74670;XC40
+73;Volvo;75198;PV544
+73;Volvo;74825;Amazon
+51514;Vortex;19777;Others
+51514;Vortex;20049;Corda
+51514;Vortex;20050;Estina
+51514;Vortex;20051;Tingo
+51776;Wallys;74511;Iris
+51776;Wallys;74512;Izis
+51776;Wallys;74513;Others
+16336;Wartburg;16567;WARTBURG
+16336;Wartburg;20554;311
+16336;Wartburg;20557;353
+16336;Wartburg;20555;312
+16336;Wartburg;20562;Barkas
+16336;Wartburg;20617;IFA F9
+16336;Wartburg;20618;Framo
+16336;Wartburg;20556;313
+16336;Wartburg;20558;1.3
+16336;Wartburg;20559;1.6
+16336;Wartburg;20619;1000
+16336;Wartburg;20610;Others
+51513;Westfield;19776;Others
+51513;Westfield;20895;FW400
+51513;Westfield;20896;Megabusa
+51513;Westfield;20897;Megablade
+51513;Westfield;20898;MegaS2000
+51513;Westfield;20899;7SE
+51513;Westfield;20900;SE
+51513;Westfield;20901;SEi
+51513;Westfield;20902;Sport
+51513;Westfield;20903;Seight
+51513;Westfield;20904;SDV
+51513;Westfield;20905;Sport Turbo
+51513;Westfield;20906;XTR2
+51513;Westfield;20907;XTR4
+51513;Westfield;20908;XI
+16351;Wiesmann;18331;MF 28
+16351;Wiesmann;18332;MF 3
+16351;Wiesmann;18333;MF 30
+16351;Wiesmann;19152;MF 4
+16351;Wiesmann;19153;MF 5
+16351;Wiesmann;21051;Others
+16408;Zastava;20860;Yugo
+16408;Zastava;20861;600
+16408;Zastava;20862;750
+16408;Zastava;20863;850
+16408;Zastava;20864;1300
+16408;Zastava;20865;125 PZ
+16408;Zastava;20866;101
+16408;Zastava;20867;128
+16408;Zastava;20868;Skala
+16408;Zastava;20869;Koral
+16408;Zastava;20870;10
+16408;Zastava;20871;1100 TF
+16408;Zastava;20872;850 AK
+16408;Zastava;20873;900 AK
+16408;Zastava;20874;Other
+16394;ZAZ;19672;1102
+16394;ZAZ;19673;1103
+16394;ZAZ;19674;1105
+16394;ZAZ;19675;Chance
+16394;ZAZ;19676;Sens
+16394;ZAZ;75057;Lanos
+16394;ZAZ;75058;Vida
+16394;ZAZ;21071;Others
+51798;Zhidou;75089;D2
+51798;Zhidou;75090;D2S
+51798;Zhidou;75091;D3
+51798;Zhidou;75092;Others
+16328;Egyéb;16564;Others
+16328;Egyéb;18644;Trax
+16328;Egyéb;18691;Holden
+16328;Egyéb;18777;Van Diemen
+16328;Egyéb;18669;FSO
+16328;Egyéb;18722;AMC
+16328;Egyéb;18595;Bitter
+16328;Egyéb;18733;ARO
+16328;Egyéb;18919;Effedi Maranello
+16328;Egyéb;18630;Barkas
+16328;Egyéb;18697;Bristol
+16328;Egyéb;18734;Hartge
+16328;Egyéb;18745;Burton
+16328;Egyéb;18875;Saleen
+16328;Egyéb;19061;Canta
+16328;Egyéb;19096;Italcar
+16328;Egyéb;19099;Turner
+16328;Egyéb;19105;Carver
+16328;Egyéb;19178;Loremo
+16328;Egyéb;19271;Mosler
+16328;Egyéb;19532;Hobbycar
+16328;Egyéb;19534;Reva
+16328;Egyéb;19536;Think City
+16328;Egyéb;19538;Mega
+16328;Egyéb;19543;Scion
+16328;Egyéb;19608;Grandin Dallas
+16328;Egyéb;19661;Tiger
+16328;Egyéb;19683;Excalibur
+16328;Egyéb;19752;Morris
+16328;Egyéb;19782;Sam
+16328;Egyéb;20102;Keinath
+16328;Egyéb;20103;Ginetta
+16328;Egyéb;20104;La Forza
+16328;Egyéb;20105;Marcos
+16328;Egyéb;20106;Venturi
+16328;Egyéb;20107;Fun Tech
+16328;Egyéb;20108;Teener
+16328;Egyéb;20109;Noble
+16328;Egyéb;20110;De Lorean
+16328;Egyéb;20111;Vauxhall
+16328;Egyéb;20114;Landwind
+16328;Egyéb;20117;YES!
+16328;Egyéb;20118;Bertone
+16328;Egyéb;20120;Continental
+16328;Egyéb;20121;Asia
+16328;Egyéb;20123;China Automobile
+16328;Egyéb;20124;HDPIC
+16328;Egyéb;20125;Polaris
+16328;Egyéb;20126;Mercury
+16328;Egyéb;20128;JDM
+16328;Egyéb;20158;Tramontana
+16328;Egyéb;20173;Zoyte
+16328;Egyéb;20281;Datsun Go
+16328;Egyéb;20375;can-am
+16328;Egyéb;20392;Romeo Ferraris
+16328;Egyéb;20201;Radical
+16328;Egyéb;20202;Monteverdi
+16328;Egyéb;20203;Melkus
+16328;Egyéb;20205;Quadix
+16328;Egyéb;20297;Iseki
+16328;Egyéb;20332;Shandong
+16328;Egyéb;20142;Zenvo
+16328;Egyéb;20314;IHC
+16328;Egyéb;20501;Cord
+16328;Egyéb;20146;Weineck
+16328;Egyéb;20238;Mia
+16328;Egyéb;20382;Gumpert
+16328;Egyéb;20390;Apal
+16328;Egyéb;74791;Bilenkin Classic Cars
+16328;Egyéb;74382;British Leyland
+16328;Egyéb;74492;Indimo
+16328;Egyéb;74745;Binz
+16328;Egyéb;74668;VM
+16328;Egyéb;74824;BM Grupa

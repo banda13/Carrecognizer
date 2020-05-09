@@ -14,7 +14,7 @@ from dao.services.scout_service import lookup_property_distinct_values, query_fo
 # specify the main separation property on which you'd like to build the new database
 separation_property = 'body'
 # set the limit of for each category
-max_img_in_category = 100
+max_img_in_category = 300
 
 # will throw away the irrelevant small categories and will keep the dataset balanced
 force_balance_data = True
@@ -42,7 +42,7 @@ if not os.path.exists(destination_dir):
 if len(os.listdir(destination_dir)) > 0:
     if input('The following directory is not empty: %s. Type yes if you would like to delete the content'
              % destination_dir) == 'yes':
-        shutil.rmtree(destination_dir)
+        shutil.rmtree(destination_dir, ignore_errors=True)
         os.makedirs(destination_dir)
 
 if black_sheep_filter:
@@ -92,17 +92,22 @@ for l in lookup_property_distinct_values(separation_property):
                 for cond in extra_condition:
                     if cond['name'] == black_sheep_property:
                         extra_condition.remove(cond)
-                extra_condition[-1] = ({'name': black_sheep_property, 'operation': 'in', 'value':tuple(black_sheep_valid[origin_name])})
+                extra_condition.append({'name': black_sheep_property, 'operation': 'in', 'value':tuple(black_sheep_valid[origin_name])})
 
         if extra_condition is None:
             values = query_for_property_value(separation_property, origin_name)
         else:
+            for cond in extra_condition:
+                if cond['name'] == separation_property:
+                    extra_condition.remove(cond)
             extra_condition.append({'name': separation_property, 'value': "'"+origin_name+"'", 'operation': '='})
             values = query_for_properties_values(extra_condition)
         i = 0
 
+        print('There are {} images in category {} which fulfills the conditions'.format(len(values), origin_name))
         if force_balance_data and len(values) < max_img_in_category:
             if os.path.exists(destination_dir + "\\" + name):
+                print('Deleting directory {} because the lack of the images'.format(destination_dir + "\\" + name))
                 os.rmdir(destination_dir + "\\" + name)
             continue
 

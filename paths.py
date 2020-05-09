@@ -3,6 +3,7 @@ import os
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 TRAIN_DIR = ROOT_DIR + "/data/train/"
 TEST_DIR = ROOT_DIR + "/data/test/"
+VALIDATION_DIR = ROOT_DIR + "/data/validation/"
 N_TRAIN_DIR = ROOT_DIR + "/data2/train/"
 N_TEST_DIR = ROOT_DIR + "/data2/test/"
 
@@ -15,5 +16,6 @@ SCOUT_DIR = ROOT_DIR + "/data/autoscout/"
 SCOUT_2_DIR = ROOT_DIR + "/data/autoscout2/"
 
 N_SCOUT_DIR = ROOT_DIR + "/data2/autoscout-data/"
-N_SCOUT_META_DIR = N_SCOUT_DIR + 'meta/'
-N_SCOUT_IMG_DIR = N_SCOUT_DIR + "images/"
+N2_SCOUT_DIR = ROOT_DIR + "/data2/autoscout/"
+N_SCOUT_META_DIR = N2_SCOUT_DIR + 'meta/'
+N_SCOUT_IMG_DIR = N2_SCOUT_DIR + "images/"

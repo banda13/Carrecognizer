@@ -50,7 +50,6 @@ def read_file(session, file_name):
                     car.km = int(re.sub('[^0-9]','', basic_datas[0].find('span', 'sc-font-l cldt-stage-primary-keyfact').get_text()))
                 except Exception as e:
                     print('Failed to get km data: %s' % e)
-
                 try:
                     car.first_registration = datetime.datetime.strptime(basic_datas[1].find('span', 'sc-font-l cldt-stage-primary-keyfact').get_text().strip(), "%m/%Y")
                 except Exception as e:
@@ -111,14 +110,18 @@ def read_file(session, file_name):
 
 def process_all_metadata():
     counter = 0
+    model = 'BMW' # Audi
     category_dir = paths.N_SCOUT_META_DIR
 
-    connection.drop_and_create()
-    load_basic_tables()
+    if input('Do you want to re-create database? yes - no') == 'yes':
+        connection.drop_and_create()
+        load_basic_tables()
     session = connection.open_session()
 
     print('Lets get started..')
     for category in os.listdir(category_dir):
+        if model is not None and category != model:
+            continue
         model_dir = category_dir + category
         for model in os.listdir(model_dir):
             make_dir = model_dir + '/' + model
@@ -138,4 +141,6 @@ def process_all_metadata():
 
     session.close()
 
-process_all_metadata()
+
+if __name__ == '__main__':
+    process_all_metadata()

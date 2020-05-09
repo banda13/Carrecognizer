@@ -6,9 +6,9 @@ destination_base_dir = "../data2/autoscout-data/"
 
 for make in os.listdir(source_base_dir):
     make_dir = source_base_dir + make + '/'
-    if make <= 'Buick':
-        print("Skipping make %s " % make)
-        continue
+    # if make <= 'Buick':
+    #     print("Skipping make %s " % make)
+    #     continue
 
     for sub_d in os.listdir(make_dir):
         model = sub_d

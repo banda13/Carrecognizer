@@ -1,0 +1,13 @@
+{
+  "types":[
+    {
+      "name": "abart",
+      "aliases": ["abart", "Abart"],
+      "count": 0
+    },
+    {
+      "name": "alfa_romeo",
+      "aliases": ["alfaromeo", "alfa-romeo"]
+    }
+  ]
+}

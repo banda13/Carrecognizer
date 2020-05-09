@@ -6,7 +6,6 @@ import paths
 import random
 import numpy as np
 from enum import Enum
-import matplotlib.pyplot as plt
 
 from preprocess.clever_pre_classifier import MyPreClassifier
 from preprocess.pre_classification import VggPreClassifier
@@ -117,6 +116,8 @@ class CleverLoader(object):
         for source in self.data_soruce_dirs:
             cars = {}
             for type in os.listdir(source[1]):
+                if type == 'deleted':
+                    continue
                 count = len(os.listdir(source[1] + type))
                 # print("Category: %s, Sample: %d " % (type, count))
                 cars[type] = count
@@ -194,5 +195,6 @@ class CleverLoader(object):
             print("%s category done in %s" % (category, source))
 
 
-# loader = CleverLoader(0.8, 0.2, 20000, f=LoaderFilter.NO)
-# loader.load()
+if __name__ == '__main__':
+    loader = CleverLoader(0.8, 0.2, 2000, f=LoaderFilter.EDGE_DETECTION, pre_filtering=PreClassificationState.NO)
+    loader.load()
