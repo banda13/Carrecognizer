@@ -5,6 +5,9 @@ import h5py
 import keras
 import numpy as np
 import tensorflow as tf
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+
 from keras.engine.saving import load_model
 from keras_preprocessing.image import load_img, img_to_array
 
@@ -29,10 +32,10 @@ class ClassifierPipline:
         self.model_classifiers = {}
         for name in os.listdir("model_classifier/"):
             print("Loading: {}...".format(name))
-            if name == 'Cabat':
-                classifier = self.load_keras_model("model_classifier/" + name)
-                model = classifier['categories'][0].split("-")[0].lower()
-                self.model_classifiers[model] = classifier
+            # if name == 'Cabat':
+            classifier = self.load_keras_model("model_classifier/" + name)
+            model = classifier['categories'][0].split("-")[0].lower().replace("_", "").strip()
+            self.model_classifiers[model] = classifier
 
     def load_keras_model(self, path):
         class_dictionary = np.load(path + "/class_indices.npy", allow_pickle=True).item()
@@ -47,6 +50,7 @@ class ClassifierPipline:
         f.close()
 
         model = load_model(path + "/model.h5")
+
         with open(path + "/props.json") as f:
             data = json.load(f)
             return {
@@ -70,9 +74,9 @@ class ClassifierPipline:
         prediction = classifier['model'].predict(image).reshape(classifier['num_classes'])
         idx_prediction = np.argsort(-prediction, axis=0)
         top3_label = {
-            classifier["inv_map"][idx_prediction[0]].lower(): prediction[idx_prediction[0]],
-            classifier["inv_map"][idx_prediction[1]].lower(): prediction[idx_prediction[1]],
-            classifier["inv_map"][idx_prediction[2]].lower(): prediction[idx_prediction[2]]}
+            classifier["inv_map"][idx_prediction[0]].lower().replace("_", "").strip(): prediction[idx_prediction[0]],
+            classifier["inv_map"][idx_prediction[1]].lower().replace("_", "").strip(): prediction[idx_prediction[1]],
+            classifier["inv_map"][idx_prediction[2]].lower().replace("_", "").strip(): prediction[idx_prediction[2]]}
         return top3_label
 
     def classify(self, img_path):
@@ -98,11 +102,13 @@ class ClassifierPipline:
                             final[model] = acc
         else:
             obj_res = result[0]
-            classifier = self.model_classifiers[obj_res[0]]
+            make = obj_res[0].lower().replace("_", "").strip()
+            classifier = self.model_classifiers[make]
             for model, acc in self.make_top3_prediction(classifier, image_np).items():
                 if model not in final or acc > final[model]:
                     final[model] = acc
         print(final)
+        return final
 
 
 
@@ -110,4 +116,4 @@ class ClassifierPipline:
 if __name__ == "__main__":
     print("Testing classification pipline")
     pipline = ClassifierPipline(160, 160)
-    pipline.classify("rs4.jpg")
+    pipline.classify("test.jpg")

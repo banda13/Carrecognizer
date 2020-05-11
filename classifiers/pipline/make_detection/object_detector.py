@@ -30,6 +30,7 @@ DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 IMAGE_SIZE = (12, 8)
 
 
+
 class ObjectDetector:
 
     def __init__(self, PATH_TO_FROZEN_GRAPH, PATH_TO_LABELS):
@@ -63,7 +64,9 @@ class ObjectDetector:
 
     def run_inference_for_single_image(self, image):
         with self.detection_graph.as_default():
-            with tf.Session() as sess:
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            with tf.Session(config=config) as sess:
                 # Get handles to input and output tensors
                 ops = tf.get_default_graph().get_operations()
                 all_tensor_names = {output.name for op in ops for output in op.outputs}
