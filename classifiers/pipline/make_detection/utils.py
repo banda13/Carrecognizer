@@ -1,6 +1,6 @@
 import tensorflow.compat.v1 as tf
 
-from classifiers.pipline.make_detection import string_int_label_map_pb2
+from make_detection import string_int_label_map_pb2
 
 tf.disable_v2_behavior()
 from google.protobuf import text_format
