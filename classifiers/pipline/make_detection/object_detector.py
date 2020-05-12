@@ -7,9 +7,9 @@ import sys
 import tarfile
 import tensorflow.compat.v1 as tf
 
-from classifiers.pipline.make_detection.utils import create_category_index_from_labelmap, \
+from make_detection.utils import create_category_index_from_labelmap, \
     reframe_box_masks_to_image_masks
-from classifiers.pipline.make_detection.visualization_utils import visualize_boxes_and_labels_on_image_array
+from make_detection.visualization_utils import visualize_boxes_and_labels_on_image_array
 
 tf.disable_v2_behavior()
 import zipfile
@@ -28,6 +28,7 @@ DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 
 
 IMAGE_SIZE = (12, 8)
+
 
 
 class ObjectDetector:
@@ -63,7 +64,9 @@ class ObjectDetector:
 
     def run_inference_for_single_image(self, image):
         with self.detection_graph.as_default():
-            with tf.Session() as sess:
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            with tf.Session(config=config) as sess:
                 # Get handles to input and output tensors
                 ops = tf.get_default_graph().get_operations()
                 all_tensor_names = {output.name for op in ops for output in op.outputs}

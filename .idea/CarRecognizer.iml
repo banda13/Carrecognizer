@@ -3,10 +3,21 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/android" />
+      <excludeFolder url="file://$MODULE_DIR$/classifiers/pipline/make_classifier" />
+      <excludeFolder url="file://$MODULE_DIR$/classifiers/pipline/make_detection" />
+      <excludeFolder url="file://$MODULE_DIR$/classifiers/pipline/model_classifier" />
+      <excludeFolder url="file://$MODULE_DIR$/classifiers/pipline/ssd_inception_v2_coco_2018_01_28" />
       <excludeFolder url="file://$MODULE_DIR$/classifiers/pre_train" />
       <excludeFolder url="file://$MODULE_DIR$/data" />
+      <excludeFolder url="file://$MODULE_DIR$/data2" />
+      <excludeFolder url="file://$MODULE_DIR$/helpers/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/helpers/temp2" />
+      <excludeFolder url="file://$MODULE_DIR$/history" />
+      <excludeFolder url="file://$MODULE_DIR$/logs" />
       <excludeFolder url="file://$MODULE_DIR$/model" />
       <excludeFolder url="file://$MODULE_DIR$/statistics" />
+      <excludeFolder url="file://$MODULE_DIR$/templates" />
+      <excludeFolder url="file://$MODULE_DIR$/uploads" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
