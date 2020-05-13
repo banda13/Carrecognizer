@@ -64,7 +64,7 @@ class ClassifierPipline:
 
     def load_image(self, image_path):
         image_big = load_img(image_path)
-        image_small = load_img(image_path, target_size=(self.image_width, self.image_height))
+        image_small = load_img(image_path) # target_size=(self.image_width, self.image_height)
         image_small = img_to_array(image_small)
         image_small = image_small / 255
         image_small = np.expand_dims(image_small, axis=0)
