@@ -19,7 +19,7 @@ import operator
 from pipline import ClassifierPipline
 
 validation_folder = "../../data/validation_old/"
-limit_pre_cat = 100
+limit_pre_cat = 300
 
 print("Initialize classifier")
 pipline = ClassifierPipline(160, 160)
