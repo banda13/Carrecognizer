@@ -1,4 +1,4 @@
-_This project is part of my Carrecognizer-project group and was developed as a part of my thesis at the Budapest University of Technology and Economics._
+_This project is part of my Carrecognizer-project group and was developed as a part of my master thesis at the Budapest University of Technology and Economics._
 
 ***
 # Goal
